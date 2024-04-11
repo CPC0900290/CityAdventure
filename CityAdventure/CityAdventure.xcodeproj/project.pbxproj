@@ -13,6 +13,7 @@
 		005EEFCD2BC685EA00D46BB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFCB2BC685EA00D46BB6 /* Main.storyboard */; };
 		005EEFCF2BC685EC00D46BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */; };
 		005EEFD22BC685EC00D46BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */; };
+		4F9BC837CF4611874DB058C0 /* Pods_CityAdventure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE49F8F3964B5A4ED19429 /* Pods_CityAdventure.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		005EEFD12BC685EC00D46BB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		005EEFD32BC685EC00D46BB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14E4FACD6FB28F2FC12BF553 /* Pods-CityAdventure.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityAdventure.release.xcconfig"; path = "Target Support Files/Pods-CityAdventure/Pods-CityAdventure.release.xcconfig"; sourceTree = "<group>"; };
+		A0AE49F8F3964B5A4ED19429 /* Pods_CityAdventure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CityAdventure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6C75BC806E72FCE6F8B221B /* Pods-CityAdventure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityAdventure.debug.xcconfig"; path = "Target Support Files/Pods-CityAdventure/Pods-CityAdventure.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F9BC837CF4611874DB058C0 /* Pods_CityAdventure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,8 @@
 			children = (
 				005EEFC42BC685EA00D46BB6 /* CityAdventure */,
 				005EEFC32BC685EA00D46BB6 /* Products */,
+				C6AD68DE10E796092512A307 /* Pods */,
+				6DC4D88B26729754CDF4A5A4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +63,64 @@
 		005EEFC42BC685EA00D46BB6 /* CityAdventure */ = {
 			isa = PBXGroup;
 			children = (
+				00C35F872BC78A9200AB7B7D /* Model */,
+				00C35F882BC78AE600AB7B7D /* View */,
+				00C35F892BC78AF000AB7B7D /* ViewModel */,
+				00C35F8A2BC78B0100AB7B7D /* Helper */,
 				005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */,
 				005EEFC72BC685EA00D46BB6 /* SceneDelegate.swift */,
-				005EEFC92BC685EA00D46BB6 /* ViewController.swift */,
 				005EEFCB2BC685EA00D46BB6 /* Main.storyboard */,
 				005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */,
 				005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */,
 				005EEFD32BC685EC00D46BB6 /* Info.plist */,
 			);
 			path = CityAdventure;
+			sourceTree = "<group>";
+		};
+		00C35F872BC78A9200AB7B7D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		00C35F882BC78AE600AB7B7D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				005EEFC92BC685EA00D46BB6 /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		00C35F892BC78AF000AB7B7D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		00C35F8A2BC78B0100AB7B7D /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		6DC4D88B26729754CDF4A5A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0AE49F8F3964B5A4ED19429 /* Pods_CityAdventure.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6AD68DE10E796092512A307 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F6C75BC806E72FCE6F8B221B /* Pods-CityAdventure.debug.xcconfig */,
+				14E4FACD6FB28F2FC12BF553 /* Pods-CityAdventure.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +130,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 005EEFD62BC685EC00D46BB6 /* Build configuration list for PBXNativeTarget "CityAdventure" */;
 			buildPhases = (
+				0B5CC540903F3A33AFD035BE /* [CP] Check Pods Manifest.lock */,
 				005EEFBE2BC685EA00D46BB6 /* Sources */,
 				005EEFBF2BC685EA00D46BB6 /* Frameworks */,
 				005EEFC02BC685EA00D46BB6 /* Resources */,
+				005EEFDA2BC6C48400D46BB6 /* ShellScript */,
+				D4036AAD3449C15F2AFE2CA9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,6 +191,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		005EEFDA2BC6C48400D46BB6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		0B5CC540903F3A33AFD035BE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CityAdventure-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4036AAD3449C15F2AFE2CA9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CityAdventure/Pods-CityAdventure-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CityAdventure/Pods-CityAdventure-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CityAdventure/Pods-CityAdventure-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		005EEFBE2BC685EA00D46BB6 /* Sources */ = {
@@ -282,6 +401,7 @@
 		};
 		005EEFD72BC685EC00D46BB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6C75BC806E72FCE6F8B221B /* Pods-CityAdventure.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -310,6 +430,7 @@
 		};
 		005EEFD82BC685EC00D46BB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14E4FACD6FB28F2FC12BF553 /* Pods-CityAdventure.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
