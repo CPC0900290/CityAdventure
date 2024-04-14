@@ -7,27 +7,32 @@
 
 import Foundation
 struct Episode: Codable {
-  var id: String
   var title: String
   var tasks: [String]
 }
 
 struct TaskA: Codable {
+  var id: String
   var tilte: String
+  var content: String
   var locationName: String
   var locationAddress: String
   var questionAnswer: [QuestionAnswer]
 }
 
 struct TaskB: Codable {
+  var id: String
   var tilte: String
+  var content: String
   var locationName: String
   var locationAddress: String
   var roadMapImg: String
 }
 
 struct TaskC: Codable {
+  var id: String
   var tilte: String
+  var content: String
   var locationName: String
   var locationAddress: String
   var foodImg: String

@@ -15,19 +15,25 @@ class FireStoreManager {
   let firestore = Firestore.firestore()
   var episode: Episode?
   let taskA = TaskA(
+    id: "0",
     tilte: "請找到隱藏的QRCode",
+    content: "任務一",
     locationName: "位置名稱",
     locationAddress: "地址",
     questionAnswer: [QuestionAnswer(question: "問題A", answer: "答案B")]
   )
   let taskB = TaskB(
+    id: "1",
     tilte: "請在地圖上完成指定圖示",
+    content: "任務二",
     locationName: "羅東運動公園",
     locationAddress: "地址",
     roadMapImg: "urlImage"
   )
   let taskC = TaskC(
+    id: "2",
     tilte: "請找出隱藏美食",
+    content: "任務三",
     locationName: "中山公園",
     locationAddress: "地址",
     foodImg: "imageURL",
@@ -45,7 +51,7 @@ class FireStoreManager {
             let taskB = jsonStringB,
             let taskC = jsonStringC
       else { return }
-      episode = Episode(id: "ajsdklfi", title: "宜蘭關卡", tasks: [taskA,taskB,taskC])
+      episode = Episode(title: "宜蘭關卡", tasks: [taskA,taskB,taskC])
       let test = firestore.collection("EpisodeList")
       let document = test.document()
       try document.setData(from: episode)
@@ -54,18 +60,48 @@ class FireStoreManager {
     }
   }
 
-  func fetchTask() {
-    firestore.collection("TestData").getDocuments { snapshot, error in
-      guard let snapshot = snapshot else { return }
-      let articles = snapshot.documents.compactMap { (document) -> Episode? in
-        do {
-          return try document.data(as: Episode.self)
-        } catch {
-          print("Decoding error for document \(document.documentID): \(error)")
-          return nil
-        }
+  // MARK: - Function
+  // fetch episode ID list
+  func fetchCollection(collection: String, getEpisodeIDList: @escaping ([String]) -> Void) {
+    var documentIDList: [String] = []
+    firestore.collection(collection).getDocuments { snapshot, error in
+      if let error = error {
+        print("Fail to get episodeIDList snapshot: \(error)")
       }
-      print(articles)
+      guard let snapshot = snapshot else {
+        print("collection episodeList snapshot is empty")
+        return
+      }
+      let episodes: [String] = snapshot.documents.map { document in
+        documentIDList.append(document.documentID)
+        return document.documentID
+      }
+      print(episodes)
+      getEpisodeIDList(episodes)
     }
+  }
+  // fetch spesific episode
+  func fetchEpisodeData(id: String, getEpisode: @escaping (Episode) -> Void) {
+    let episodeRef = firestore.collection("EpisodeList").document(id)
+    episodeRef.getDocument { document, error in
+      if let error = error {
+        print("Fail to get document of episode: \(error)")
+      }
+      guard let document = document else {
+        print("Fail to get episode document")
+        return
+      }
+      do {
+        let episode = try document.data(as: Episode.self)
+        getEpisode(episode)
+      } catch {
+        print("Fail to decode document to Episode: \(error)")
+      }
+    }
+  }
+  
+  // fetch the spesific episode
+  func fetchData(id: String, curentTask: @escaping (Episode) -> Void) {
+    
   }
 }
