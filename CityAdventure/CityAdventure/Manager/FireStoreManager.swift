@@ -62,46 +62,33 @@ class FireStoreManager {
 
   // MARK: - Function
   // fetch episode ID list
-  func fetchCollection(collection: String, getEpisodeIDList: @escaping ([String]) -> Void) {
-    var documentIDList: [String] = []
-    firestore.collection(collection).getDocuments { snapshot, error in
-      if let error = error {
-        print("Fail to get episodeIDList snapshot: \(error)")
-      }
-      guard let snapshot = snapshot else {
-        print("collection episodeList snapshot is empty")
+  func fetchCollection(collectionName: String, getList: @escaping ([String]) -> Void) {
+    firestore.collection(collectionName).getDocuments { snapshots, error in
+      if let error = error { print(error) }
+      guard let snapshots = snapshots else {
+        print("Get snapshot as nil when fetch collection")
         return
       }
-      let episodes: [String] = snapshot.documents.map { document in
-        documentIDList.append(document.documentID)
+      let list: [String] = snapshots.documents.map { document in
         return document.documentID
       }
-      print(episodes)
-      getEpisodeIDList(episodes)
-    }
-  }
-  // fetch spesific episode
-  func fetchEpisodeData(id: String, getEpisode: @escaping (Episode) -> Void) {
-    let episodeRef = firestore.collection("EpisodeList").document(id)
-    episodeRef.getDocument { document, error in
-      if let error = error {
-        print("Fail to get document of episode: \(error)")
-      }
-      guard let document = document else {
-        print("Fail to get episode document")
-        return
-      }
-      do {
-        let episode = try document.data(as: Episode.self)
-        getEpisode(episode)
-      } catch {
-        print("Fail to decode document to Episode: \(error)")
-      }
+      getList(list)
     }
   }
   
-  // fetch the spesific episode
-  func fetchData(id: String, curentTask: @escaping (Episode) -> Void) {
-    
+  func fetchDocument(collection: String,
+                     id: String,
+                     getDocument: @escaping (DocumentSnapshot) -> Void) {
+    firestore.collection(collection).document(id).getDocument { snapshot, error in
+      if let error = error { print(error) }
+      
+      guard let snapshot = snapshot else {
+        print("Get snapshot as nil when fetch document")
+        return
+      }
+//      let data = snapshot.data()
+      // 傳snapshot失敗的話就傳data
+      getDocument(snapshot)
+    }
   }
 }

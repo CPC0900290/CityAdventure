@@ -11,6 +11,7 @@ class TaskViewController: UIViewController {
   
   private let viewModel = TaskViewModel()
   private var tableView = UITableView()
+  var episodeList: [Episode] = []
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
@@ -21,9 +22,9 @@ class TaskViewController: UIViewController {
     setupUI()
     setupTableView()
     setupMarkerView()
-    viewModel.fetchWholeData { episodeList in
-      print("VC get the episodeList from viewModel")
-      print(episodeList)
+    viewModel.fetchData { episode in
+      self.episodeList.append(episode)
+      print(episode)
     }
   }
   

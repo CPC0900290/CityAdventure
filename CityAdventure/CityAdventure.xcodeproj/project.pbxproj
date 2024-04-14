@@ -114,8 +114,8 @@
 		00C35F882BC78AE600AB7B7D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				00CEB1382BCAC07400AC350B /* Task */,
 				00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */,
+				00CEB1382BCAC07400AC350B /* Task */,
 				00CEB13D2BCAC4A900AC350B /* MapViewController.swift */,
 			);
 			path = View;

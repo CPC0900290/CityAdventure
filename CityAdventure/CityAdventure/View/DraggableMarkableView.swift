@@ -14,33 +14,32 @@ class DraggableMarkerView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    commonInit()
+    setupUI()
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    commonInit()
+    setupUI()
   }
   
   lazy var flashLabel: UILabel = {
     let label = UILabel()
-    label.text = "限時\n限量"
+    label.text = "MAP"
     label.numberOfLines = 0
     label.font = UIFont(name: "PingFang TC", size: 15)
-    label.textColor = .white
+    label.textColor = .black
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
   
   lazy var flashImage: UIImageView = {
     let imageView = UIImageView()
-//    imageView.image = UIImage(named: "Flash-Sale-Icon")
     imageView.backgroundColor = .clear
     imageView.translatesAutoresizingMaskIntoConstraints = false
     return imageView
   }()
   
-  private func commonInit() {
+  private func setupUI() {
     // Add pan gesture recognizer to handle dragging
     let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
     self.addGestureRecognizer(panGesture)
@@ -51,23 +50,25 @@ class DraggableMarkerView: UIView {
     // Customize the marker view's appearance
     self.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     self.layer.cornerRadius = self.frame.width / 2
-    
     self.layer.borderColor = UIColor.black.cgColor
     self.layer.borderWidth = 1
     self.layer.shadowRadius = 5
-    self.layer.shadowOffset = CGSizeMake(5, 5)
+    self.layer.shadowOffset = CGSize(width: 5, height: 5)
     self.layer.shadowOpacity = 0.7
     
     self.addSubview(flashImage)
+    self.addSubview(flashLabel)
     
-//    self.addSubview(flashLabel)
     NSLayoutConstraint.activate([
       flashImage.leadingAnchor.constraint(equalTo: self.leadingAnchor),
       flashImage.topAnchor.constraint(equalTo: self.topAnchor),
       flashImage.trailingAnchor.constraint(equalTo: self.trailingAnchor),
       flashImage.bottomAnchor.constraint(equalTo: self.bottomAnchor),
       flashImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-      flashImage.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+      flashImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+      
+      flashLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+      flashLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
     ])
   }
   
@@ -117,7 +118,6 @@ class DraggableMarkerView: UIView {
           self.center = CGPoint(x: self.center.x, y: endY)
         }
       }
-      
     default: break
     }
   }

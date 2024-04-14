@@ -24,17 +24,19 @@ class TaskViewModel {
   }
   
   // MARK: - Function
-  func fetchWholeData(completion: @escaping ([Episode]) -> Void) {
-    FireStoreManager.shared.fetchCollection(collection: "EpisodeList") { documentIDList in
-      for documentID in documentIDList {
-        FireStoreManager.shared.fetchEpisodeData(id: documentID) { epsisode in
-          print("ViewModel get the episode from manager")
-          self.list.append(epsisode)
+  func fetchData(sendData: @escaping (Episode) -> Void) {
+    FireStoreManager.shared.fetchCollection(collectionName: "EpisodeList") { documentList in
+      documentList.forEach { documentID in
+        FireStoreManager.shared.fetchDocument(collection: "EpisodeList",
+                                                           id: documentID) { snapshot in
+          do {
+            let episode = try snapshot.data(as: Episode.self)
+            sendData(episode)
+          } catch let error {
+            print("Fail to decode Episode: \(error)")
+          }
         }
       }
-        completion(self.list)
-        print("viewModel send the list to VC")
-      
     }
   }
 }
