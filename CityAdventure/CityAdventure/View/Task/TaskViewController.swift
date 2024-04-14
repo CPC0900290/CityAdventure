@@ -15,7 +15,6 @@ class TaskViewController: UIViewController {
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
 //    FireStoreManager.shared.makeJson()
 //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black

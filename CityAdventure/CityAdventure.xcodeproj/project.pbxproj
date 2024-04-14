@@ -480,6 +480,7 @@
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -509,6 +510,7 @@
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
