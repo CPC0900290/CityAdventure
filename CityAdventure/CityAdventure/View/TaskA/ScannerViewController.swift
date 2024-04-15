@@ -1,5 +1,5 @@
 //
-//  TaskAViewController.swift
+//  ScannerViewController.swift
 //  CityAdventure
 //
 //  Created by Pin Chen on 2024/4/15.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class TaskAViewController: TaskViewController {
+class ScannerViewController: UIViewController {
   
   private var captureSession = AVCaptureSession()
   private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -17,7 +17,6 @@ class TaskAViewController: TaskViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupUI()
     setupCaptureDevice()
   }
   
@@ -47,8 +46,8 @@ class TaskAViewController: TaskViewController {
       return
     }
   }
-  // MARK: - UI Setup
-  // DOING
+  
+  // MARK: - Setup UI
   lazy var taskContentLabel: UILabel = {
     let label = UILabel()
     label.text = "taskContent"
@@ -58,35 +57,44 @@ class TaskAViewController: TaskViewController {
     return label
   }()
   
+  private func setupUI() {
+    view.addSubview(taskContentLabel)
+    NSLayoutConstraint.activate([
+      taskContentLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      taskContentLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+    ])
+  }
+  
   private func setupQRLayer() {
     // 初始化影片預覽層，並將其作為子層加入 viewPreview 視圖的圖層中
     videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
     videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-    videoPreviewLayer?.frame = self.taskView.layer.bounds
-    self.taskView.layer.addSublayer(videoPreviewLayer!)
+    videoPreviewLayer?.frame = self.view.layer.bounds
+    self.view.layer.addSublayer(videoPreviewLayer!)
   }
-  
-  override func setupUI() {
-    view.addSubview(taskView)
-    view.addSubview(locationALabel)
-    view.addSubview(locationBLabel)
-    NSLayoutConstraint.activate([
-      taskView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      taskView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
-      taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-      taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-      
-      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      
-      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
-    ])
-  }
-  
-  override func setupTableView() { }
 }
 
-extension TaskAViewController: AVCaptureMetadataOutputObjectsDelegate {
-  
+extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
+  func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    if metadataObjects.isEmpty {
+      qrCodeFrameView?.frame = CGRect.zero
+      taskContentLabel.text = "No QR code is detected"
+      return
+    }
+    
+    let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject
+    guard let object = metadataObj else { return }
+    
+    if object.type == AVMetadataObject.ObjectType.qr {
+      guard let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: object) else { return }
+      
+      qrCodeFrameView?.frame = barCodeObject.bounds
+      
+      if let question = object.stringValue {
+        let speechVC = SpeechViewController()
+        speechVC.question = question
+        self.navigationController?.pushViewController(speechVC, animated: true)
+      }
+    }
+  }
 }

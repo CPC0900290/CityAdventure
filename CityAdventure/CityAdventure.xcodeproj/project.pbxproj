@@ -14,6 +14,9 @@
 		005EEFD22BC685EC00D46BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */; };
 		0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0095D00A2BC94CAA001E680B /* TaskViewModel.swift */; };
 		00A629212BCCD7C100F72AC0 /* TaskAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */; };
+		00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F022BCD31C7003E2327 /* ScannerViewController.swift */; };
+		00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */; };
+		00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */; };
 		00BD657B2BCC1D880070E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */; };
 		00C35F8F2BC7C18800AB7B7D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F8E2BC7C18800AB7B7D /* FirebaseAuth */; };
 		00C35F912BC7C18800AB7B7D /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F902BC7C18800AB7B7D /* FirebaseDatabaseSwift */; };
@@ -39,6 +42,9 @@
 		005EEFD32BC685EC00D46BB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0095D00A2BC94CAA001E680B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAViewController.swift; sourceTree = "<group>"; };
+		00B97F022BCD31C7003E2327 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
+		00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewModel.swift; sourceTree = "<group>"; };
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00C35F942BC7F27600AB7B7D /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		00C35F972BC822D600AB7B7D /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
@@ -103,6 +109,16 @@
 			path = CityAdventure;
 			sourceTree = "<group>";
 		};
+		00B97F012BCD317B003E2327 /* TaskA */ = {
+			isa = PBXGroup;
+			children = (
+				00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */,
+				00B97F022BCD31C7003E2327 /* ScannerViewController.swift */,
+				00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */,
+			);
+			path = TaskA;
+			sourceTree = "<group>";
+		};
 		00C35F872BC78A9200AB7B7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,8 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */,
+				00B97F012BCD317B003E2327 /* TaskA */,
 				00CEB1382BCAC07400AC350B /* Task */,
-				00CEB13D2BCAC4A900AC350B /* MapViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -124,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				0095D00A2BC94CAA001E680B /* TaskViewModel.swift */,
+				00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -150,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				005EEFC92BC685EA00D46BB6 /* TaskViewController.swift */,
-				00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */,
+				00CEB13D2BCAC4A900AC350B /* MapViewController.swift */,
 				00CEB1342BCA957100AC350B /* TaskCell.swift */,
 				00CEB1362BCA95F500AC350B /* TaskCell.xib */,
 			);
@@ -320,7 +337,9 @@
 			files = (
 				00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */,
 				005EEFCA2BC685EA00D46BB6 /* TaskViewController.swift in Sources */,
+				00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */,
 				00CEB13C2BCAC15C00AC350B /* DraggableMarkerManager.swift in Sources */,
+				00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */,
 				0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */,
 				005EEFC62BC685EA00D46BB6 /* AppDelegate.swift in Sources */,
 				00C35F952BC7F27600AB7B7D /* TaskModel.swift in Sources */,
@@ -328,6 +347,7 @@
 				00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */,
 				00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */,
 				00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */,
+				00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */,
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,
 				00A629212BCCD7C100F72AC0 /* TaskAViewController.swift in Sources */,
 			);
@@ -467,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5FN9342AS5;
@@ -474,6 +495,8 @@
 				INFOPLIST_FILE = CityAdventure/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來掃描QR Code";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "當你按下「開始識別」，我們將使用麥克風進行錄音。";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "當你對著麥克風說話時，我們將進行語音識別。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -485,6 +508,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cpc.CityAdventure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -497,6 +521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5FN9342AS5;
@@ -504,6 +529,8 @@
 				INFOPLIST_FILE = CityAdventure/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來掃描QR Code";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "當你按下「開始識別」，我們將使用麥克風進行錄音。";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "當你對著麥克風說話時，我們將進行語音識別。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -515,6 +542,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cpc.CityAdventure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -31,12 +31,17 @@ class TaskViewController: UIViewController {
     }
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    tableView.reloadData()
+  @objc func lastPage() {
+    self.navigationController?.popViewController(animated: true)
   }
   
   // MARK: - UI Setup
+  func setupNavItem() {
+    let navBarItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(lastPage))
+    navBarItem.tintColor = UIColor.white
+    navigationItem.leftBarButtonItem = navBarItem
+  }
+  
   lazy var taskView: UIView = {
     let view = UIView()
     view.backgroundColor = .white
@@ -142,12 +147,20 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
       switch indexPath.row {
       case 0:
         let taskVC = TaskAViewController()
+        taskVC.setupNavItem()
+//        taskVC.navigationController?.navigationBar.prefersLargeTitles = true
+//        taskVC.navigationItem.largeTitleDisplayMode = .always
+        taskVC.navigationItem.title = episode.title
+        
+        taskVC.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 1:
         let taskVC = TaskAViewController()
+        taskVC.setupNavItem()
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 2:
         let taskVC = TaskAViewController()
+        taskVC.setupNavItem()
         self.navigationController?.pushViewController(taskVC, animated: true)
       default:
         print("task out of range")
