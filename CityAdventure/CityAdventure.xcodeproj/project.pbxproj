@@ -10,10 +10,10 @@
 		005EEFC62BC685EA00D46BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */; };
 		005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC72BC685EA00D46BB6 /* SceneDelegate.swift */; };
 		005EEFCA2BC685EA00D46BB6 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC92BC685EA00D46BB6 /* TaskViewController.swift */; };
-		005EEFCD2BC685EA00D46BB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFCB2BC685EA00D46BB6 /* Main.storyboard */; };
 		005EEFCF2BC685EC00D46BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */; };
 		005EEFD22BC685EC00D46BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */; };
 		0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0095D00A2BC94CAA001E680B /* TaskViewModel.swift */; };
+		00A629212BCCD7C100F72AC0 /* TaskAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */; };
 		00BD657B2BCC1D880070E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */; };
 		00C35F8F2BC7C18800AB7B7D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F8E2BC7C18800AB7B7D /* FirebaseAuth */; };
 		00C35F912BC7C18800AB7B7D /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F902BC7C18800AB7B7D /* FirebaseDatabaseSwift */; };
@@ -34,11 +34,11 @@
 		005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		005EEFC72BC685EA00D46BB6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		005EEFC92BC685EA00D46BB6 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
-		005EEFCC2BC685EA00D46BB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		005EEFD12BC685EC00D46BB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		005EEFD32BC685EC00D46BB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0095D00A2BC94CAA001E680B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAViewController.swift; sourceTree = "<group>"; };
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00C35F942BC7F27600AB7B7D /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		00C35F972BC822D600AB7B7D /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 				00C35F8A2BC78B0100AB7B7D /* Helper */,
 				005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */,
 				005EEFC72BC685EA00D46BB6 /* SceneDelegate.swift */,
-				005EEFCB2BC685EA00D46BB6 /* Main.storyboard */,
 				005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */,
 				005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */,
 				005EEFD32BC685EC00D46BB6 /* Info.plist */,
@@ -151,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				005EEFC92BC685EA00D46BB6 /* TaskViewController.swift */,
+				00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */,
 				00CEB1342BCA957100AC350B /* TaskCell.swift */,
 				00CEB1362BCA95F500AC350B /* TaskCell.xib */,
 			);
@@ -248,7 +248,6 @@
 				00CEB1372BCA95F500AC350B /* TaskCell.xib in Resources */,
 				005EEFD22BC685EC00D46BB6 /* LaunchScreen.storyboard in Resources */,
 				005EEFCF2BC685EC00D46BB6 /* Assets.xcassets in Resources */,
-				005EEFCD2BC685EA00D46BB6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,20 +329,13 @@
 				00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */,
 				00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */,
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,
+				00A629212BCCD7C100F72AC0 /* TaskAViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		005EEFCB2BC685EA00D46BB6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				005EEFCC2BC685EA00D46BB6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -480,10 +472,10 @@
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來掃描QR Code";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -510,10 +502,10 @@
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來掃描QR Code";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

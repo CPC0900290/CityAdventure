@@ -62,7 +62,7 @@ class TaskViewController: UIViewController {
     return label
   }()
   
-  private func setupUI() {
+  func setupUI() {
     view.addSubview(taskView)
     view.addSubview(locationALabel)
     view.addSubview(locationBLabel)
@@ -134,5 +134,24 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
       cell.taskTitleLabel.text = task.tilte
     }
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let episode = episodeForUser else { return }
+    viewModel.fetchTask(episode: episode, id: indexPath.row) { _ in
+      switch indexPath.row {
+      case 0:
+        let taskVC = TaskAViewController()
+        self.navigationController?.pushViewController(taskVC, animated: true)
+      case 1:
+        let taskVC = TaskAViewController()
+        self.navigationController?.pushViewController(taskVC, animated: true)
+      case 2:
+        let taskVC = TaskAViewController()
+        self.navigationController?.pushViewController(taskVC, animated: true)
+      default:
+        print("task out of range")
+      }
+    }
   }
 }
