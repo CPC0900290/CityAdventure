@@ -12,20 +12,28 @@ class TaskViewController: UIViewController {
   private let viewModel = TaskViewModel()
   private var tableView = UITableView()
   var episodeList: [Episode] = []
+  var episodeForUser: Episode?
+  var episodeID: String?
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-//    FireStoreManager.shared.makeJson()
-//    FireStoreManager.shared.fetchTask()
+    //    FireStoreManager.shared.postEpisode()
+    //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
     setupUI()
-    setupTableView()
     setupMarkerView()
-    viewModel.fetchData { episode in
-      self.episodeList.append(episode)
+    setupTableView()
+    self.viewModel.fetchEpisode(id: "AaZY4nMF5UHierZessmh") { episode in
+      self.episodeForUser = episode
       print(episode)
+      self.tableView.reloadData()
     }
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    tableView.reloadData()
   }
   
   // MARK: - UI Setup
@@ -76,7 +84,8 @@ class TaskViewController: UIViewController {
     taskView.addSubview(tableView)
     tableView.dataSource = self
     tableView.delegate = self
-    tableView.rowHeight = 0
+    tableView.rowHeight = tableView.estimatedRowHeight
+    tableView.estimatedRowHeight = 100
     tableView.register(UINib(nibName: "TaskCell", bundle: nil), forCellReuseIdentifier: "TaskCell")
     tableView.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
@@ -98,14 +107,32 @@ class TaskViewController: UIViewController {
 }
 
 extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    1
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    3
+    guard let episode = episodeForUser else {
+      return 0
+    }
+    print(episode.tasks.count)
+    return episode.tasks.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell") as? TaskViewCell else { return UITableViewCell() }
-    cell.taskLabel.text = "任務一"
-    cell.taskTitleLabel.text = "請至blalbalalbalblalab"
+    print("=== 1 indexPath: \(indexPath)")
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell") as? TaskViewCell,
+          let episode = episodeForUser
+    else {
+      return UITableViewCell()
+    }
+    
+    print("=== 2 indexPath: \(indexPath)")
+    
+    viewModel.fetchTask(episode: episode, id: indexPath.row) { task in
+      cell.taskLabel.text = task.content
+      cell.taskTitleLabel.text = task.tilte
+    }
     return cell
   }
 }

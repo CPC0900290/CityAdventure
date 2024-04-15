@@ -11,6 +11,29 @@ struct Episode: Codable {
   var tasks: [String]
 }
 
+struct Tasks: Codable {
+  var taskA: TaskA
+  var taskB: TaskB
+  var taskC: TaskC
+}
+
+struct TestEpisode: Codable {
+  var title: String
+  var tasks: [String]
+}
+
+struct TestTask: Codable {
+  var id: String
+  var tilte: String
+  var content: String
+  var locationName: String
+  var locationAddress: String
+  var questionAnswer: [QuestionAnswer]?
+  var roadMapImg: String?
+  var foodImg: String?
+  var question: String?
+}
+
 struct TaskA: Codable {
   var id: String
   var tilte: String

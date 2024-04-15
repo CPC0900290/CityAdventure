@@ -17,7 +17,7 @@ extension DataModelsUpdateProtocol {
 
 class TaskViewModel {
   weak var delegate: DataModelsUpdateProtocol?
-  private var list:[Episode] = [] {
+  var list:[Episode] = [] {
     didSet {
       delegate?.updatedDataModels()
     }
@@ -25,18 +25,48 @@ class TaskViewModel {
   
   // MARK: - Function
   func fetchData(sendData: @escaping (Episode) -> Void) {
-    FireStoreManager.shared.fetchCollection(collectionName: "EpisodeList") { documentList in
-      documentList.forEach { documentID in
-        FireStoreManager.shared.fetchDocument(collection: "EpisodeList",
-                                                           id: documentID) { snapshot in
-          do {
-            let episode = try snapshot.data(as: Episode.self)
-            sendData(episode)
-          } catch let error {
-            print("Fail to decode Episode: \(error)")
+    DispatchQueue.global(qos: .userInitiated).async {
+      FireStoreManager.shared.fetchCollection(collectionName: "EpisodeList") { documentList in
+        documentList.forEach { documentID in
+          FireStoreManager.shared.fetchDocument(collection: "EpisodeList",
+                                                id: documentID) { snapshot in
+            do {
+              let episode = try snapshot.data(as: Episode.self)
+              self.list.append(episode)
+              sendData(episode)
+            } catch let error {
+              print("Fail to decode Episode: \(error)")
+            }
           }
         }
       }
+    }
+  }
+  
+  func fetchEpisode(id: String, sendEpisode: @escaping (Episode) -> Void) {
+    DispatchQueue.global(qos: .background).async {
+      FireStoreManager.shared.fetchDocument(collection: "EpisodeList",
+                                            id: id) { snapshot in
+        do {
+          let episode = try snapshot.data(as: Episode.self)
+          sendEpisode(episode)
+        } catch let error {
+          print("Fail to decode Episode: \(error)")
+        }
+      }
+    }
+  }
+  
+  func fetchTask(episode: Episode, id: Int, sendTask: @escaping (TestTask) -> Void) {
+    let task = episode.tasks[id]
+    let data = task.data(using: .utf8)
+    print(task)
+    guard let data = data else { return }
+    do {
+      let result = try JSONDecoder().decode(TestTask.self, from: data)
+      sendTask(result)
+    } catch let error {
+      print("fail to decode data from task: \(error)")
     }
   }
 }

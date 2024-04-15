@@ -14,6 +14,32 @@ class FireStoreManager {
   static var shared = FireStoreManager()
   let firestore = Firestore.firestore()
   var episode: Episode?
+  var testEpisode: TestEpisode?
+  let testTaskA = TestTask(
+    id: "0",
+    tilte: "請找到隱藏的QRCode",
+    content: "任務一",
+    locationName: "位置名稱",
+    locationAddress: "地址",
+    questionAnswer: [QuestionAnswer(question: "問題A", answer: "答案B")]
+  )
+  let testTaskB = TestTask(
+    id: "1",
+    tilte: "請在地圖上完成指定圖示",
+    content: "任務二",
+    locationName: "羅東運動公園",
+    locationAddress: "地址",
+    roadMapImg: "urlImage"
+  )
+  let testTaskC = TestTask(
+    id: "2",
+    tilte: "請找出隱藏美食",
+    content: "任務三",
+    locationName: "中山公園",
+    locationAddress: "地址",
+    foodImg: "imageURL",
+    question: "想謎題？"
+  )
   let taskA = TaskA(
     id: "0",
     tilte: "請找到隱藏的QRCode",
@@ -39,11 +65,11 @@ class FireStoreManager {
     foodImg: "imageURL",
     question: "想謎題？"
   )
-  func makeJson() {
+  func postEpisode() {
     do {
-      let jsonDataA = try JSONEncoder().encode(taskA)
-      let jsonDataB = try JSONEncoder().encode(taskB)
-      let jsonDataC = try JSONEncoder().encode(taskC)
+      let jsonDataA = try JSONEncoder().encode(testTaskA)
+      let jsonDataB = try JSONEncoder().encode(testTaskA)
+      let jsonDataC = try JSONEncoder().encode(testTaskC)
       let jsonStringA = String(data: jsonDataA, encoding: .utf8)
       let jsonStringB = String(data: jsonDataB, encoding: .utf8)
       let jsonStringC = String(data: jsonDataC, encoding: .utf8)
