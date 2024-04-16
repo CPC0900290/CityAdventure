@@ -11,6 +11,8 @@ import UIKit
 
 class SpeechViewController: TaskViewController {
   var question: String?
+  private var task: TestTask?
+  
   private let speechVM = SpeechViewModel()
 //  private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
 //  private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -20,6 +22,7 @@ class SpeechViewController: TaskViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
+    getTask()
   }
   
   override func viewDidLayoutSubviews() {
@@ -38,10 +41,23 @@ class SpeechViewController: TaskViewController {
       speechButton.isEnabled = false
       speechButton.setTitle("Start Recording", for: .normal)
     } else {
-      speechVM.startRecording(sender: speechButton) { answer in
-        <#code#>
+      guard let rightAnswer = task?.questionAnswer?[0].answer else { return }
+      speechVM.startRecording(rightAnswer: rightAnswer,sender: speechButton) { isRightAnswer in
+        if isRightAnswer {
+          print("Correct Answer! Good job!")
+          self.navigationController?.popToRootViewController(animated: true)
+        } else {
+          print("Think about it again!")
+        }
       }
       speechButton.setTitle("Stop Recording", for: .normal)
+    }
+  }
+  
+  func getTask() {
+    guard let episode = episodeForUser else { return }
+    viewModel.fetchTask(episode: episode, id: 0) { task in
+      self.task = task
     }
   }
   

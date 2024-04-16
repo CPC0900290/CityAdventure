@@ -9,7 +9,7 @@ import UIKit
 
 class TaskViewController: UIViewController {
   
-  private let viewModel = TaskViewModel()
+  let viewModel = TaskViewModel()
   private var tableView = UITableView()
   var episodeList: [Episode] = []
   var episodeForUser: Episode?

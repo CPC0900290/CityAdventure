@@ -42,7 +42,7 @@ class SpeechViewModel {
     }
   }
   
-  func startRecording(sender: UIButton, sendAnswer: @escaping (String) -> Void) {
+  func startRecording(rightAnswer: String,sender: UIButton, sendAnswer: @escaping (Bool) -> Void) {
     
     if recognitionTask != nil {
       recognitionTask?.cancel()
@@ -74,7 +74,8 @@ class SpeechViewModel {
       
       if result != nil {
         guard let answer = result?.bestTranscription.formattedString else { return }
-        sendAnswer(answer)
+        let isRightAnswer = rightAnswer.contains(answer)
+        sendAnswer(isRightAnswer)
         isFinal = (result?.isFinal)!
       }
       
