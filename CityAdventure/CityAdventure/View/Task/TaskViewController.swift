@@ -155,7 +155,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         taskVC.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 1:
-        let taskVC = TaskAViewController()
+        let taskVC = TaskBViewController()
         taskVC.setupNavItem()
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 2:

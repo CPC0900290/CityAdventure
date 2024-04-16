@@ -23,7 +23,14 @@ class MapViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupLocationManager()
+    checkLocationAuthorization()
     setupUI()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+//    setPinUsingMKAnnotation(location: taskALocation)
+    setPinUsingMKPlacemark(address: "100台北市中正區仁愛路二段99號")
   }
   
   private func setupUI() {
@@ -59,6 +66,23 @@ class MapViewController: UIViewController {
       print("")
     @unknown default:
       print("")
+    }
+  }
+  
+  func setPinUsingMKPlacemark(address: String) {
+    let geocoder = CLGeocoder()
+    geocoder.geocodeAddressString(address) { placeMark, error in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        if let placemark = placeMark?.first?.location {
+          let location = placemark.coordinate
+          let pin = MapPin(title: "任務一", locationName: "任務地點", coordinate: location)
+          let coordinateRegion = MKCoordinateRegion(center: pin.coordinate, latitudinalMeters: 800, longitudinalMeters: 800)
+          self.mapView.setRegion(coordinateRegion, animated: true)
+          self.mapView.addAnnotation(pin)
+        }
+      }
     }
   }
 }
