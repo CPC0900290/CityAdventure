@@ -12,6 +12,7 @@ import MapKit
 
 class MapViewController: UIViewController {
   var locationManager: CLLocationManager?
+  var mapViewModel = MapViewModel()
   
   lazy var mapView: MKMapView = {
     let map = MKMapView()
@@ -22,8 +23,8 @@ class MapViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setupLocationManager()
-    checkLocationAuthorization()
+    mapViewModel.setupLocationManager(self)
+    mapViewModel.checkLocationAuthorization(mapView: mapView)
     setupUI()
   }
   
@@ -43,30 +44,6 @@ class MapViewController: UIViewController {
 //      mapView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
       mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
-  }
-  
-  private func setupLocationManager() {
-    locationManager = CLLocationManager()
-    locationManager?.delegate = self
-    locationManager?.requestWhenInUseAuthorization()
-    locationManager?.requestLocation()
-  }
-  
-  private func checkLocationAuthorization() {
-    guard let locationManager = locationManager,
-          let location = locationManager.location else { return }
-    
-    switch locationManager.authorizationStatus {
-    case .authorizedAlways, .authorizedWhenInUse:
-      let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
-      mapView.setRegion(region, animated: true)
-    case .denied:
-      print("")
-    case .restricted, .notDetermined:
-      print("")
-    @unknown default:
-      print("")
-    }
   }
   
   func setPinUsingMKPlacemark(address: String) {
@@ -93,7 +70,7 @@ extension MapViewController: CLLocationManagerDelegate {
   }
   
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-    checkLocationAuthorization()
+    mapViewModel.checkLocationAuthorization(mapView: mapView)
   }
   
   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

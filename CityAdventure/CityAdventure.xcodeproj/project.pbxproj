@@ -12,10 +12,10 @@
 		005EEFCA2BC685EA00D46BB6 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC92BC685EA00D46BB6 /* TaskViewController.swift */; };
 		005EEFCF2BC685EC00D46BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */; };
 		005EEFD22BC685EC00D46BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */; };
-		0094CD912BCE151B00820BE5 /* TaskBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD902BCE151B00820BE5 /* TaskBViewController.swift */; };
+		0094CD912BCE151B00820BE5 /* SecondTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */; };
 		0094CD932BCE992C00820BE5 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD922BCE992C00820BE5 /* MapPin.swift */; };
 		0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0095D00A2BC94CAA001E680B /* TaskViewModel.swift */; };
-		00A629212BCCD7C100F72AC0 /* TaskAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */; };
+		00A629212BCCD7C100F72AC0 /* FirstTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */; };
 		00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F022BCD31C7003E2327 /* ScannerViewController.swift */; };
 		00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */; };
 		00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */; };
@@ -25,6 +25,7 @@
 		00C35F932BC7C18800AB7B7D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F922BC7C18800AB7B7D /* FirebaseFirestoreSwift */; };
 		00C35F952BC7F27600AB7B7D /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C35F942BC7F27600AB7B7D /* TaskModel.swift */; };
 		00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C35F972BC822D600AB7B7D /* FireStoreManager.swift */; };
+		00C66F2C2BCF7A8000B5DA62 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C66F2B2BCF7A8000B5DA62 /* MapViewModel.swift */; };
 		00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1322BCA87D900AC350B /* UIColorExt.swift */; };
 		00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1342BCA957100AC350B /* TaskCell.swift */; };
 		00CEB1372BCA95F500AC350B /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00CEB1362BCA95F500AC350B /* TaskCell.xib */; };
@@ -42,16 +43,17 @@
 		005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		005EEFD12BC685EC00D46BB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		005EEFD32BC685EC00D46BB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0094CD902BCE151B00820BE5 /* TaskBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBViewController.swift; sourceTree = "<group>"; };
+		0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTaskViewController.swift; sourceTree = "<group>"; };
 		0094CD922BCE992C00820BE5 /* MapPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		0095D00A2BC94CAA001E680B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
-		00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAViewController.swift; sourceTree = "<group>"; };
+		00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTaskViewController.swift; sourceTree = "<group>"; };
 		00B97F022BCD31C7003E2327 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewModel.swift; sourceTree = "<group>"; };
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00C35F942BC7F27600AB7B7D /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		00C35F972BC822D600AB7B7D /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
+		00C66F2B2BCF7A8000B5DA62 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		00CEB1322BCA87D900AC350B /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		00CEB1342BCA957100AC350B /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		00CEB1362BCA95F500AC350B /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
@@ -113,22 +115,22 @@
 			path = CityAdventure;
 			sourceTree = "<group>";
 		};
-		0094CD8F2BCE14FD00820BE5 /* TaskB */ = {
+		0094CD8F2BCE14FD00820BE5 /* SecondTask */ = {
 			isa = PBXGroup;
 			children = (
-				0094CD902BCE151B00820BE5 /* TaskBViewController.swift */,
+				0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */,
 			);
-			path = TaskB;
+			path = SecondTask;
 			sourceTree = "<group>";
 		};
-		00B97F012BCD317B003E2327 /* TaskA */ = {
+		00B97F012BCD317B003E2327 /* FirstTask */ = {
 			isa = PBXGroup;
 			children = (
-				00A629202BCCD7C100F72AC0 /* TaskAViewController.swift */,
+				00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */,
 				00B97F022BCD31C7003E2327 /* ScannerViewController.swift */,
 				00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */,
 			);
-			path = TaskA;
+			path = FirstTask;
 			sourceTree = "<group>";
 		};
 		00C35F872BC78A9200AB7B7D /* Model */ = {
@@ -142,8 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */,
-				0094CD8F2BCE14FD00820BE5 /* TaskB */,
-				00B97F012BCD317B003E2327 /* TaskA */,
+				00B97F012BCD317B003E2327 /* FirstTask */,
+				0094CD8F2BCE14FD00820BE5 /* SecondTask */,
 				00CEB1382BCAC07400AC350B /* Task */,
 			);
 			path = View;
@@ -154,6 +156,7 @@
 			children = (
 				0095D00A2BC94CAA001E680B /* TaskViewModel.swift */,
 				00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */,
+				00C66F2B2BCF7A8000B5DA62 /* MapViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			files = (
 				00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */,
 				005EEFCA2BC685EA00D46BB6 /* TaskViewController.swift in Sources */,
+				00C66F2C2BCF7A8000B5DA62 /* MapViewModel.swift in Sources */,
 				00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */,
 				00CEB13C2BCAC15C00AC350B /* DraggableMarkerManager.swift in Sources */,
 				00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */,
@@ -358,14 +362,14 @@
 				005EEFC62BC685EA00D46BB6 /* AppDelegate.swift in Sources */,
 				00C35F952BC7F27600AB7B7D /* TaskModel.swift in Sources */,
 				0094CD932BCE992C00820BE5 /* MapPin.swift in Sources */,
-				0094CD912BCE151B00820BE5 /* TaskBViewController.swift in Sources */,
+				0094CD912BCE151B00820BE5 /* SecondTaskViewController.swift in Sources */,
 				00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */,
 				00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */,
 				00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */,
 				00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */,
 				00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */,
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,
-				00A629212BCCD7C100F72AC0 /* TaskAViewController.swift in Sources */,
+				00A629212BCCD7C100F72AC0 /* FirstTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

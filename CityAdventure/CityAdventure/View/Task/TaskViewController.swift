@@ -146,7 +146,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     viewModel.fetchTask(episode: episode, id: indexPath.row) { _ in
       switch indexPath.row {
       case 0:
-        let taskVC = TaskAViewController()
+        let taskVC = FirstTaskViewController()
         taskVC.setupNavItem()
 //        taskVC.navigationController?.navigationBar.prefersLargeTitles = true
 //        taskVC.navigationItem.largeTitleDisplayMode = .always
@@ -155,11 +155,11 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         taskVC.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 1:
-        let taskVC = TaskBViewController()
+        let taskVC = SecondTaskViewController()
         taskVC.setupNavItem()
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 2:
-        let taskVC = TaskAViewController()
+        let taskVC = FirstTaskViewController()
         taskVC.setupNavItem()
         self.navigationController?.pushViewController(taskVC, animated: true)
       default:

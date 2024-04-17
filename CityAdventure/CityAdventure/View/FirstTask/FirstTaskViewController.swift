@@ -1,5 +1,5 @@
 //
-//  TaskAViewController.swift
+//  FirstTaskViewController.swift
 //  CityAdventure
 //
 //  Created by Pin Chen on 2024/4/15.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class TaskAViewController: TaskViewController {
+class FirstTaskViewController: TaskViewController {
   private var task: TestTask?
   
   override func viewDidLoad() {
