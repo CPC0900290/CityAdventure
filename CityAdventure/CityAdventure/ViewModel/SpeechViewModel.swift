@@ -10,7 +10,7 @@ import UIKit
 import Speech
 
 class SpeechViewModel {
-  private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
+  private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "zh-TW"))
   var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
   private var recognitionTask: SFSpeechRecognitionTask?
   let audioEngine = AVAudioEngine()
@@ -74,7 +74,9 @@ class SpeechViewModel {
       
       if result != nil {
         guard let answer = result?.bestTranscription.formattedString else { return }
+        print(answer)
         let isRightAnswer = rightAnswer.contains(answer)
+        print("ViewModel conform isRightAnswer \(isRightAnswer)")
         sendAnswer(isRightAnswer)
         isFinal = (result?.isFinal)!
       }

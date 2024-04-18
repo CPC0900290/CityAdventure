@@ -94,6 +94,7 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
         let speechVC = SpeechViewController()
         speechVC.question = question
         self.navigationController?.pushViewController(speechVC, animated: true)
+        self.captureSession.stopRunning()
       }
     }
   }

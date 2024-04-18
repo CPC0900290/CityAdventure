@@ -55,9 +55,10 @@ class SpeechViewController: TaskViewController {
   }
   
   func getTask() {
-    guard let episode = episodeForUser else { return }
-    viewModel.fetchTask(episode: episode, id: 0) { task in
-      self.task = task
+    viewModel.fetchEpisode(id: "AaZY4nMF5UHierZessmh") { episode in
+      self.viewModel.fetchTask(episode: episode) { task in
+        self.task = task[0]
+      }
     }
   }
   
@@ -66,6 +67,7 @@ class SpeechViewController: TaskViewController {
     let label = UILabel()
     label.text = "Question"
     label.font = UIFont(name: "PingFang TC", size: 15)
+    label.numberOfLines = 0
     label.textColor = .black
     label.translatesAutoresizingMaskIntoConstraints = false
     return label

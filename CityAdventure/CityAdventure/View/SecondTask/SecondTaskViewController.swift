@@ -23,6 +23,7 @@ class SecondTaskViewController: MapViewController {
     CLLocation(latitude: 25.040142438686885, longitude: 121.53261622654674),
     CLLocation(latitude: 25.040164079443983, longitude: 121.53225794036803)
   ]
+  private let startTask: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 25.038348652126686, longitude: 121.53260195052155)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -124,10 +125,13 @@ class SecondTaskViewController: MapViewController {
     userLocations.append(currentLocation)
     
     if previousCoordinate == nil { return }
-    
     var area = [previousCoordinate!, currentLocation.coordinate]
-    let polyline = MKPolyline(coordinates: &area, count: area.count)
-    mapView.addOverlay(polyline)
+    DispatchQueue.main.async {
+      let polyline = MKPolyline(coordinates: &area, count: area.count)
+      self.mapView.addOverlay(polyline, level: .aboveRoads) // Set different different color of overlay
+      
+      
+    }
   }
 }
 

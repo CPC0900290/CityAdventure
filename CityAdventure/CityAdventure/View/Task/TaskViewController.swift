@@ -14,6 +14,7 @@ class TaskViewController: UIViewController {
   var episodeList: [Episode] = []
   var episodeForUser: Episode?
   var episodeID: String?
+  var taskList: [TestTask] = []
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
@@ -26,7 +27,9 @@ class TaskViewController: UIViewController {
     setupTableView()
     self.viewModel.fetchEpisode(id: "AaZY4nMF5UHierZessmh") { episode in
       self.episodeForUser = episode
-      print(episode)
+      self.viewModel.fetchTask(episode: episode) { tasks in
+        self.taskList = tasks
+      }
       self.tableView.reloadData()
     }
   }
@@ -105,6 +108,7 @@ class TaskViewController: UIViewController {
     DraggableMarkerManager.shared.showMarker(in: self) {
       let mapVC = MapViewController()
       mapVC.modalPresentationStyle = .automatic
+      mapVC.task = self.taskList
 //      self.show(mapVC, sender: nil)
       self.present(mapVC, animated: true)
     }
@@ -118,32 +122,28 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard let episode = episodeForUser else {
+      print("TaskVC NumberOfRowInSection got 0, episodeForUser is nil")
       return 0
     }
-    print(episode.tasks.count)
     return episode.tasks.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    print("=== 1 indexPath: \(indexPath)")
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell") as? TaskViewCell,
           let episode = episodeForUser
     else {
       return UITableViewCell()
     }
-    
-    print("=== 2 indexPath: \(indexPath)")
-    
-    viewModel.fetchTask(episode: episode, id: indexPath.row) { task in
-      cell.taskLabel.text = task.content
-      cell.taskTitleLabel.text = task.tilte
+    viewModel.fetchTask(episode: episode) { task in
+      cell.taskLabel.text = task[indexPath.row].content
+      cell.taskTitleLabel.text = task[indexPath.row].tilte
     }
     return cell
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let episode = episodeForUser else { return }
-    viewModel.fetchTask(episode: episode, id: indexPath.row) { _ in
+    viewModel.fetchTask(episode: episode) { _ in
       switch indexPath.row {
       case 0:
         let taskVC = FirstTaskViewController()

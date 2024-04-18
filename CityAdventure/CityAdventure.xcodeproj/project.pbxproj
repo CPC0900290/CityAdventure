@@ -136,6 +136,7 @@
 		00C35F872BC78A9200AB7B7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				00C35F942BC7F27600AB7B7D /* TaskModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -164,7 +165,6 @@
 		00C35F8A2BC78B0100AB7B7D /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				00C35F942BC7F27600AB7B7D /* TaskModel.swift */,
 				00CEB1322BCA87D900AC350B /* UIColorExt.swift */,
 			);
 			path = Helper;
