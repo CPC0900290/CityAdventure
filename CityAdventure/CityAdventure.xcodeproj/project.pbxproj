@@ -17,6 +17,7 @@
 		0094CD912BCE151B00820BE5 /* SecondTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */; };
 		0094CD932BCE992C00820BE5 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD922BCE992C00820BE5 /* MapPin.swift */; };
 		0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0095D00A2BC94CAA001E680B /* TaskViewModel.swift */; };
+		00A35D502BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 00A35D4F2BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel */; };
 		00A629212BCCD7C100F72AC0 /* FirstTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */; };
 		00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F022BCD31C7003E2327 /* ScannerViewController.swift */; };
 		00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */; };
@@ -50,6 +51,7 @@
 		0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTaskViewController.swift; sourceTree = "<group>"; };
 		0094CD922BCE992C00820BE5 /* MapPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		0095D00A2BC94CAA001E680B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		00A35D4F2BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodFromTaiwan.mlmodel; sourceTree = "<group>"; };
 		00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTaskViewController.swift; sourceTree = "<group>"; };
 		00B97F022BCD31C7003E2327 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				00C35F942BC7F27600AB7B7D /* TaskModel.swift */,
+				00A35D4F2BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				0039BEC12BD153DD00D8B20A /* RecognizerViewController.swift in Sources */,
 				00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */,
 				005EEFCA2BC685EA00D46BB6 /* TaskViewController.swift in Sources */,
+				00A35D502BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel in Sources */,
 				00C66F2C2BCF7A8000B5DA62 /* MapViewModel.swift in Sources */,
 				00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */,
 				00CEB13C2BCAC15C00AC350B /* DraggableMarkerManager.swift in Sources */,
