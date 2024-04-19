@@ -12,6 +12,7 @@ import MapKit
 class SecondTaskViewController: MapViewController {
   private var routeOverlay: MKOverlay?
   var currentPlacemark: CLPlacemark?
+  var boundingMapRect: MKMapRect?
   private var userLocations: [CLLocation] = []
   private let allLocations: [CLLocation] = [
     CLLocation(latitude: 25.040142438686885, longitude: 121.53224201653796),
@@ -31,6 +32,9 @@ class SecondTaskViewController: MapViewController {
     mapViewModel.setupLocationManager(self)
     setupUI()
     drawRoute(allLocations)
+    if CLLocationManager.locationServicesEnabled() {
+    locationManager?.startUpdatingLocation()
+    }
   }
   
   // MARK: - UI Setup
@@ -95,6 +99,7 @@ class SecondTaskViewController: MapViewController {
     navigationItem.leftBarButtonItem = navBarItem
   }
   
+  // 畫出給予座標集合的路徑
   func drawRoute(_ routeData: [CLLocation]) {
     if routeData.isEmpty {
       print("==== No Coordinates to draw")
@@ -108,14 +113,14 @@ class SecondTaskViewController: MapViewController {
     DispatchQueue.main.async {
       self.routeOverlay = MKPolyline(coordinates: coordinates, count: coordinates.count)
       self.mapView.addOverlay(self.routeOverlay!, level: .aboveRoads)
-      let region = MKCoordinateRegion(center: self.routeOverlay!.coordinate, latitudinalMeters: 300, longitudinalMeters: 300)
-      self.mapView.setRegion(region, animated: true)
+//      let region = MKCoordinateRegion(center: self.routeOverlay!.coordinate, latitudinalMeters: 300, longitudinalMeters: 300)
+//      self.mapView.setRegion(region, animated: true)
     }
   }
   
   override func setPinUsingMKPlacemark(address: String) { }
   
-  // 畫出使用者路徑
+  // 畫出使用者路徑，並收集使用者路徑的array
   override func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     guard let currentLocation = locations.first(where: { $0.horizontalAccuracy >= 0 }) else {
       return
