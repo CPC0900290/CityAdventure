@@ -129,8 +129,6 @@ class SecondTaskViewController: MapViewController {
     DispatchQueue.main.async {
       let polyline = MKPolyline(coordinates: &area, count: area.count)
       self.mapView.addOverlay(polyline, level: .aboveRoads) // Set different different color of overlay
-      
-      
     }
   }
 }

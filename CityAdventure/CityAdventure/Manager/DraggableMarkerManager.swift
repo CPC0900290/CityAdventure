@@ -11,7 +11,6 @@ import UIKit
 class DraggableMarkerManager {
   static let shared = DraggableMarkerManager()
   var markerView: DraggableMarkerView?
-  private var window: UIWindow?
   
   private init() {}
   
@@ -26,7 +25,8 @@ class DraggableMarkerManager {
     let initialY = viewController.view.bounds.height - bottomInset - markerSize - 50
     
     let initialRect = CGRect(x: initialX, y: initialY, width: markerSize, height: markerSize)
-    let markerView = DraggableMarkerView(frame: initialRect)
+    markerView = DraggableMarkerView(frame: initialRect)
+    guard let markerView = markerView else { return }
     markerView.translatesAutoresizingMaskIntoConstraints = false
     markerView.onTap = onTap
     

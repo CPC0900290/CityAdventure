@@ -4,6 +4,7 @@
 //
 //  Created by Pin Chen on 2024/4/10.
 //
+// TODO: 修正DraggableMarkerView 的消失時間點，只有TaskVC, FirstTaskVC, ThirdTaskVC 需要出現，SpeechVC 要修正他消失。
 
 import UIKit
 
@@ -23,8 +24,8 @@ class TaskViewController: UIViewController {
     //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
     setupUI()
-    setupMarkerView()
     setupTableView()
+    setupMarkerView()
     self.viewModel.fetchEpisode(id: "AaZY4nMF5UHierZessmh") { episode in
       self.episodeForUser = episode
       self.viewModel.fetchTask(episode: episode) { tasks in
@@ -104,7 +105,7 @@ class TaskViewController: UIViewController {
     ])
   }
   
-  func setupMarkerView() {
+  private func setupMarkerView() {
     DraggableMarkerManager.shared.showMarker(in: self) {
       let mapVC = MapViewController()
       mapVC.modalPresentationStyle = .automatic
@@ -151,7 +152,6 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
 //        taskVC.navigationController?.navigationBar.prefersLargeTitles = true
 //        taskVC.navigationItem.largeTitleDisplayMode = .always
         taskVC.navigationItem.title = episode.title
-        
         taskVC.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 1:
@@ -159,8 +159,9 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
         taskVC.setupNavItem()
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 2:
-        let taskVC = FirstTaskViewController()
+        let taskVC = ThirdTaskViewController()
         taskVC.setupNavItem()
+        DraggableMarkerManager.shared.hideMarker()
         self.navigationController?.pushViewController(taskVC, animated: true)
       default:
         print("task out of range")

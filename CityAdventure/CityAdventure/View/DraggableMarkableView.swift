@@ -73,7 +73,7 @@ class DraggableMarkerView: UIView {
   }
   
   @objc private func handleTapGesture(_ gesture: UITapGestureRecognizer) {
-    onTap?() // Call the closure when the view is tapped
+    onTap?()
   }
   
   @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
