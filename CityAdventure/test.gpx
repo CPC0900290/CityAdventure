@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="Open GPX Tracker for iOS">
+	<wpt lat="25.01352481751112" lon="121.4723992847159">
+		<ele>16.159027099609375</ele>
+		<time>2024-04-21T10:19:42Z</time>
+		<name><![CDATA[6:29:42 PM]]></name>
+		<desc><![CDATA[Apr 21, 2024 at 6:19:42 PM]]></desc>
+	</wpt>
+	<wpt lat="25.012302806226533" lon="121.47119056149705">
+		<time>2024-04-21T10:20:19Z</time>
+		<name><![CDATA[6:26:19 PM]]></name>
+		<desc><![CDATA[Apr 21, 2024 at 6:20:19 PM]]></desc>
+	</wpt>
+	<wpt lat="25.012827415489273" lon="121.47220595513876">
+		<time>2024-04-21T10:20:25Z</time>
+		<name><![CDATA[6:27:25 PM]]></name>
+		<desc><![CDATA[Apr 21, 2024 at 6:20:25 PM]]></desc>
+	</wpt>
+	<wpt lat="25.013134178190064" lon="121.47279653311317">
+		<time>2024-04-21T10:20:30Z</time>
+		<name><![CDATA[6:28:30 PM]]></name>
+		<desc><![CDATA[Apr 21, 2024 at 6:20:30 PM]]></desc>
+	</wpt>
+	<wpt lat="25.0124564907339" lon="121.47048962079828">
+		<time>2024-04-21T10:20:56Z</time>
+		<name><![CDATA[6:25:56 PM]]></name>
+		<desc><![CDATA[Apr 21, 2024 at 6:20:56 PM]]></desc>
+	</wpt>
+	<wpt lat="25.012100807802423" lon="121.47076022593396">
+		<time>2024-04-21T10:20:59Z</time>
+		<name><![CDATA[6:25:59 PM]]></name>
+		<desc><![CDATA[Apr 21, 2024 at 6:20:59 PM]]></desc>
+	</wpt>
+	<trk>
+	</trk>
+</gpx>

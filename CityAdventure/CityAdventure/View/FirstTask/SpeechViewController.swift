@@ -14,10 +14,6 @@ class SpeechViewController: TaskViewController {
   private var task: TestTask?
   
   private let speechVM = SpeechViewModel()
-//  private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
-//  private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
-//  private var recognitionTask: SFSpeechRecognitionTask?
-//  private let audioEngine = AVAudioEngine()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,7 +25,7 @@ class SpeechViewController: TaskViewController {
     super.viewDidLayoutSubviews()
     if let question = question {
       taskContentLabel.text = question
-      speechVM.setupSpeech(sender: speechButton, vc: self)
+      speechVM.setupSpeech(sender: speechButton, viewController: self)
     }
   }
   
@@ -112,33 +108,6 @@ class SpeechViewController: TaskViewController {
   }
   
   override func setupTableView() { }
-  
-//  private func setupSpeech() {
-//    speechButton.isEnabled = false
-//    speechRecognizer?.delegate = self
-//    SFSpeechRecognizer.requestAuthorization { (authStatus) in
-//      var isButtonEnabled = false
-//
-//      switch authStatus {
-//      case .authorized:
-//        isButtonEnabled = true
-//      case .denied:
-//        isButtonEnabled = false
-//        print("User denied access to speech recognition")
-//      case .restricted:
-//        isButtonEnabled = false
-//        print("Speech recognition restricted on this device")
-//      case .notDetermined:
-//        isButtonEnabled = false
-//        print("Speech recognition not yet authorized")
-//      @unknown default:
-//        fatalError("Unknown Fail to get authorization from user")
-//      }
-//      OperationQueue.main.addOperation() {
-//        self.speechButton.isEnabled = isButtonEnabled
-//      }
-//    }
-//  }
 }
 
 extension SpeechViewController: SFSpeechRecognizerDelegate {
