@@ -15,9 +15,9 @@ class SpeechViewModel {
   private var recognitionTask: SFSpeechRecognitionTask?
   let audioEngine = AVAudioEngine()
   
-  func setupSpeech(sender: UIButton, vc: UIViewController) {
+  func setupSpeech(sender: UIButton, viewController: UIViewController) {
     sender.isEnabled = false
-    speechRecognizer?.delegate = vc.self as? any SFSpeechRecognizerDelegate
+    speechRecognizer?.delegate = viewController.self as? any SFSpeechRecognizerDelegate
     SFSpeechRecognizer.requestAuthorization { (authStatus) in
       var isButtonEnabled = false
       
@@ -36,7 +36,7 @@ class SpeechViewModel {
       @unknown default:
         fatalError("Unknown Fail to get authorization from user")
       }
-      OperationQueue.main.addOperation() {
+      OperationQueue.main.addOperation {
         sender.isEnabled = isButtonEnabled
       }
     }

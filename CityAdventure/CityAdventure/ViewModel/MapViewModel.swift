@@ -57,6 +57,7 @@ class MapViewModel {
   func setupLocationManager(_ viewController: CLLocationManagerDelegate) {
     locationManager = CLLocationManager()
     locationManager?.delegate = viewController
+    locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     locationManager?.requestWhenInUseAuthorization()
     locationManager?.requestLocation()
   }
