@@ -83,9 +83,13 @@ extension RecognizerViewController: AVCaptureVideoDataOutputSampleBufferDelegate
       guard let answer = answer,
             let similarity = output.classLabelProbs[answer]
       else { return }
-      if similarity > 60 {
+      if similarity > 0.6 {
         // TODO 成功畫面
-        self.navigationController?.popToRootViewController(animated: true)
+        print(answer)
+        self.captureSession.stopRunning()
+        DispatchQueue.main.async {
+          self.navigationController?.popToRootViewController(animated: true)
+        }
       }
       print(output.classLabel)
     } catch {

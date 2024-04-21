@@ -25,6 +25,7 @@ class ThirdTaskViewController: TaskViewController {
   // MARK: - Function
   @objc func recognizeButtonPressed() {
     let recogVC = RecognizerViewController()
+    recogVC.answer = "peanutsIceRoll"
     self.navigationController?.pushViewController(recogVC, animated: true)
   }
   

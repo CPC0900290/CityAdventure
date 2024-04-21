@@ -24,26 +24,6 @@ class SecondTaskViewController: MapViewController {
     CLLocation(latitude: 25.040142438686885, longitude: 121.53261622654674),
     CLLocation(latitude: 25.040164079443983, longitude: 121.53225794036803)
   ]
-  /*  [
-   121.47221825859378,
-   25.01281652230432
- ],
- [
-   121.47276545057179,
-   25.01311874015083
- ],
- [
-   121.47249347349543,
-   25.013511915653183
- ],
- [
-   121.47195275716086,
-   25.01322730366128
- ],
- [
-   121.47222797206024,
-   25.01281065398925
- ]*/
   private let testLocation: [CLLocation] = [
     CLLocation(latitude: 25.01281652230432, longitude: 121.47221825859378),
     CLLocation(latitude: 25.01311874015083, longitude: 121.47276545057179),
@@ -164,6 +144,9 @@ class SecondTaskViewController: MapViewController {
       if distance < 50 {
         arrivedTaskCount += 1
         showAlert()
+        if arrivedTaskCount > testLocation.count / 2 {
+          self.navigationController?.popViewController(animated: true)
+        }
       }
     }
     
