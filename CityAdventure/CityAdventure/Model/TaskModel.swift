@@ -6,7 +6,21 @@
 //
 
 import Foundation
-struct Episode: Codable {
+// struct EpisodeCollection: Codable, Hashable {
+//  var title: String
+//  var episodes: [Episode]
+//  var identifier = UUID().uuidString
+//  
+//  func hash(into hasher: inout Hasher) {
+//    hasher.combine(identifier)
+//  }
+//  
+//  static func == (lhs: EpisodeCollection, rhs: EpisodeCollection) -> Bool {
+//    return lhs.identifier == rhs.identifier
+//  }
+// }
+
+struct Episode: Codable, Hashable {
   var title: String
   var tasks: [String]
 }

@@ -41,6 +41,7 @@ class SecondTaskViewController: MapViewController {
     mapViewModel.setupLocationManager(self)
     mapViewModel.checkLocationAuthorization(mapView: mapView)
     setupUI()
+    setupNavItem()
     drawRoute(testLocation)
     locationManager?.startUpdatingLocation()
     locationManager?.startUpdatingHeading()
@@ -99,6 +100,8 @@ class SecondTaskViewController: MapViewController {
   
   // MARK: - Function
   @objc func lastPage() {
+    locationManager?.stopUpdatingLocation()
+    locationManager?.stopUpdatingHeading()
     self.navigationController?.popViewController(animated: true)
   }
   
@@ -139,12 +142,17 @@ class SecondTaskViewController: MapViewController {
     
     let originalCoordinate = userLocations.first?.coordinate
     userLocations.append(currentLocation)
+    print("======= userLocations: \(userLocations)")
+    print("======= locations: \(locations)")
     for location in testLocation {
       let distance = currentLocation.distance(from: location)
       if distance < 50 {
         arrivedTaskCount += 1
-        showAlert()
+//        showAlert()
+        print("Arrived task spot!!!!!!!!!!!!!!!!!!!!!!!!")
         if arrivedTaskCount > testLocation.count / 2 {
+          locationManager?.stopUpdatingLocation()
+          locationManager?.stopUpdatingHeading()
           self.navigationController?.popViewController(animated: true)
         }
       }

@@ -23,6 +23,8 @@
 		00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */; };
 		00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */; };
 		00BD657B2BCC1D880070E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */; };
+		00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */; };
+		00C1AC302BD583F500C10DA0 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2F2BD583F500C10DA0 /* Section.swift */; };
 		00C35F8F2BC7C18800AB7B7D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F8E2BC7C18800AB7B7D /* FirebaseAuth */; };
 		00C35F912BC7C18800AB7B7D /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F902BC7C18800AB7B7D /* FirebaseDatabaseSwift */; };
 		00C35F932BC7C18800AB7B7D /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F922BC7C18800AB7B7D /* FirebaseFirestoreSwift */; };
@@ -57,6 +59,8 @@
 		00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewModel.swift; sourceTree = "<group>"; };
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		00C1AC2F2BD583F500C10DA0 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		00C35F942BC7F27600AB7B7D /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		00C35F972BC822D600AB7B7D /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		00C66F2B2BCF7A8000B5DA62 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -138,6 +142,14 @@
 			path = SecondTask;
 			sourceTree = "<group>";
 		};
+		00B72E242BD5FC3A00F531C0 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		00B97F012BCD317B003E2327 /* FirstTask */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +165,7 @@
 			children = (
 				00C35F942BC7F27600AB7B7D /* TaskModel.swift */,
 				00A35D4F2BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel */,
+				00C1AC2F2BD583F500C10DA0 /* Section.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,10 +174,11 @@
 			isa = PBXGroup;
 			children = (
 				00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */,
+				00B72E242BD5FC3A00F531C0 /* Home */,
+				00CEB1382BCAC07400AC350B /* Task */,
 				00B97F012BCD317B003E2327 /* FirstTask */,
 				0094CD8F2BCE14FD00820BE5 /* SecondTask */,
 				0039BEBD2BD1209B00D8B20A /* ThirdTask */,
-				00CEB1382BCAC07400AC350B /* Task */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -376,6 +390,7 @@
 				00C66F2C2BCF7A8000B5DA62 /* MapViewModel.swift in Sources */,
 				00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */,
 				00CEB13C2BCAC15C00AC350B /* DraggableMarkerManager.swift in Sources */,
+				00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */,
 				00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */,
 				0039BEBF2BD120BD00D8B20A /* ThirdTaskViewController.swift in Sources */,
 				0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */,
@@ -383,6 +398,7 @@
 				00C35F952BC7F27600AB7B7D /* TaskModel.swift in Sources */,
 				0094CD932BCE992C00820BE5 /* MapPin.swift in Sources */,
 				0094CD912BCE151B00820BE5 /* SecondTaskViewController.swift in Sources */,
+				00C1AC302BD583F500C10DA0 /* Section.swift in Sources */,
 				00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */,
 				00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */,
 				00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */,
