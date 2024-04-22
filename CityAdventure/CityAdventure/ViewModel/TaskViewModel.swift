@@ -40,14 +40,15 @@ class TaskViewModel {
     }
   }
   
-  func fetchTask(episode: Episode, sendTask: @escaping ([TestTask]) -> Void) {
+  func fetchTask(episode: Episode, sendTask: @escaping ([Properties]) -> Void) {
     let tasks = episode.tasks
-    var results: [TestTask] = []
+    var results: [Properties] = []
     for task in tasks {
       guard let data = task.data(using: .utf8) else { return }
       do {
-        let result = try JSONDecoder().decode(TestTask.self, from: data)
-        results.append(result)
+        let geoResult = try JSONDecoder().decode(TaskLocations.self , from: data)
+        let properties = geoResult.features[0].properties
+        results.append(properties)
       } catch let error {
         print("fail to decode data from task: \(error)")
       }

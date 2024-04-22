@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MapKit
 // struct EpisodeCollection: Codable, Hashable {
 //  var title: String
 //  var episodes: [Episode]
@@ -22,6 +23,10 @@ import Foundation
 
 struct Episode: Codable, Hashable {
   var title: String
+  var content: String
+  var finishedTask: [Int] // String
+  var area: String
+  var image: String
   var tasks: [String]
 }
 
@@ -30,7 +35,6 @@ struct TestTask: Codable {
   var tilte: String
   var content: String
   var locationName: String
-  var locationDetail: LocationDetail?
   var locationAddress: String
   var questionAnswer: [QuestionAnswer]?
   var roadMapImg: String?
@@ -38,10 +42,41 @@ struct TestTask: Codable {
   var question: String?
 }
 
-struct LocationDetail: Codable {
-  var locationName: String
-  var locationAddress: String
-  var coordinate: String
+struct TaskLocations: Codable, Hashable {
+  let type: String
+  let features: [LocationPath]
+}
+
+struct LocationPath: Codable, Hashable {
+  let type: String
+  let properties: Properties
+  let geometry: Geometry
+}
+
+struct Properties: Codable, Hashable {
+  var identifier = UUID().uuidString
+  let id: String
+  let title: String
+  let content: String
+  let locationName: String
+  let locationAddress: String
+  var questionAnswerPair: [QuestionAnswer]?
+  var foodImage: String?
+  var task3Question: String?
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(identifier)
+  }
+  
+  static func == (lhs: Properties, rhs: Properties) -> Bool {
+    return lhs.identifier == rhs.identifier
+  }
+}
+
+struct Geometry: Codable, Hashable {
+  var coordinates: [[Float16]]?
+  var coordinate: [Float16]?
+  let type: String
 }
 
 struct QuestionAnswer: Codable {

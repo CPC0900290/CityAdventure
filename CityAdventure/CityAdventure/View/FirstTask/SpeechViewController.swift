@@ -11,7 +11,7 @@ import UIKit
 
 class SpeechViewController: TaskViewController {
   var question: String?
-  private var task: TestTask?
+  private var task: Properties?
   
   private let speechVM = SpeechViewModel()
   
@@ -37,7 +37,7 @@ class SpeechViewController: TaskViewController {
       speechButton.isEnabled = false
       speechButton.setTitle("Start Recording", for: .normal)
     } else {
-      guard let rightAnswer = task?.questionAnswer?[0].answer else { return }
+      guard let rightAnswer = task?.questionAnswerPair?[0].answer else { return }
       speechVM.startRecording(rightAnswer: rightAnswer,sender: speechButton) { isRightAnswer in
         if isRightAnswer {
           print("Correct Answer! Good job!")

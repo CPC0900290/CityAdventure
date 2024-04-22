@@ -14,6 +14,7 @@ class FireStoreManager {
   static var shared = FireStoreManager()
   let firestore = Firestore.firestore()
   var episode: Episode?
+  
   let testTaskA = TestTask(
     id: "0",
     tilte: "請找到隱藏的QRCode",
@@ -52,7 +53,12 @@ class FireStoreManager {
             let taskB = jsonStringB,
             let taskC = jsonStringC
       else { return }
-      episode = Episode(title: "宜蘭關卡", tasks: [taskA,taskB,taskC])
+      episode = Episode(title: "宜蘭關卡",
+                        content: "宜蘭關卡宜蘭關卡宜蘭關卡宜蘭關卡宜蘭關卡",
+                        finishedTask: [],
+                        area: "宜蘭",
+                        image: "Photo URL",
+                        tasks: [taskA,taskB,taskC])
       let test = firestore.collection("EpisodeList")
       let document = test.document()
       try document.setData(from: episode)

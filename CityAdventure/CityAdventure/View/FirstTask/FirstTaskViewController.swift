@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class FirstTaskViewController: TaskViewController {
-  private var task: TestTask?
+  private var task: Properties?
   
   override func viewDidLoad() {
     super.viewDidLoad()

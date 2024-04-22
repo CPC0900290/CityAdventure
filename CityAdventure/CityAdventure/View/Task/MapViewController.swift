@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 
 class MapViewController: UIViewController {
-  var task: [TestTask] = []
+  var task: [Properties] = []
   var locationManager: CLLocationManager?
   var mapViewModel = MapViewModel()
   

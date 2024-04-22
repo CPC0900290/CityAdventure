@@ -15,18 +15,20 @@ class TaskViewController: UIViewController {
   var episodeList: [Episode] = []
   var episodeForUser: Episode?
   var episodeID: String?
-  var taskList: [TestTask] = []
+  var taskList: [Properties] = []
+  let uploadEpisode = UploadEpisode()
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+//    uploadEpisode.postEpisode()
     //    FireStoreManager.shared.postEpisode()
     //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
     setupUI()
     setupTableView()
     setupMarkerView()
-    self.viewModel.fetchEpisode(id: "AaZY4nMF5UHierZessmh") { episode in
+    self.viewModel.fetchEpisode(id: "7gQpJaLfNW2YEE1RE35Y") { episode in
       self.episodeForUser = episode
       self.viewModel.fetchTask(episode: episode) { tasks in
         self.taskList = tasks
@@ -137,7 +139,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
     }
     viewModel.fetchTask(episode: episode) { task in
       cell.taskLabel.text = task[indexPath.row].content
-      cell.taskTitleLabel.text = task[indexPath.row].tilte
+      cell.taskTitleLabel.text = task[indexPath.row].title
     }
     return cell
   }

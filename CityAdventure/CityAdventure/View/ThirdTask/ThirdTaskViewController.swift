@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ThirdTaskViewController: TaskViewController {
-  private var task: TestTask?
+  private var task: Properties?
   
   override func viewDidLoad() {
     super.viewDidLoad()
