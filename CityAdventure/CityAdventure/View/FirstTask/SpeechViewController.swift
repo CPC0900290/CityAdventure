@@ -46,8 +46,8 @@ class SpeechViewController: TaskViewController {
           print(rightAnswer)
           print("Correct Answer! Good job!")
           guard let controllers = self.navigationController?.viewControllers else { return }
-          for vc in controllers {
-            if let taskVC = vc as? TaskViewController {
+          for viewcontroller in controllers {
+            if let taskVC = viewcontroller as? TaskViewController {
               self.navigationController?.popToViewController(taskVC, animated: true)
             }
           }
