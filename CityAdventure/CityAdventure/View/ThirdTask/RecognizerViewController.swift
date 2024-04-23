@@ -88,7 +88,12 @@ extension RecognizerViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         print(answer)
         self.captureSession.stopRunning()
         DispatchQueue.main.async {
-          self.navigationController?.popToRootViewController(animated: true)
+          guard let controllers = self.navigationController?.viewControllers else { return }
+          for vc in controllers {
+            if let taskVC = vc as? TaskViewController {
+              self.navigationController?.popToViewController(taskVC, animated: true)
+            }
+          }
         }
       }
       print(output.classLabel)

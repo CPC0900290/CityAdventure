@@ -48,6 +48,10 @@ class SecondTaskViewController: MapViewController {
     locationManager?.startUpdatingHeading()
   }
   
+  override func viewDidLayoutSubviews() {
+    taskView.layer.cornerRadius = taskView.frame.width / 10
+  }
+  
   // MARK: - UI Setup
   lazy var taskContentView: UIView = {
     let view = UIView()

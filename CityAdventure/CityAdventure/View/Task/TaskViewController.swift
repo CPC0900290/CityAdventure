@@ -41,7 +41,8 @@ class TaskViewController: UIViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    taskView.layer.cornerRadius = 100
+    taskView.layer.cornerRadius = taskView.frame.width / 10
+    tableView.layer.cornerRadius = tableView.frame.width / 10
   }
   
   @objc func lastPage() {
@@ -104,7 +105,7 @@ class TaskViewController: UIViewController {
   func setupTableView() {
     taskView.addSubview(tableView)
     tableView.isScrollEnabled = false
-    
+    tableView.backgroundColor = .white
     tableView.dataSource = self
     tableView.delegate = self
     tableView.rowHeight = tableView.estimatedRowHeight
@@ -167,6 +168,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
       case 0:
         let taskVC = FirstTaskViewController()
         taskVC.setupNavItem()
+        taskVC.task = self.taskList[0]
         taskVC.navigationItem.title = episode.title
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 1:

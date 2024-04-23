@@ -10,15 +10,15 @@ import UIKit
 import Kingfisher
 
 class FirstTaskViewController: TaskViewController {
-  private var task: Properties?
+  var task: Properties?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-    guard let episode = episodeForUser else { return }
-    viewModel.fetchTask(episode: episode) { task in
-      self.task = task[0]
-    }
+//    guard let episode = episodeForUser else { return }
+//    viewModel.fetchTask(episode: episode) { task in
+//      self.task = task[0]
+//    }
   }
   
   // MARK: - Function
