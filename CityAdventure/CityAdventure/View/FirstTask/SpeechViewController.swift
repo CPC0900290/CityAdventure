@@ -11,14 +11,16 @@ import UIKit
 
 class SpeechViewController: TaskViewController {
   var question: String?
-  private var task: Properties?
+  var task: Properties?
   
   private let speechVM = SpeechViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-    getTask()
+    guard let task = task else { return }
+    self.task = task
+//    getTask()
   }
   
   override func viewDidLayoutSubviews() {
@@ -38,8 +40,10 @@ class SpeechViewController: TaskViewController {
       speechButton.setTitle("Start Recording", for: .normal)
     } else {
       guard let rightAnswer = task?.questionAnswerPair?[0].answer else { return }
+      print("=======Mic open")
       speechVM.startRecording(rightAnswer: rightAnswer,sender: speechButton) { isRightAnswer in
         if isRightAnswer {
+          print(rightAnswer)
           print("Correct Answer! Good job!")
           self.navigationController?.popToRootViewController(animated: true)
         } else {
@@ -51,7 +55,9 @@ class SpeechViewController: TaskViewController {
   }
   
   func getTask() {
-    viewModel.fetchEpisode(id: "AaZY4nMF5UHierZessmh") { episode in
+    // ToFix
+    guard let episodeID = episodeID else { return }
+    viewModel.fetchEpisode(id: episodeID) { episode in
       self.viewModel.fetchTask(episode: episode) { task in
         self.task = task[0]
       }

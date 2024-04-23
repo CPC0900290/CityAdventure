@@ -11,7 +11,7 @@ import CoreLocation
 import MapKit
 
 class MapViewController: UIViewController {
-  var task: [Properties] = []
+  var tasks: [Properties] = []
   var locationManager: CLLocationManager?
   var mapViewModel = MapViewModel()
   
@@ -31,8 +31,13 @@ class MapViewController: UIViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-//    setPinUsingMKAnnotation(location: taskALocation)
-    setPinUsingMKPlacemark(address: "100台北市中正區仁愛路二段99號")
+    print(tasks)
+    let firstTaskAddress = tasks[0].locationAddress
+    let secondTaskAddress = tasks[1].locationAddress
+    let thirdTaskAddress = tasks[2].locationAddress
+    setPinUsingMKPlacemark(address: firstTaskAddress, title: "任務一")
+    setPinUsingMKPlacemark(address: secondTaskAddress, title: "任務二")
+    setPinUsingMKPlacemark(address: thirdTaskAddress, title: "任務三")
   }
   
   private func setupUI() {
@@ -47,7 +52,7 @@ class MapViewController: UIViewController {
     ])
   }
   
-  func setPinUsingMKPlacemark(address: String) {
+  func setPinUsingMKPlacemark(address: String, title: String) {
     let geocoder = CLGeocoder()
     geocoder.geocodeAddressString(address) { placeMark, error in
       if let error = error {
@@ -55,7 +60,7 @@ class MapViewController: UIViewController {
       } else {
         if let placemark = placeMark?.first?.location {
           let location = placemark.coordinate
-          let pin = MapPin(title: "任務一", locationName: "任務地點", coordinate: location)
+          let pin = MapPin(title: title, locationName: "任務地點", coordinate: location)
           let coordinateRegion = MKCoordinateRegion(center: pin.coordinate, latitudinalMeters: 800, longitudinalMeters: 800)
           self.mapView.setRegion(coordinateRegion, animated: true)
           self.mapView.addAnnotation(pin)

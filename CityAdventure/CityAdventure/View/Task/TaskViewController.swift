@@ -21,20 +21,27 @@ class TaskViewController: UIViewController {
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    uploadEpisode.postEpisode()
+//    uploadEpisode.postEpisode()
     //    FireStoreManager.shared.postEpisode()
     //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
     setupUI()
     setupTableView()
     setupMarkerView()
-    self.viewModel.fetchEpisode(id: "7gQpJaLfNW2YEE1RE35Y") { episode in
+    guard let episodeID = episodeID else { return }
+    self.viewModel.fetchEpisode(id: episodeID) { episode in
       self.episodeForUser = episode
       self.viewModel.fetchTask(episode: episode) { tasks in
         self.taskList = tasks
       }
       self.tableView.reloadData()
     }
+    setupNavItem()
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    taskView.layer.cornerRadius = 100
   }
   
   @objc func lastPage() {
@@ -43,6 +50,9 @@ class TaskViewController: UIViewController {
   
   // MARK: - UI Setup
   func setupNavItem() {
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationController?.navigationItem.largeTitleDisplayMode = .always
+    self.title = episodeForUser?.title
     let navBarItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(lastPage))
     navBarItem.tintColor = UIColor.white
     navigationItem.leftBarButtonItem = navBarItem
@@ -93,6 +103,8 @@ class TaskViewController: UIViewController {
   
   func setupTableView() {
     taskView.addSubview(tableView)
+    tableView.isScrollEnabled = false
+    
     tableView.dataSource = self
     tableView.delegate = self
     tableView.rowHeight = tableView.estimatedRowHeight
@@ -111,14 +123,18 @@ class TaskViewController: UIViewController {
     DraggableMarkerManager.shared.showMarker(in: self) {
       let mapVC = MapViewController()
       mapVC.modalPresentationStyle = .automatic
-      mapVC.task = self.taskList
-//      self.show(mapVC, sender: nil)
+      mapVC.tasks = self.taskList
       self.present(mapVC, animated: true)
     }
   }
 }
 
 extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    170
+  }
+  
   func numberOfSections(in tableView: UITableView) -> Int {
     1
   }
@@ -138,8 +154,8 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
       return UITableViewCell()
     }
     viewModel.fetchTask(episode: episode) { task in
-      cell.taskLabel.text = task[indexPath.row].content
-      cell.taskTitleLabel.text = task[indexPath.row].title
+      cell.taskLabel.text = task[indexPath.row].title
+      cell.taskTitleLabel.text = task[indexPath.row].content
     }
     return cell
   }
@@ -151,10 +167,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
       case 0:
         let taskVC = FirstTaskViewController()
         taskVC.setupNavItem()
-//        taskVC.navigationController?.navigationBar.prefersLargeTitles = true
-//        taskVC.navigationItem.largeTitleDisplayMode = .always
         taskVC.navigationItem.title = episode.title
-        taskVC.navigationItem.largeTitleDisplayMode = .always
         self.navigationController?.pushViewController(taskVC, animated: true)
       case 1:
         let taskVC = SecondTaskViewController()
@@ -163,6 +176,7 @@ extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
       case 2:
         let taskVC = ThirdTaskViewController()
         taskVC.setupNavItem()
+        taskVC.navigationItem.title = episode.title
         DraggableMarkerManager.shared.hideMarker()
         self.navigationController?.pushViewController(taskVC, animated: true)
       default:

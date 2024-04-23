@@ -60,6 +60,7 @@ class HomeViewController: UIViewController {
   
   private func setupNavigation() {
     self.title = "城市探險"
+    navigationController?.navigationItem.largeTitleDisplayMode = .never
   }
   
   // MARK: - Function
@@ -88,7 +89,7 @@ extension HomeViewController {
     return UICollectionViewCompositionalLayout { sectionNum, _ in
       let sections = self.sectionArray[sectionNum]
       switch sections {
-      case .profile: return self.firstLayoutSection()
+      case .profile: return self.zeroLayoutSection()
       case .doingEpisode: return self.firstLayoutSection()
       case .areaEpisode: return self.secondLayoutSection()
       case .episodeList: return self.thirdLayoutSection()
@@ -96,11 +97,23 @@ extension HomeViewController {
     }
   }
   
-  private func firstLayoutSection() -> NSCollectionLayoutSection {
+  private func zeroLayoutSection() -> NSCollectionLayoutSection {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize) // Whithout badge
     item.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 0)
     let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.fractionalWidth(0.3))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
+    let section = NSCollectionLayoutSection(group: group)
+    section.orthogonalScrollingBehavior = .groupPaging
+    return section
+  }
+  
+  private func firstLayoutSection() -> NSCollectionLayoutSection {
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+    let item = NSCollectionLayoutItem(layoutSize: itemSize) // Whithout badge
+    item.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 0)
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.fractionalWidth(0.8))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
     let section = NSCollectionLayoutSection(group: group)
@@ -142,18 +155,6 @@ extension HomeViewController {
     ]
     return section
   }
-  
-  private func fourthLayoutSection() -> NSCollectionLayoutSection {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-    let item = NSCollectionLayoutItem(layoutSize: itemSize) // Whithout badge
-    item.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 0)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension:.fractionalWidth(0.5))
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-    group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 2)
-    let section = NSCollectionLayoutSection(group: group)
-    section.orthogonalScrollingBehavior = .groupPaging
-    return section
-  }
 }
 
 // MARK: - UICollecitonViewDiffableDataSource
@@ -165,22 +166,22 @@ extension HomeViewController {
       switch section {
       case .profile:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as? ProfileCell else { return UICollectionViewCell() }
-        cell.userNameLabel.text = self.episodeList[0].title
-        cell.userTitleLabel.text = "Title"
+        cell.userNameLabel.text = self.profile.nickName
+        cell.userTitleLabel.text = self.profile.titleName
         return cell
       case .doingEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdventuringTaskCell.identifier, for: indexPath) as? AdventuringTaskCell else { return UICollectionViewCell() }
-        cell.adventuringTaskSloganLabel.text = "TestTestTestTestTest"
-        cell.adventuringSloganLabelB.text = "TestTestTestTestTest"
+        cell.adventuringTaskSloganLabel.text = "Let's Make Our"
+        cell.adventuringSloganLabelB.text = "Life so a Life"
 //        cell.adventuringTaskImg.kf.setImage(with: <#T##Source?#>)
         return cell
       case .areaEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreAreaCell.identifier, for: indexPath) as? ExploreAreaCell else { return UICollectionViewCell() }
-        cell.taskTitleLabel.text = "TestTestTestTestTest"
+        cell.taskTitleLabel.text = self.episodeList[indexPath.row].title
         return cell
       case .episodeList:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EpisodeCell.identifier, for: indexPath) as? EpisodeCell else { return UICollectionViewCell() }
-        cell.episodeTitleLabel.text = "TestTestTestTestTest"
+        cell.episodeTitleLabel.text = self.episodeList[indexPath.row].title
         return cell
       }
     })
@@ -193,7 +194,7 @@ extension HomeViewController {
         for: indexPath) as? TitleSupplementaryView {
 //
 //        let tutorialCollection = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-        titleSupplementaryView.textLabel.text = "EpisodeList"
+        titleSupplementaryView.textLabel.text = "\(sectionArray[indexPath.section])"
         
         return titleSupplementaryView
       } else {
@@ -222,5 +223,10 @@ extension HomeViewController {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
-  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    var taskVC = TaskViewController()
+    taskVC.episodeID = episodeIDList[indexPath.row]
+    taskVC.episodeForUser = episodeList[indexPath.row]
+    self.navigationController?.pushViewController(taskVC, animated: true)
+  }
 }

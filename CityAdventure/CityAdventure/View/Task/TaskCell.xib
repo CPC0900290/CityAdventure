@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="73" id="Rf2-Aj-02E" customClass="TaskViewCell" customModule="CityAdventure" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="406" height="73"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="114" id="Rf2-Aj-02E" customClass="TaskViewCell" customModule="CityAdventure" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="406" height="114"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rf2-Aj-02E" id="XGt-ym-6Up">
-                <rect key="frame" x="0.0" y="0.0" width="406" height="73"/>
+                <rect key="frame" x="0.0" y="0.0" width="406" height="114"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jk-eZ-a2A">
-                        <rect key="frame" x="30" y="10" width="42" height="21"/>
+                        <rect key="frame" x="30" y="9.9999999999999982" width="42" height="20.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N3X-gZ-eA4">
-                        <rect key="frame" x="182" y="26" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N3X-gZ-eA4">
+                        <rect key="frame" x="40" y="60.333333333333336" width="336" height="20.333333333333336"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -30,16 +30,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="3jk-eZ-a2A" firstAttribute="top" secondItem="XGt-ym-6Up" secondAttribute="top" constant="10" id="4fi-AS-ZTo"/>
+                    <constraint firstItem="3jk-eZ-a2A" firstAttribute="bottom" secondItem="N3X-gZ-eA4" secondAttribute="top" constant="-30" id="CLv-ir-Lut"/>
                     <constraint firstItem="3jk-eZ-a2A" firstAttribute="leading" secondItem="XGt-ym-6Up" secondAttribute="leading" constant="30" id="Hf2-q3-xuD"/>
-                    <constraint firstItem="N3X-gZ-eA4" firstAttribute="centerY" secondItem="XGt-ym-6Up" secondAttribute="centerY" id="I5R-Qk-q78"/>
-                    <constraint firstItem="N3X-gZ-eA4" firstAttribute="centerX" secondItem="XGt-ym-6Up" secondAttribute="centerX" id="pB9-G3-4Ss"/>
+                    <constraint firstItem="N3X-gZ-eA4" firstAttribute="leading" secondItem="XGt-ym-6Up" secondAttribute="leading" constant="40" id="SF5-KX-WzG"/>
+                    <constraint firstAttribute="trailing" secondItem="N3X-gZ-eA4" secondAttribute="trailing" constant="30" id="bFh-xz-zIl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="taskLabel" destination="3jk-eZ-a2A" id="e72-NH-Fic"/>
                 <outlet property="taskTitleLabel" destination="N3X-gZ-eA4" id="uiK-LS-qJI"/>
             </connections>
-            <point key="canvasLocation" x="250.38167938931298" y="-27.112676056338028"/>
+            <point key="canvasLocation" x="250.38167938931298" y="-12.67605633802817"/>
         </tableViewCell>
     </objects>
 </document>

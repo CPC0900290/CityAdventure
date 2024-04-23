@@ -14,6 +14,7 @@ class ScannerViewController: UIViewController {
   private var captureSession = AVCaptureSession()
   private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   private var qrCodeFrameView: UIView?
+  var task: Properties?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -93,6 +94,7 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
       if let question = object.stringValue {
         let speechVC = SpeechViewController()
         speechVC.question = question
+        speechVC.task = task
         self.navigationController?.pushViewController(speechVC, animated: true)
         self.captureSession.stopRunning()
       }

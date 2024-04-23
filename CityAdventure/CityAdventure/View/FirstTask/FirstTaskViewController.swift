@@ -24,6 +24,7 @@ class FirstTaskViewController: TaskViewController {
   // MARK: - Function
   @objc func pushToScanner() {
     let scannerVC = ScannerViewController()
+    scannerVC.task = task
     self.navigationController?.pushViewController(scannerVC, animated: true)
   }
   

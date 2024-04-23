@@ -11,8 +11,6 @@ import UIKit
 class TaskViewCell: UITableViewCell {
   @IBOutlet weak var taskLabel: UILabel!
   @IBOutlet weak var taskTitleLabel: UILabel!
-
-//  override class func awakeFromNib() {
-//    super.awakeFromNib()
-//  }
+  
+  override func setSelected(_ selected: Bool, animated: Bool) {}
 }

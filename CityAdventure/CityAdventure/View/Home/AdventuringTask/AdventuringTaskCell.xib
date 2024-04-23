@@ -34,9 +34,10 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYG-Bo-QWQ">
                                 <rect key="frame" x="210.66666666666666" y="112" width="120.33333333333334" height="35"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="繼續遊戲">
+                                <buttonConfiguration key="configuration" style="plain" title="繼續遊戲">
                                     <color key="baseForegroundColor" red="0.90588235294117647" green="0.94509803921568625" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                             </button>
@@ -68,6 +69,7 @@
                     <constraint firstAttribute="bottom" secondItem="4Fe-9e-OOT" secondAttribute="bottom" id="yrh-0l-fuV"/>
                 </constraints>
             </collectionViewCellContentView>
+            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <size key="customSize" width="361" height="196"/>
             <connections>
                 <outlet property="AdventuringSloganLabelB" destination="HtV-NM-eFo" id="wDC-9z-SOb"/>

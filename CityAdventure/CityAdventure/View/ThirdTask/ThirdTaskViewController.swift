@@ -98,7 +98,7 @@ class ThirdTaskViewController: TaskViewController {
     DraggableMarkerManager.shared.showMarker(in: self) {
       let mapVC = MapViewController()
       mapVC.modalPresentationStyle = .automatic
-      mapVC.task = self.taskList
+      mapVC.tasks = self.taskList
       self.present(mapVC, animated: true)
     }
   }

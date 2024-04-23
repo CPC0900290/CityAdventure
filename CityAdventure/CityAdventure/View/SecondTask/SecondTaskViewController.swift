@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class SecondTaskViewController: MapViewController {
+  var secondTask: Properties?
   private var taskRouteOverlay: MKOverlay?
 //  var currentPlacemark: CLPlacemark?
 //  var boundingMapRect: MKMapRect?
@@ -106,11 +107,12 @@ class SecondTaskViewController: MapViewController {
   }
   
   func setupNavItem() {
+    navigationController?.navigationBar.prefersLargeTitles = true
+    navigationController?.navigationItem.largeTitleDisplayMode = .always
+    self.title = "台北關卡"
     let navBarItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(lastPage))
     navBarItem.tintColor = UIColor.white
     navigationItem.leftBarButtonItem = navBarItem
-    navigationController?.navigationBar.prefersLargeTitles = true
-    
   }
   
   // 畫出給予座標集合的路徑
@@ -132,7 +134,7 @@ class SecondTaskViewController: MapViewController {
     }
   }
   
-  override func setPinUsingMKPlacemark(address: String) { }
+  override func setPinUsingMKPlacemark(address: String, title: String) { }
   
   // 畫出使用者路徑，並收集使用者路徑的array
   override func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
