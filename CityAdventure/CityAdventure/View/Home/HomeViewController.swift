@@ -11,11 +11,12 @@ import Kingfisher
 
 class HomeViewController: UIViewController {
   // MARK: - Property var
-  private var dataSource: UICollectionViewDiffableDataSource<Section, Episode>!
+  private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
   private var sectionArray: [Section] = Section.allCases
   private let viewModel = EpisodeViewModel()
   private var episodeIDList: [String] = []
   private var episodeList: [Episode] = []
+  private let profile = Profile(nickName: "陳品", titleName: "稱號", avatar: "")
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
@@ -73,7 +74,6 @@ class HomeViewController: UIViewController {
           self.episodeList.append(episode)
           dispatchGroup.leave()
         }
-        
       }
       dispatchGroup.notify(queue: .main) {
         self.setupUI()
@@ -158,7 +158,7 @@ extension HomeViewController {
 
 // MARK: - UICollecitonViewDiffableDataSource
 extension HomeViewController {
-  typealias EpisodeDataSource = UICollectionViewDiffableDataSource<Section, Episode>
+  typealias EpisodeDataSource = UICollectionViewDiffableDataSource<Section, Item>
   private func configDataSource() {
     dataSource = EpisodeDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, _ in
       let section = self.sectionArray[indexPath.section]
@@ -185,7 +185,7 @@ extension HomeViewController {
       }
     })
     
-    dataSource.supplementaryViewProvider = { [weak self] (collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView? in
+    dataSource.supplementaryViewProvider = { [weak self] (collectionView: UICollectionView, _: String, indexPath: IndexPath) -> UICollectionReusableView? in
       
       if let self = self, let titleSupplementaryView = collectionView.dequeueReusableSupplementaryView(
         ofKind: UICollectionView.elementKindSectionHeader,
@@ -203,14 +203,20 @@ extension HomeViewController {
   }
   
   private func configSnapshot() {
-    var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Episode>()
-    currentSnapshot.appendSections(sectionArray)
-    currentSnapshot.appendItems(episodeList)
+    var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+    sectionArray.forEach { section in
+      currentSnapshot.appendSections([section])
+    }
+    currentSnapshot.appendItems([.profile(profile)], toSection: .profile)
     
-//    currentSnapshot.appendItems(episodeList, toSection: .episodeList)
-//    currentSnapshot.appendItems(episodeList, toSection: .areaEpisode)
-//    currentSnapshot.appendItems(episodeList, toSection: .doingEpisode)
-//    currentSnapshot.appendItems(episodeList, toSection: .profile)
+    let episodeItems = episodeList.map { Item.episode($0) }
+    currentSnapshot.appendItems(episodeItems, toSection: .episodeList)
+    
+    let doingEpisodes = episodeList.filter { $0.area == "宜蘭" }.map { Item.episode($0) }
+    currentSnapshot.appendItems(doingEpisodes, toSection: .doingEpisode)
+    
+    let areaEpisodes = episodeList.filter { $0.area == "台北" }.map { Item.episode($0) }
+    currentSnapshot.appendItems(areaEpisodes, toSection: .areaEpisode)
     dataSource.apply(currentSnapshot, animatingDifferences: true)
   }
 }

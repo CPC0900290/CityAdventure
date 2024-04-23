@@ -13,3 +13,8 @@ enum Section: CaseIterable {
   case areaEpisode
   case episodeList
 }
+
+enum Item: Hashable {
+  case profile(Profile)
+  case episode(Episode)
+}

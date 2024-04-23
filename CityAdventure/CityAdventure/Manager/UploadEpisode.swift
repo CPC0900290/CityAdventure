@@ -72,10 +72,10 @@ class UploadEpisode {
             let taskB = jsonStringB,
             let taskC = jsonStringC
       else { return }
-      episode = Episode(title: "宜蘭關卡",
-                        content: "宜蘭關卡宜蘭關卡宜蘭關卡宜蘭關卡宜蘭關卡",
+      episode = Episode(title: "台北關卡",
+                        content: "台北關卡台北關卡台北關卡台北關卡台北關卡",
                         finishedTask: [],
-                        area: "宜蘭",
+                        area: "台北",
                         image: "Photo URL",
                         tasks: [taskA,taskB,taskC])
       let test = FireStoreManager.shared.firestore.collection("EpisodeList")

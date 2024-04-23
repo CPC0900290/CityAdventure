@@ -21,7 +21,7 @@ class TaskViewController: UIViewController {
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-//    uploadEpisode.postEpisode()
+    uploadEpisode.postEpisode()
     //    FireStoreManager.shared.postEpisode()
     //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
