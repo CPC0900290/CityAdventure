@@ -98,4 +98,22 @@ class FireStoreManager {
       getDocument(snapshot)
     }
   }
+  
+  func fetchFilteredDoc(collection: String, 
+                        field: String,
+                        with: String,
+                        sendFilteredDoc: @escaping ([String]) -> Void) {
+    firestore.collection(collection).whereField(field, isEqualTo: with).getDocuments { snapshots, error in
+      if let error = error { print(error) }
+      
+      guard let snapshots = snapshots else {
+        print("Get snapshot as nil when fetch document")
+        return
+      }
+      let list: [String] = snapshots.documents.map { document in
+        return document.documentID
+      }
+      sendFilteredDoc(list)
+    }
+  }
 }

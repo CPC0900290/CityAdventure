@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum Section {
+enum Section: CaseIterable {
+  case profile
   case doingEpisode
   case areaEpisode
   case episodeList
-  case finishedEpisode
 }
