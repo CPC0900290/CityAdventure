@@ -85,4 +85,15 @@ class UploadEpisode {
       print(error)
     }
   }
+  
+  func postProfile() {
+    do {
+      let profile = Profile(nickName: "Steven", titleName: "旅遊達人", avatar: "url", playingTaskID:  ["2FKfiPWF7OOAs1HsCHTB", "5PIzv445ELf88LS6s7pC"])
+      let test = FireStoreManager.shared.firestore.collection("EpisodeList")
+      let document = test.document()
+      try document.setData(from: episode)
+    } catch {
+      print(error)
+    }
+  }
 }

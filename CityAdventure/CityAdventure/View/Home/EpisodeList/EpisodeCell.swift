@@ -13,4 +13,10 @@ class EpisodeCell: UICollectionViewCell {
   
   @IBOutlet weak var episodeTitleLabel: UILabel!
   @IBOutlet weak var episodeImg: UIImageView!
+  
+  func update(with episode: Episode) {
+    episodeTitleLabel.text = episode.title
+    episodeImg.layer.cornerRadius = episodeImg.frame.width / 15
+    self.layer.cornerRadius = self.frame.width / 20
+  }
 }

@@ -133,7 +133,7 @@ class TaskViewController: UIViewController {
 extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    170
+    taskView.frame.height / 3
   }
   
   func numberOfSections(in tableView: UITableView) -> Int {

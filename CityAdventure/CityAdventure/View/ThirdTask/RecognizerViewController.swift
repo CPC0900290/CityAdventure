@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import AVFoundation
 import CoreML
-import Vision
+// import Vision
 
 class RecognizerViewController: UIViewController {
   var answer: String?

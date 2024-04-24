@@ -14,4 +14,9 @@ class ExploreAreaCell: UICollectionViewCell {
   @IBOutlet weak var taskTitleLabel: UILabel!
   @IBOutlet weak var exploreAreaImg: UIImageView!
   
+  func update(with episode: Episode) {
+    taskTitleLabel.text = episode.title
+    self.layer.cornerRadius = self.frame.width / 15
+    exploreAreaImg.layer.cornerRadius = exploreAreaImg.frame.width / 15
+  }
 }

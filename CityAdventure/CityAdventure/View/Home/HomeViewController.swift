@@ -16,12 +16,14 @@ class HomeViewController: UIViewController {
   private let viewModel = EpisodeViewModel()
   private var episodeIDList: [String] = []
   private var episodeList: [Episode] = []
-  private let profile = Profile(nickName: "陳品", titleName: "稱號", avatar: "")
+  private var adventuringEpisodes: [Episode] = []
+  private let profile = Profile(nickName: "陳品", titleName: "稱號", avatar: "", playingTaskID: ["2FKfiPWF7OOAs1HsCHTB", "5PIzv445ELf88LS6s7pC"])
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     fetchData()
+    fetchUserPlayingData()
 //    setupUI()
     setupNavigation()
   }
@@ -81,6 +83,15 @@ class HomeViewController: UIViewController {
       }
     }
   }
+  
+  private func fetchUserPlayingData() {
+    guard let episodeIDs = profile.playingTaskID else { return }
+    for episdoeID in episodeIDs {
+      viewModel.fetchEpisode(id: episdoeID) { episode in
+        self.adventuringEpisodes.append(episode)
+      }
+    }
+  }
 }
 
 extension HomeViewController {
@@ -100,7 +111,7 @@ extension HomeViewController {
   private func zeroLayoutSection() -> NSCollectionLayoutSection {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize) // Whithout badge
-    item.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 0)
+    item.contentInsets = .init(top: 5, leading: 0, bottom: 15, trailing: 0)
     let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.fractionalWidth(0.3))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
@@ -122,17 +133,18 @@ extension HomeViewController {
   }
   
   private func secondLayoutSection() -> NSCollectionLayoutSection {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.50),heightDimension: .fractionalHeight(1))
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    item.contentInsets = .init(top: 0, leading: 0, bottom: 15, trailing: 15)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),heightDimension: .estimated(200))
+    item.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 15)
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.32),heightDimension: .estimated(200))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     let section = NSCollectionLayoutSection(group: group)
-    section.contentInsets = .init(top: 0, leading: 0, bottom: 15, trailing: 0)
+//    section.contentInsets = .init(top: 0, leading: 15, bottom: 15, trailing: 15)
     section.contentInsets.leading = 15
     section.orthogonalScrollingBehavior = .continuous
     section.boundarySupplementaryItems = [
-    NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension:.fractionalWidth(1), heightDimension: .estimated(44)), 
+    NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension:.fractionalWidth(1),
+                                                                  heightDimension: .estimated(44)),
                                                 elementKind: UICollectionView.elementKindSectionHeader,
                                                 alignment:.topLeading)
     ]
@@ -143,13 +155,14 @@ extension HomeViewController {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: .absolute(100))
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: .fractionalWidth(0.7))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 1)
     group.interItemSpacing = .fixed(CGFloat(10))
     let section = NSCollectionLayoutSection(group: group)
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
     section.boundarySupplementaryItems = [
-    NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension:.fractionalWidth(1), heightDimension: .estimated(44)),
+    NSCollectionLayoutBoundarySupplementaryItem(layoutSize: .init(widthDimension:.fractionalWidth(1), 
+                                                                  heightDimension: .estimated(44)),
                                                 elementKind: UICollectionView.elementKindSectionHeader,
                                                 alignment:.topLeading)
     ]
@@ -171,17 +184,19 @@ extension HomeViewController {
         return cell
       case .doingEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdventuringTaskCell.identifier, for: indexPath) as? AdventuringTaskCell else { return UICollectionViewCell() }
-        cell.adventuringTaskSloganLabel.text = "Let's Make Our"
-        cell.adventuringSloganLabelB.text = "Life so a Life"
-//        cell.adventuringTaskImg.kf.setImage(with: <#T##Source?#>)
+//        cell.adventuringTaskSloganLabel.text = "Let's Make Our"
+//        cell.adventuringSloganLabelB.text = "Life so a Life"
+        cell.update(with: self.adventuringEpisodes[indexPath.row])
         return cell
       case .areaEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreAreaCell.identifier, for: indexPath) as? ExploreAreaCell else { return UICollectionViewCell() }
-        cell.taskTitleLabel.text = self.episodeList[indexPath.row].title
+        cell.update(with: self.episodeList[indexPath.row])
+//        cell.taskTitleLabel.text = self.episodeList[indexPath.row].title
         return cell
       case .episodeList:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EpisodeCell.identifier, for: indexPath) as? EpisodeCell else { return UICollectionViewCell() }
-        cell.episodeTitleLabel.text = self.episodeList[indexPath.row].title
+        cell.update(with: self.episodeList[indexPath.row])
+//        cell.episodeTitleLabel.text = self.episodeList[indexPath.row].title
         return cell
       }
     })
@@ -192,10 +207,8 @@ extension HomeViewController {
         ofKind: UICollectionView.elementKindSectionHeader,
         withReuseIdentifier: TitleSupplementaryView.reuseIdentifier,
         for: indexPath) as? TitleSupplementaryView {
-//
-//        let tutorialCollection = self.dataSource.snapshot().sectionIdentifiers[indexPath.section]
-        titleSupplementaryView.textLabel.text = "\(sectionArray[indexPath.section])"
         
+        titleSupplementaryView.textLabel.text = "\(sectionArray[indexPath.section])"
         return titleSupplementaryView
       } else {
         return UICollectionReusableView()
@@ -208,25 +221,44 @@ extension HomeViewController {
     sectionArray.forEach { section in
       currentSnapshot.appendSections([section])
     }
+    // Tofix
     currentSnapshot.appendItems([.profile(profile)], toSection: .profile)
     
     let episodeItems = episodeList.map { Item.episode($0) }
     currentSnapshot.appendItems(episodeItems, toSection: .episodeList)
     
-    let doingEpisodes = episodeList.filter { $0.area == "宜蘭" }.map { Item.episode($0) }
-    currentSnapshot.appendItems(doingEpisodes, toSection: .doingEpisode)
-    
     let areaEpisodes = episodeList.filter { $0.area == "台北" }.map { Item.episode($0) }
     currentSnapshot.appendItems(areaEpisodes, toSection: .areaEpisode)
+    
+    let adventuringEpisode = adventuringEpisodes.map { Item.episode($0) }
+    currentSnapshot.appendItems(adventuringEpisode, toSection: .doingEpisode)
     dataSource.apply(currentSnapshot, animatingDifferences: true)
   }
 }
 
 extension HomeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    var taskVC = TaskViewController()
-    taskVC.episodeID = episodeIDList[indexPath.row]
-    taskVC.episodeForUser = episodeList[indexPath.row]
-    self.navigationController?.pushViewController(taskVC, animated: true)
+    switch indexPath.section {
+    case 0:
+      print("Profile row is clicked, pop to ProfileVC")
+    case 1:
+      print("DoingEpisode is clicked, disable the select function")
+    case 2:
+      print("AreaEpisode is clicked, pop to spesific task")
+      let taskVC = TaskViewController()
+      // ToFix: 每個section會吃到的List應該會是不同的
+      taskVC.episodeID = episodeIDList[indexPath.row]
+      taskVC.episodeForUser = episodeList[indexPath.row]
+      self.navigationController?.pushViewController(taskVC, animated: true)
+    case 3:
+      print("EpisodeList is clicked, pop to spesific task")
+      // ToFix: 每個section會吃到的List應該會是不同的
+      let taskVC = TaskViewController()
+      taskVC.episodeID = episodeIDList[indexPath.row]
+      taskVC.episodeForUser = episodeList[indexPath.row]
+      self.navigationController?.pushViewController(taskVC, animated: true)
+    default:
+      break
+    }
   }
 }

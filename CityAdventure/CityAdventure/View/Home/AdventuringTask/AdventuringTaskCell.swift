@@ -15,4 +15,10 @@ class AdventuringTaskCell: UICollectionViewCell {
   @IBOutlet weak var adventuringSloganLabelB: UILabel!
   @IBOutlet weak var adventuringTaskSloganLabel: UILabel!
   @IBOutlet weak var adventuringTaskImg: UIImageView!
+  
+  func update(with episode: Episode) {
+    adventuringTaskSloganLabel.text = "Let's Make Our"
+    adventuringSloganLabelB.text = "Life so a Life"
+    self.layer.cornerRadius = self.frame.width / 20
+  }
 }
