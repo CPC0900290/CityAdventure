@@ -10,7 +10,7 @@ import Foundation
 enum Section: String, CaseIterable {
   case profile
   case doingEpisode
-  case areaEpisode = "推薦當地關卡"
+  case areaEpisode = "探索"
   case episodeList = "所有關卡"
 }
 

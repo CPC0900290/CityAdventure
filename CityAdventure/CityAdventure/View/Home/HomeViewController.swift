@@ -258,6 +258,8 @@ extension HomeViewController: UICollectionViewDelegate {
     switch indexPath.section {
     case 0:
       print("Profile row is clicked, pop to ProfileVC")
+      let profileVC = ProfileViewController()
+      navigationController?.pushViewController(profileVC, animated: true)
     case 1:
       print("DoingEpisode is clicked, disable the select function")
     case 2:

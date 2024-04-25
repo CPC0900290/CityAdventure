@@ -22,6 +22,7 @@ class EpisodeViewController: UIViewController {
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+//    uploadEpisode.postProfile()
 //    uploadEpisode.postEpisode()
     //    FireStoreManager.shared.postEpisode()
     //    FireStoreManager.shared.fetchTask()
