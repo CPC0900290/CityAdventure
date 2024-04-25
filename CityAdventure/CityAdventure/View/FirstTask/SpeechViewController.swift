@@ -9,7 +9,7 @@ import Foundation
 import Speech
 import UIKit
 
-class SpeechViewController: TaskViewController {
+class SpeechViewController: EpisodeViewController {
   var question: String?
   var task: Properties?
   
@@ -47,7 +47,7 @@ class SpeechViewController: TaskViewController {
           print("Correct Answer! Good job!")
           guard let controllers = self.navigationController?.viewControllers else { return }
           for viewcontroller in controllers {
-            if let taskVC = viewcontroller as? TaskViewController {
+            if let taskVC = viewcontroller as? EpisodeViewController {
               self.navigationController?.popToViewController(taskVC, animated: true)
             }
           }

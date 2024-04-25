@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum Section: CaseIterable {
+enum Section: String, CaseIterable {
   case profile
   case doingEpisode
-  case areaEpisode
-  case episodeList
+  case areaEpisode = "推薦當地關卡"
+  case episodeList = "所有關卡"
 }
 
 enum Item: Hashable {

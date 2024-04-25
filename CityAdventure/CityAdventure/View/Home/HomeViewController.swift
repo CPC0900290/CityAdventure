@@ -13,18 +13,25 @@ class HomeViewController: UIViewController {
   // MARK: - Property var
   private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
   private var sectionArray: [Section] = Section.allCases
-  private let viewModel = EpisodeViewModel()
+  private let viewModel = HomeViewModel()
   private var episodeIDList: [String] = []
   private var episodeList: [Episode] = []
+  private var areaEpisodes: [Episode] = []
   private var adventuringEpisodes: [Episode] = []
-  private let profile = Profile(nickName: "陳品", titleName: "稱號", avatar: "", playingTaskID: ["2FKfiPWF7OOAs1HsCHTB", "5PIzv445ELf88LS6s7pC"])
+  private let profile = Profile(nickName: "陳品",
+                                titleName: "稱號",
+                                avatar: "",
+                                adventuringEpisode: [AdventuringEpisode(episodeID: "2FKfiPWF7OOAs1HsCHTB", 
+                                                                   taskStatus: [false, false, false]),
+                                                AdventuringEpisode(episodeID: "5PIzv445ELf88LS6s7pC", 
+                                                                   taskStatus: [false, false, false])],
+                                finishedTaskID: [])
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     fetchData()
     fetchUserPlayingData()
-//    setupUI()
     setupNavigation()
   }
   
@@ -75,6 +82,9 @@ class HomeViewController: UIViewController {
         dispatchGroup.enter()
         self.viewModel.fetchEpisode(id: episodeID) { episode in
           self.episodeList.append(episode)
+          if episode.area == "台北" {
+            self.areaEpisodes.append(episode)
+          }
           dispatchGroup.leave()
         }
       }
@@ -85,12 +95,20 @@ class HomeViewController: UIViewController {
   }
   
   private func fetchUserPlayingData() {
-    guard let episodeIDs = profile.playingTaskID else { return }
-    for episdoeID in episodeIDs {
-      viewModel.fetchEpisode(id: episdoeID) { episode in
+    guard !profile.adventuringEpisode.isEmpty else { return }
+    for episdoe in profile.adventuringEpisode {
+      let id = episdoe.episodeID
+      viewModel.fetchEpisode(id: id) { episode in
         self.adventuringEpisodes.append(episode)
       }
     }
+  }
+  
+  @objc func segueToEpisode(_ sender: UIButton) {
+    guard !profile.adventuringEpisode.isEmpty else { return }
+    let episodeVC = EpisodeViewController()
+    episodeVC.episodeID = profile.adventuringEpisode[sender.tag].episodeID
+    navigationController?.pushViewController(episodeVC, animated: true)
   }
 }
 
@@ -139,7 +157,6 @@ extension HomeViewController {
     let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.32),heightDimension: .estimated(200))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     let section = NSCollectionLayoutSection(group: group)
-//    section.contentInsets = .init(top: 0, leading: 15, bottom: 15, trailing: 15)
     section.contentInsets.leading = 15
     section.orthogonalScrollingBehavior = .continuous
     section.boundarySupplementaryItems = [
@@ -179,24 +196,24 @@ extension HomeViewController {
       switch section {
       case .profile:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as? ProfileCell else { return UICollectionViewCell() }
-        cell.userNameLabel.text = self.profile.nickName
-        cell.userTitleLabel.text = self.profile.titleName
+        cell.update(with: self.profile)
         return cell
+        
       case .doingEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdventuringTaskCell.identifier, for: indexPath) as? AdventuringTaskCell else { return UICollectionViewCell() }
-//        cell.adventuringTaskSloganLabel.text = "Let's Make Our"
-//        cell.adventuringSloganLabelB.text = "Life so a Life"
         cell.update(with: self.adventuringEpisodes[indexPath.row])
+        cell.adventuringTaskButton.tag = indexPath.row
+        cell.adventuringTaskButton.addTarget(self, action: #selector(self.segueToEpisode(_:)), for: .touchUpInside)
         return cell
+        
       case .areaEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreAreaCell.identifier, for: indexPath) as? ExploreAreaCell else { return UICollectionViewCell() }
-        cell.update(with: self.episodeList[indexPath.row])
-//        cell.taskTitleLabel.text = self.episodeList[indexPath.row].title
+        cell.update(with: self.areaEpisodes[indexPath.row])
         return cell
+        
       case .episodeList:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EpisodeCell.identifier, for: indexPath) as? EpisodeCell else { return UICollectionViewCell() }
         cell.update(with: self.episodeList[indexPath.row])
-//        cell.episodeTitleLabel.text = self.episodeList[indexPath.row].title
         return cell
       }
     })
@@ -208,7 +225,7 @@ extension HomeViewController {
         withReuseIdentifier: TitleSupplementaryView.reuseIdentifier,
         for: indexPath) as? TitleSupplementaryView {
         
-        titleSupplementaryView.textLabel.text = "\(sectionArray[indexPath.section])"
+        titleSupplementaryView.textLabel.text = "\(sectionArray[indexPath.section].rawValue)"
         return titleSupplementaryView
       } else {
         return UICollectionReusableView()
@@ -227,8 +244,8 @@ extension HomeViewController {
     let episodeItems = episodeList.map { Item.episode($0) }
     currentSnapshot.appendItems(episodeItems, toSection: .episodeList)
     
-    let areaEpisodes = episodeList.filter { $0.area == "台北" }.map { Item.episode($0) }
-    currentSnapshot.appendItems(areaEpisodes, toSection: .areaEpisode)
+    let area = self.areaEpisodes.map { Item.episode($0) }
+    currentSnapshot.appendItems(area, toSection: .areaEpisode)
     
     let adventuringEpisode = adventuringEpisodes.map { Item.episode($0) }
     currentSnapshot.appendItems(adventuringEpisode, toSection: .doingEpisode)
@@ -245,7 +262,7 @@ extension HomeViewController: UICollectionViewDelegate {
       print("DoingEpisode is clicked, disable the select function")
     case 2:
       print("AreaEpisode is clicked, pop to spesific task")
-      let taskVC = TaskViewController()
+      let taskVC = EpisodeViewController()
       // ToFix: 每個section會吃到的List應該會是不同的
       taskVC.episodeID = episodeIDList[indexPath.row]
       taskVC.episodeForUser = episodeList[indexPath.row]
@@ -253,7 +270,7 @@ extension HomeViewController: UICollectionViewDelegate {
     case 3:
       print("EpisodeList is clicked, pop to spesific task")
       // ToFix: 每個section會吃到的List應該會是不同的
-      let taskVC = TaskViewController()
+      let taskVC = EpisodeViewController()
       taskVC.episodeID = episodeIDList[indexPath.row]
       taskVC.episodeForUser = episodeList[indexPath.row]
       self.navigationController?.pushViewController(taskVC, animated: true)

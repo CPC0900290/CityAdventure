@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ThirdTaskViewController: TaskViewController {
+class ThirdTaskViewController: EpisodeViewController {
   private var task: Properties?
   
   override func viewDidLoad() {

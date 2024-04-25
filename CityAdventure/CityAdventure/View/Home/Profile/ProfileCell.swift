@@ -15,4 +15,8 @@ class ProfileCell: UICollectionViewCell {
   @IBOutlet weak var userNameLabel: UILabel!
   @IBOutlet weak var profileImg: UIImageView!
   
+  func update(with profile: Profile) {
+    userTitleLabel.text = profile.titleName
+    userNameLabel.text = profile.nickName
+  }
 }

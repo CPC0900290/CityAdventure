@@ -88,10 +88,17 @@ class UploadEpisode {
   
   func postProfile() {
     do {
-      let profile = Profile(nickName: "Steven", titleName: "旅遊達人", avatar: "url", playingTaskID:  ["2FKfiPWF7OOAs1HsCHTB", "5PIzv445ELf88LS6s7pC"])
-      let test = FireStoreManager.shared.firestore.collection("EpisodeList")
+      let profile = Profile(nickName: "Steven", 
+                            titleName: "旅遊菜鳥",
+                            avatar: "url",
+                            adventuringEpisode: [AdventuringEpisode(episodeID: "2FKfiPWF7OOAs1HsCHTB",
+                                                               taskStatus: [false, false, false]),
+                                            AdventuringEpisode(episodeID: "5PIzv445ELf88LS6s7pC",
+                                                               taskStatus: [false, false, false])],
+                            finishedTaskID: [])
+      let test = FireStoreManager.shared.firestore.collection("Profile")
       let document = test.document()
-      try document.setData(from: episode)
+      try document.setData(from: profile)
     } catch {
       print(error)
     }

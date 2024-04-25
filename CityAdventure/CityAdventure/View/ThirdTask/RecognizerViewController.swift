@@ -90,7 +90,7 @@ extension RecognizerViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         DispatchQueue.main.async {
           guard let controllers = self.navigationController?.viewControllers else { return }
           for viewcontroller in controllers {
-            if let taskVC = viewcontroller as? TaskViewController {
+            if let taskVC = viewcontroller as? EpisodeViewController {
               self.navigationController?.popToViewController(taskVC, animated: true)
             }
           }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskViewController: UIViewController {
+class EpisodeViewController: UIViewController {
   
   let viewModel = TaskViewModel()
   private var tableView = UITableView()
@@ -16,6 +16,7 @@ class TaskViewController: UIViewController {
   var episodeForUser: Episode?
   var episodeID: String?
   var taskList: [Properties] = []
+  var taskStatus: [Bool] = []
   let uploadEpisode = UploadEpisode()
   
   // MARK: - Life Cycle
@@ -130,7 +131,7 @@ class TaskViewController: UIViewController {
   }
 }
 
-extension TaskViewController: UITableViewDelegate, UITableViewDataSource {
+extension EpisodeViewController: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     taskView.frame.height / 3

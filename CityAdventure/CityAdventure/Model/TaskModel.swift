@@ -17,18 +17,6 @@ struct Episode: Codable, Hashable {
   var tasks: [String]
 }
 
-struct TestTask: Codable {
-  var id: String
-  var tilte: String
-  var content: String
-  var locationName: String
-  var locationAddress: String
-  var questionAnswer: [QuestionAnswer]?
-  var roadMapImg: String?
-  var foodImg: String?
-  var question: String?
-}
-
 struct TaskLocations: Codable, Hashable {
   let type: String
   let features: [LocationPath]
