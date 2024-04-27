@@ -25,7 +25,7 @@ class HomeViewController: UIViewController {
                                                                    taskStatus: [false, false, false]),
                                                 AdventuringEpisode(episodeID: "5PIzv445ELf88LS6s7pC", 
                                                                    taskStatus: [false, false, false])],
-                                finishedTaskID: [])
+                                finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"])
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
@@ -57,10 +57,14 @@ class HomeViewController: UIViewController {
     collectionView.register(TitleSupplementaryView.self,
                             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                             withReuseIdentifier: TitleSupplementaryView.reuseIdentifier)
-    collectionView.register(UINib(nibName: "ProfileCell", bundle: nil), forCellWithReuseIdentifier: "ProfileCell")
-    collectionView.register(UINib(nibName: "AdventuringTaskCell", bundle: nil), forCellWithReuseIdentifier: "AdventuringTaskCell")
-    collectionView.register(UINib(nibName: "ExploreAreaCell", bundle: nil), forCellWithReuseIdentifier: "ExploreAreaCell")
-    collectionView.register(UINib(nibName: "EpisodeCell", bundle: nil), forCellWithReuseIdentifier: "EpisodeCell")
+    collectionView.register(UINib(nibName: "ProfileCell", bundle: nil), 
+                            forCellWithReuseIdentifier: "ProfileCell")
+    collectionView.register(UINib(nibName: "AdventuringTaskCell", bundle: nil), 
+                            forCellWithReuseIdentifier: "AdventuringTaskCell")
+    collectionView.register(UINib(nibName: "ExploreAreaCell", bundle: nil), 
+                            forCellWithReuseIdentifier: "ExploreAreaCell")
+    collectionView.register(UINib(nibName: "EpisodeCell", bundle: nil), 
+                            forCellWithReuseIdentifier: "EpisodeCell")
     configDataSource()
     configSnapshot()
     collectionView.collectionViewLayout = setupCVLayout()
@@ -127,35 +131,50 @@ extension HomeViewController {
   }
   
   private func zeroLayoutSection() -> NSCollectionLayoutSection {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), 
+                                          heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize) // Whithout badge
     item.contentInsets = .init(top: 5, leading: 0, bottom: 15, trailing: 0)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.fractionalWidth(0.3))
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                           heightDimension:.fractionalWidth(0.3))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, 
+                                                   subitems: [item])
     group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
+    
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPaging
     return section
   }
   
   private func firstLayoutSection() -> NSCollectionLayoutSection {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), 
+                                          heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize) // Whithout badge
     item.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 0)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.fractionalWidth(0.8))
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                           heightDimension:.fractionalWidth(0.8))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, 
+                                                   subitems: [item])
     group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
+    
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPaging
     return section
   }
   
   private func secondLayoutSection() -> NSCollectionLayoutSection {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),heightDimension: .fractionalHeight(1))
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                          heightDimension: .fractionalHeight(1))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     item.contentInsets = .init(top: 15, leading: 0, bottom: 15, trailing: 15)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.32),heightDimension: .estimated(200))
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.32),
+                                           heightDimension: .estimated(200))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, 
+                                                   subitems: [item])
+    
     let section = NSCollectionLayoutSection(group: group)
     section.contentInsets.leading = 15
     section.orthogonalScrollingBehavior = .continuous
@@ -169,12 +188,18 @@ extension HomeViewController {
   }
   
   private func thirdLayoutSection() -> NSCollectionLayoutSection {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: .fractionalHeight(1.0))
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                          heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: .fractionalWidth(0.7))
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 1)
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                           heightDimension: .fractionalWidth(0.7))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, 
+                                                   repeatingSubitem: item,
+                                                   count: 1)
     group.interItemSpacing = .fixed(CGFloat(10))
+    
     let section = NSCollectionLayoutSection(group: group)
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
     section.boundarySupplementaryItems = [
@@ -259,6 +284,7 @@ extension HomeViewController: UICollectionViewDelegate {
     case 0:
       print("Profile row is clicked, pop to ProfileVC")
       let profileVC = ProfileViewController()
+      profileVC.userProfile = profile
       navigationController?.pushViewController(profileVC, animated: true)
     case 1:
       print("DoingEpisode is clicked, disable the select function")

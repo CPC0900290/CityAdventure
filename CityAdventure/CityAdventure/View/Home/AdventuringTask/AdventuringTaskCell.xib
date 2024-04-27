@@ -77,10 +77,10 @@
             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <size key="customSize" width="426" height="260"/>
             <connections>
-                <outlet property="AdventuringSloganLabelB" destination="HtV-NM-eFo" id="wDC-9z-SOb"/>
-                <outlet property="AdventuringTaskButton" destination="CYG-Bo-QWQ" id="r5f-oi-lwU"/>
-                <outlet property="AdventuringTaskImg" destination="EFf-aj-cY8" id="pyu-mw-C7L"/>
-                <outlet property="AdventuringTaskSloganLabel" destination="dEZ-uH-IgV" id="QKz-yG-PxF"/>
+                <outlet property="adventuringSloganLabelB" destination="HtV-NM-eFo" id="XhW-uA-6Qv"/>
+                <outlet property="adventuringTaskButton" destination="CYG-Bo-QWQ" id="1ck-cb-dBa"/>
+                <outlet property="adventuringTaskImg" destination="EFf-aj-cY8" id="2AC-VX-3BD"/>
+                <outlet property="adventuringTaskSloganLabel" destination="dEZ-uH-IgV" id="wfk-UH-udN"/>
             </connections>
             <point key="canvasLocation" x="122.13740458015266" y="169.71830985915494"/>
         </collectionViewCell>

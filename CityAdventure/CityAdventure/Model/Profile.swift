@@ -12,7 +12,7 @@ struct Profile: Hashable, Codable {
   var titleName: String
   var avatar: String
   var adventuringEpisode: [AdventuringEpisode]
-  var finishedTaskID: [String]
+  var finishedEpisodeID: [String]
 }
 
 struct AdventuringEpisode: Hashable, Codable {

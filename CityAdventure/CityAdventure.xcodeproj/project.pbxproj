@@ -52,6 +52,7 @@
 		00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */; };
 		00CEB13C2BCAC15C00AC350B /* DraggableMarkerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB13B2BCAC15C00AC350B /* DraggableMarkerManager.swift */; };
 		00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB13D2BCAC4A900AC350B /* MapViewController.swift */; };
+		00D01B8E2BDC9A5400E4A0C7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D01B8D2BDC9A5400E4A0C7 /* ProfileViewModel.swift */; };
 		4F9BC837CF4611874DB058C0 /* Pods_CityAdventure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE49F8F3964B5A4ED19429 /* Pods_CityAdventure.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,7 @@
 		00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableMarkableView.swift; sourceTree = "<group>"; };
 		00CEB13B2BCAC15C00AC350B /* DraggableMarkerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableMarkerManager.swift; sourceTree = "<group>"; };
 		00CEB13D2BCAC4A900AC350B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		00D01B8D2BDC9A5400E4A0C7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		14E4FACD6FB28F2FC12BF553 /* Pods-CityAdventure.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityAdventure.release.xcconfig"; path = "Target Support Files/Pods-CityAdventure/Pods-CityAdventure.release.xcconfig"; sourceTree = "<group>"; };
 		A0AE49F8F3964B5A4ED19429 /* Pods_CityAdventure.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CityAdventure.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C75BC806E72FCE6F8B221B /* Pods-CityAdventure.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CityAdventure.debug.xcconfig"; path = "Target Support Files/Pods-CityAdventure/Pods-CityAdventure.debug.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */,
 				00C66F2B2BCF7A8000B5DA62 /* MapViewModel.swift */,
 				00C92D662BD75B1200631D3E /* HomeViewModel.swift */,
+				00D01B8D2BDC9A5400E4A0C7 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				00B72E3C2BD68DFE00F531C0 /* TitleSupplementaryView.swift in Sources */,
 				00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */,
 				00B72E382BD6749100F531C0 /* EpisodeCell.swift in Sources */,
+				00D01B8E2BDC9A5400E4A0C7 /* ProfileViewModel.swift in Sources */,
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,
 				00C92D672BD75B1200631D3E /* HomeViewModel.swift in Sources */,
 				00A629212BCCD7C100F72AC0 /* FirstTaskViewController.swift in Sources */,

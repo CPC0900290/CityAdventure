@@ -88,14 +88,14 @@ class UploadEpisode {
   
   func postProfile() {
     do {
-      let profile = Profile(nickName: "Steven", 
+      let profile = Profile(nickName: "陳品",
                             titleName: "旅遊菜鳥",
                             avatar: "url",
                             adventuringEpisode: [AdventuringEpisode(episodeID: "2FKfiPWF7OOAs1HsCHTB",
                                                                taskStatus: [false, false, false]),
                                             AdventuringEpisode(episodeID: "5PIzv445ELf88LS6s7pC",
                                                                taskStatus: [false, false, false])],
-                            finishedTaskID: [])
+                            finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"])
       let test = FireStoreManager.shared.firestore.collection("Profile")
       let document = test.document()
       try document.setData(from: profile)

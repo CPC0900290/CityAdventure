@@ -12,18 +12,17 @@ enum ProfileSection: String, CaseIterable {
   case main
 }
 
-enum ProfileItem: Hashable {
-  
-}
-
 class ProfileViewController: UIViewController {
   // MARK: - Properties
-  private var dataSource: UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>!
-  private var sectionArray = ProfileSection.allCases
+  private var dataSource: UICollectionViewDiffableDataSource<ProfileSection, String>!
+  var userProfile: Profile?
+  var finishedEpisodes: [Episode]?
+  private let viewModel = ProfileViewModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .black
+    fetchData()
     setupNavItem()
     setupUI()
   }
@@ -68,8 +67,9 @@ class ProfileViewController: UIViewController {
   }()
   
   lazy var collectionView: UICollectionView = {
-    let collectionView = UICollectionView()
-    collectionView.delegate = self
+    let layout = setupCVLayout()
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    collectionView.backgroundColor = .black
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     return collectionView
   }()
@@ -103,53 +103,78 @@ class ProfileViewController: UIViewController {
       collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
     ])
+    collectionView.register(UINib(nibName: "PostCell", bundle: nil),
+                            forCellWithReuseIdentifier: "PostCell")
+    configDataSource()
+    configSnapshot()
+    collectionView.collectionViewLayout = setupCVLayout()
+    collectionView.delegate = self
   }
   
   func setupNavItem() {
     navigationController?.navigationBar.prefersLargeTitles = true
     navigationController?.navigationItem.largeTitleDisplayMode = .always
     self.title = "個人檔案"
-    let navBarItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .plain, target: self, action: #selector(lastPage))
+    let navBarItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), 
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(lastPage))
     navBarItem.tintColor = UIColor.white
     navigationItem.leftBarButtonItem = navBarItem
   }
   
   private func setupCVLayout() -> UICollectionViewCompositionalLayout {
-    return UICollectionViewCompositionalLayout { sectionNum, _ in
-      let sections = self.sectionArray[sectionNum]
-      switch sections {
-      case .main: return self.zeroLayoutSection()
-      }
-    }
-  }
-  
-  private func zeroLayoutSection() -> NSCollectionLayoutSection {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-    let item = NSCollectionLayoutItem(layoutSize: itemSize) // Whithout badge
-    item.contentInsets = .init(top: 5, leading: 0, bottom: 15, trailing: 0)
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension:.fractionalWidth(0.3))
-    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-    group.contentInsets = .init(top: 0, leading: 15, bottom: 0, trailing: 15)
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                          heightDimension: .fractionalHeight(1.0))
+    let item = NSCollectionLayoutItem(layoutSize: itemSize)
+    item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+    
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
+                                           heightDimension: .estimated(150))
+    let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                   repeatingSubitem: item,
+                                                   count: 2)
+    
     let section = NSCollectionLayoutSection(group: group)
-    section.orthogonalScrollingBehavior = .groupPaging
-    return section
+    section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0)
+    return UICollectionViewCompositionalLayout(section: section)
   }
   
   // MARK: - Function
   @objc func lastPage() {
     self.navigationController?.popViewController(animated: true)
   }
+  
+  func fetchData() {
+    guard let profile = userProfile else { return }
+    for finishedTaskID in profile.finishedEpisodeID {
+      viewModel.fetchEpisode(id: finishedTaskID) { episode in
+        self.finishedEpisodes?.append(episode)
+      }
+    }
+  }
 }
 
-extension HomeViewController {
-  typealias ProfileDataSource = UICollectionViewDiffableDataSource<ProfileSection, ProfileItem>
+extension ProfileViewController {
+  typealias ProfileDataSource = UICollectionViewDiffableDataSource<ProfileSection, String>
   private func configDataSource() {
-    
+    dataSource = ProfileDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, _ in
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.identifier, for: indexPath) as? PostCell else {
+        print("ProfileVC PostCell fail to init")
+        return UICollectionViewCell()
+      }
+      cell.layer.cornerRadius = cell.frame.width / 10
+      cell.postImg.image = UIImage(systemName: "figure.play")
+      return cell
+    })
   }
   
   private func configSnapshot() {
-    var currentSnapshot = NSDiffableDataSourceSnapshot<ProfileSection, ProfileItem>()
-    
+    var currentSnapshot = NSDiffableDataSourceSnapshot<ProfileSection, String>()
+    guard let finishedEpisodes = userProfile?.finishedEpisodeID else { return }
+    currentSnapshot.appendSections(ProfileSection.allCases)
+    currentSnapshot.appendItems(finishedEpisodes, toSection: .main)
+    dataSource.apply(currentSnapshot)
   }
 }
 
