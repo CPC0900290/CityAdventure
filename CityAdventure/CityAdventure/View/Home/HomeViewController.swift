@@ -290,11 +290,14 @@ extension HomeViewController: UICollectionViewDelegate {
       print("DoingEpisode is clicked, disable the select function")
     case 2:
       print("AreaEpisode is clicked, pop to spesific task")
-      let taskVC = EpisodeViewController()
-      // ToFix: 每個section會吃到的List應該會是不同的
-      taskVC.episodeID = episodeIDList[indexPath.row]
-      taskVC.episodeForUser = episodeList[indexPath.row]
-      self.navigationController?.pushViewController(taskVC, animated: true)
+      let episodeDetailVC = EpisodeDetailViewController()
+      episodeDetailVC.episode = episodeList[indexPath.row]
+      self.navigationController?.pushViewController(episodeDetailVC, animated: true)
+//      let taskVC = EpisodeViewController()
+//      // ToFix: 每個section會吃到的List應該會是不同的
+//      taskVC.episodeID = episodeIDList[indexPath.row]
+//      taskVC.episodeForUser = episodeList[indexPath.row]
+//      self.navigationController?.pushViewController(taskVC, animated: true)
     case 3:
       print("EpisodeList is clicked, pop to spesific task")
       // ToFix: 每個section會吃到的List應該會是不同的

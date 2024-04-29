@@ -13,23 +13,6 @@ class MapViewModel {
   var locationManager: CLLocationManager?
   
   // MARK: - Function
-//  func fetchLocation(task: TestTask, sendLocation: @escaping ([MKGeoJSONFeature]) -> Void) {
-//    let location = task.locationAddress
-//    guard let data = location.data(using: .utf8) else { return }
-//    do {
-//      if let features = try MKGeoJSONDecoder().decode(data) as? [MKGeoJSONFeature] {
-//        for feature in features {
-//          if let data = feature.properties,
-//             let taskLocationDetail = try? JSONDecoder().decode(LocationDetail.self, from: data) {
-//            print(taskLocationDetail, feature.geometry[0].coordinate)
-//          }
-//        }
-//      }
-//    } catch {
-//      fatalError("Fail to decode data from location: \(error)")
-//    }
-//  }
-  
   func setPinUsingMKAnnotation(mapView: MKMapView ,location: CLLocationCoordinate2D) {
     let pin1 = MapPin(title: "任務一", locationName: "任務地點", coordinate: location)
     let coordinateRegion = MKCoordinateRegion(center: pin1.coordinate, latitudinalMeters: 800, longitudinalMeters: 800)

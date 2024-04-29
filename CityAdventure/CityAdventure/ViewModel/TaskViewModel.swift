@@ -53,7 +53,6 @@ class TaskViewModel {
         print("fail to decode data from task: \(error)")
       }
     }
-//    print("send testTask array from viewModel: \(results)")
     sendTask(results)
   }
 }

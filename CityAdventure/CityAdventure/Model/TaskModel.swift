@@ -14,7 +14,7 @@ struct Episode: Codable, Hashable {
   var finishedTask: [Int] // String
   var area: String
   var image: String
-  var tasks: [String]
+  var tasks: [String] //TaskLocations
 }
 
 struct TaskLocations: Codable, Hashable {
