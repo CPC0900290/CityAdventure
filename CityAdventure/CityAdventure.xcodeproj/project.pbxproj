@@ -32,6 +32,7 @@
 		00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F022BCD31C7003E2327 /* ScannerViewController.swift */; };
 		00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */; };
 		00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */; };
+		00B989792BDF885500C695D7 /* MKCoordinateRegionExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */; };
 		00BD657B2BCC1D880070E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */; };
 		00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */; };
 		00C1AC302BD583F500C10DA0 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2F2BD583F500C10DA0 /* Section.swift */; };
@@ -89,6 +90,7 @@
 		00B97F022BCD31C7003E2327 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewModel.swift; sourceTree = "<group>"; };
+		00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegionExt.swift; sourceTree = "<group>"; };
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		00C1AC2F2BD583F500C10DA0 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				00CEB1322BCA87D900AC350B /* UIColorExt.swift */,
+				00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */,
 				00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */,
 				00D01B992BDEB27100E4A0C7 /* TaskDetailView.swift in Sources */,
+				00B989792BDF885500C695D7 /* MKCoordinateRegionExt.swift in Sources */,
 				00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */,
 				00B72E282BD63B2C00F531C0 /* ProfileCell.swift in Sources */,
 				00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */,

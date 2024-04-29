@@ -11,6 +11,7 @@ import Kingfisher
 
 class HomeViewController: UIViewController {
   // MARK: - Property var
+  let uploadEpisode = UploadEpisode()
   private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
   private var sectionArray: [Section] = Section.allCases
   private let viewModel = HomeViewModel()
@@ -25,11 +26,13 @@ class HomeViewController: UIViewController {
                                                                    taskStatus: [false, false, false]),
                                                 AdventuringEpisode(episodeID: "5PIzv445ELf88LS6s7pC", 
                                                                    taskStatus: [false, false, false])],
-                                finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"])
+                                finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"], id: "213")
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+//    uploadEpisode.postProfile()
+//    uploadEpisode.postEpisode()
     fetchData()
     fetchUserPlayingData()
     setupNavigation()
@@ -292,6 +295,7 @@ extension HomeViewController: UICollectionViewDelegate {
       print("AreaEpisode is clicked, pop to spesific task")
       let episodeDetailVC = EpisodeDetailViewController()
       episodeDetailVC.episode = episodeList[indexPath.row]
+      episodeDetailVC.user = profile
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
 //      let taskVC = EpisodeViewController()
 //      // ToFix: 每個section會吃到的List應該會是不同的

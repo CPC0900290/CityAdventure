@@ -62,4 +62,21 @@ class FireStoreManager {
       sendFilteredDoc(list)
     }
   }
+  
+  func updateUserProfile(userID: String, adventuringEpisode: AdventuringEpisode) {
+    do {
+      let userProfile = firestore.collection("Profile").document(userID)
+      userProfile.getDocument { snapshot, error in
+        do {
+          guard let data = try snapshot?.data(as: Profile.self)
+          else { return }
+          var newAdventuringEpisode = data.adventuringEpisode
+          newAdventuringEpisode.append(adventuringEpisode)
+          try userProfile.setData(from: newAdventuringEpisode, mergeFields: ["adventuringEpisode"])
+        } catch {
+          print("FireStoreManager fail to get Profile document: \(error)")
+        }
+      }
+    }
+  }
 }

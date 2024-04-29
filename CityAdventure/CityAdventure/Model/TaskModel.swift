@@ -14,7 +14,8 @@ struct Episode: Codable, Hashable {
   var finishedTask: [Int] // String
   var area: String
   var image: String
-  var tasks: [String] //TaskLocations
+  var tasks: [String] // TaskLocations
+  var id: String
 }
 
 struct TaskLocations: Codable, Hashable {
@@ -49,8 +50,8 @@ struct Properties: Codable, Hashable {
 }
 
 struct Geometry: Codable, Hashable {
-  var coordinates: [[Float16]]?
-  var coordinate: [Float16]?
+  var coordinates: [[Float64]]?
+  var coordinate: [Float64]?
   let type: String
 }
 

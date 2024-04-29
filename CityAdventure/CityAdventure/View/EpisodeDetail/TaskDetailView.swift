@@ -14,7 +14,6 @@ class TaskDetailView: UIView {
   
   private lazy var backgroundMaterial: UIVisualEffectView = {
     let view = UIVisualEffectView(effect: blurEffect)
-    view.layer.cornerRadius = 30
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()

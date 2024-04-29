@@ -17,7 +17,7 @@ class UploadEpisode {
                                                                                locationName: "AppWorks School",
                                                                                locationAddress: "100台北市中正區仁愛路二段99號",
                                                                                questionAnswerPair: [QuestionAnswer(question: "問題A", answer: "答案B")]),
-                                                        geometry: Geometry(coordinates: [[121.53252886867381, 25.03838950447114]], type: "Point"))])
+                                                        geometry: Geometry(coordinate: [121.53252886867381, 25.03838950447114], type: "Point"))])
   let testTaskB = TaskLocations(type: "FeatureCollection",
                                 features: [LocationPath(type: "Feature",
                                                         properties: Properties(id: "1",
@@ -25,7 +25,7 @@ class UploadEpisode {
                                                                                content: "任務二任務二任務二任務二任務二",
                                                                                locationName: "大安森林公園",
                                                                                locationAddress: "106台北市大安區新生南路二段1號"),
-                                                        geometry: Geometry(coordinates: [[121.53305121747286, 25.03332233595731]], 
+                                                        geometry: Geometry(coordinate: [121.53305121747286, 25.03332233595731],
                                                                            type: "Point")),
                                            LocationPath(type: "Feature",
                                                         properties: Properties(id: "1",
@@ -59,9 +59,12 @@ class UploadEpisode {
                                                                                locationAddress: "100台北市中正區仁愛路二段99號",
                                                                                questionAnswerPair: [QuestionAnswer(question: "食物描述，想想這是什麼吧！",
                                                                                                                    answer: "peanutsIceRoll")]),
-                                                        geometry: Geometry(coordinates: [[121.53252886867381, 25.03838950447114]], type: "Point"))])
+                                                        geometry: Geometry(coordinate: [121.53252886867381, 25.03838950447114], type: "Point"))])
   func postEpisode() {
     do {
+      let test = FireStoreManager.shared.firestore.collection("EpisodeList")
+      let document = test.document()
+      
       let jsonDataA = try JSONEncoder().encode(testTaskA)
       let jsonDataB = try JSONEncoder().encode(testTaskB)
       let jsonDataC = try JSONEncoder().encode(testTaskC)
@@ -77,9 +80,8 @@ class UploadEpisode {
                         finishedTask: [],
                         area: "台北",
                         image: "Photo URL",
-                        tasks: [taskA,taskB,taskC])
-      let test = FireStoreManager.shared.firestore.collection("EpisodeList")
-      let document = test.document()
+                        tasks: [taskA,taskB,taskC],
+                        id: document.documentID)
       try document.setData(from: episode)
     } catch {
       print(error)
@@ -88,6 +90,7 @@ class UploadEpisode {
   
   func postProfile() {
     do {
+      let test = FireStoreManager.shared.firestore.collection("Profile").document()
       let profile = Profile(nickName: "陳品",
                             titleName: "旅遊菜鳥",
                             avatar: "url",
@@ -95,10 +98,10 @@ class UploadEpisode {
                                                                taskStatus: [false, false, false]),
                                             AdventuringEpisode(episodeID: "5PIzv445ELf88LS6s7pC",
                                                                taskStatus: [false, false, false])],
-                            finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"])
-      let test = FireStoreManager.shared.firestore.collection("Profile")
-      let document = test.document()
-      try document.setData(from: profile)
+                            finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"], id: test.documentID)
+//      let document = test.document()
+      
+      try test.setData(from: profile)
     } catch {
       print(error)
     }

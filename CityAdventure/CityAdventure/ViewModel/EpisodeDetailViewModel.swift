@@ -48,15 +48,14 @@ class EpisodeDetailViewModel {
     locationManager?.requestLocation()
   }
   
-  func fetchTask(episode: Episode, sendTask: @escaping ([LocationPath]) -> Void) {
+  func fetchTask(episode: Episode, sendTask: @escaping ([TaskLocations]) -> Void) {
     let tasks = episode.tasks
-    var results: [LocationPath] = []
+    var results: [TaskLocations] = []
     for task in tasks {
       guard let data = task.data(using: .utf8) else { return }
       do {
-        let taskLocations = try JSONDecoder().decode(TaskLocations.self , from: data)
-        let locationPaths = taskLocations.features
-        results = locationPaths
+        let taskLocation = try JSONDecoder().decode(TaskLocations.self , from: data)
+        results.append(taskLocation)
       } catch let error {
         print("fail to decode data from task: \(error)")
       }
@@ -64,27 +63,37 @@ class EpisodeDetailViewModel {
     sendTask(results)
   }
   
-  func fetchCoordinate(locationPaths: [LocationPath], sendLocation: @escaping ([CLLocationCoordinate2D]) -> Void) {
+  func fetchCoordinate(taskLocations: [TaskLocations], sendLocation: @escaping ([CLLocationCoordinate2D]) -> Void) {
     var taskLocationList: [CLLocationCoordinate2D] = []
-    for locationPath in locationPaths {
-      guard let points = locationPath.geometry.coordinate else { return }
+    for taskLocation in taskLocations {
+      let locationPath = taskLocation.features
+      guard let points = locationPath.first?.geometry.coordinate else { return }
       taskLocationList.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(points[0]),
                                                      longitude: CLLocationDegrees(points[1])))
+      
     }
     sendLocation(taskLocationList)
   }
   
-  func fetchAnnotation(locationPaths: [LocationPath], sendLocation: @escaping ([CustomAnnotation]) -> Void) {
+  func fetchAnnotation(taskLocations: [TaskLocations], sendLocation: @escaping ([CustomAnnotation]) -> Void) {
     var taskLocationList: [CustomAnnotation] = []
-    for locationPath in locationPaths {
-      guard let points = locationPath.geometry.coordinate else { return }
+    for taskLocation in taskLocations {
+      let locationPath = taskLocation.features
+      guard let location = locationPath.first,
+            let points = location.geometry.coordinate
+      else { return }
       let coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(points[0]),
                                               longitude: CLLocationDegrees(points[1]))
       let annotation = CustomAnnotation(coordinate: coordinate)
-      annotation.title = locationPath.properties.title
-      annotation.subtitle = locationPath.properties.locationName
+      annotation.title = locationPath.first?.properties.title
+      annotation.subtitle = locationPath.first?.properties.locationName
       taskLocationList.append(annotation)
     }
     sendLocation(taskLocationList)
+  }
+  
+  func updateUserPlayingList(user: Profile,_ adventuringEpisode: AdventuringEpisode) {
+    // Doing
+    FireStoreManager.shared.updateUserProfile(userID: user.id, adventuringEpisode: adventuringEpisode)
   }
 }

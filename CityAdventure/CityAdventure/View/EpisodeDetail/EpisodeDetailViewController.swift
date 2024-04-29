@@ -5,8 +5,7 @@
 //  Created by Pin Chen on 2024/4/27.
 //
 /* 
- TODO - UI Design
-      - UI layout
+ TODO - UI layout
       - set data to UI, Get episodeID & episode from HomeVC
       - create ViewModel - post episodeID to Profile if button clicked
       - Start Task Button logic, add episode to Profile & segue to EpisodeVC
@@ -20,7 +19,8 @@ class EpisodeDetailViewController: UIViewController {
   
   // MARK: - Properties
   var episode: Episode?
-  private var tasks: [LocationPath] = []
+  var user: Profile?
+  private var tasks: [TaskLocations] = []
   private var viewModel = EpisodeDetailViewModel()
   private var locationManager: CLLocationManager?
   private var allAnnotations: [MKAnnotation]?
@@ -43,6 +43,7 @@ class EpisodeDetailViewController: UIViewController {
     let taskDetailView = TaskDetailView()
     taskDetailView.titleLabel.text = "EpisodeTitle"
     taskDetailView.taskContentLabel.text = "EpisodeDescription"
+    taskDetailView.startButton.addTarget(self, action: #selector(startPlaying), for: .touchUpInside)
     taskDetailView.translatesAutoresizingMaskIntoConstraints = false
     return taskDetailView
   }()
@@ -53,6 +54,7 @@ class EpisodeDetailViewController: UIViewController {
     button.setTitleColor(.black, for: .normal)
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
+    button.tag = 0
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()
@@ -64,6 +66,7 @@ class EpisodeDetailViewController: UIViewController {
     button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
+    button.tag = 1
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()
@@ -75,6 +78,7 @@ class EpisodeDetailViewController: UIViewController {
     button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
+    button.tag = 2
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
   }()
@@ -90,9 +94,11 @@ class EpisodeDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupNavItem()
+//    viewModel.setupLocationManager(self)
     getTasksAndLocations()
     setupUI()
     registerMapAnnotationViews()
+    centerMapForEpisode()
   }
   
   override func viewDidLayoutSubviews() {
@@ -138,16 +144,38 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   private func registerMapAnnotationViews() {
-    mapView.register(CustomAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(CustomAnnotation.self))
+    mapView.register(MKMarkerAnnotationView.self, forAnnotationViewWithReuseIdentifier: NSStringFromClass(CustomAnnotation.self))
   }
   
   // MARK: - Functions
+  @objc private func startPlaying() {
+    guard let episode = episode,
+          let user = user
+    else { return }
+    let adventuringEpisode = AdventuringEpisode(episodeID: episode.id, taskStatus: [false, false, false])
+    viewModel.updateUserPlayingList(user: user, adventuringEpisode)
+    let episodeVC = EpisodeViewController()
+    episodeVC.episodeForUser = episode
+    self.navigationController?.pushViewController(episodeVC, animated: true)
+  }
+  
+  private func centerMapForEpisode() {
+//    viewModel.fetchCoordinate(taskLocations: tasks) { coordinates in
+//      let region = MKCoordinateRegion(coordinates: coordinates)
+//      self.mapView.setRegion(region, animated: true)
+//    }
+    let span = MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
+    let center = CLLocationCoordinate2D(latitude: 25.03838950447114, longitude: 121.53252886867381)
+    mapView.setRegion(MKCoordinateRegion(center: center, span: span), animated: true)
+  }
+  
   private func getTasksAndLocations() {
     guard let episode = episode else { return }
-    viewModel.fetchTask(episode: episode) { locationPaths in
-      self.tasks = locationPaths
-      self.viewModel.fetchAnnotation(locationPaths: self.tasks) { annotations in
+    viewModel.fetchTask(episode: episode) { taskLocations in
+      self.tasks = taskLocations
+      self.viewModel.fetchAnnotation(taskLocations: self.tasks) { annotations in
         self.allAnnotations = annotations
+        self.showAllAnnotations(self)
       }
     }
   }
@@ -165,7 +193,11 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   @objc private func showTasksAnnotation(_ sender: Any) {
-    
+    displayOne(CustomAnnotation.self)
+  }
+  
+  @objc private func showAllAnnotations(_ snder: Any) {
+    displayedAnnotations = allAnnotations
   }
   
   @objc func lastPage() {
@@ -182,5 +214,33 @@ class EpisodeDetailViewController: UIViewController {
                                      action: #selector(lastPage))
     navBarItem.tintColor = UIColor.white
     navigationItem.leftBarButtonItem = navBarItem
+  }
+}
+
+extension EpisodeDetailViewController: MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    
+    guard !annotation.isKind(of: MKUserLocation.self) else {
+      return nil
+    }
+    
+    var annotationView: MKAnnotationView?
+    
+    if let annotation = annotation as? CustomAnnotation {
+      annotationView = setupCustomAnnotationView(for: annotation, on: mapView)
+    }
+    
+    return annotationView
+  }
+  
+  private func setupCustomAnnotationView(for annotation: CustomAnnotation, on mapView: MKMapView) -> MKAnnotationView {
+    let identifier = NSStringFromClass(CustomAnnotation.self)
+    let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
+    if let markerAnnotationView = view as? MKMarkerAnnotationView {
+      markerAnnotationView.animatesWhenAdded = true
+//      markerAnnotationView.canShowCallout = true
+      markerAnnotationView.markerTintColor = UIColor(hex: "E7F161", alpha: 1)
+    }
+    return view
   }
 }

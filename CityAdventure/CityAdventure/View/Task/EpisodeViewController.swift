@@ -17,27 +17,21 @@ class EpisodeViewController: UIViewController {
   var episodeID: String?
   var taskList: [Properties] = []
   var taskStatus: [Bool] = []
-  let uploadEpisode = UploadEpisode()
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-//    uploadEpisode.postProfile()
-//    uploadEpisode.postEpisode()
     //    FireStoreManager.shared.postEpisode()
     //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
     setupUI()
     setupTableView()
     setupMarkerView()
-    guard let episodeID = episodeID else { return }
-    self.viewModel.fetchEpisode(id: episodeID) { episode in
-      self.episodeForUser = episode
-      self.viewModel.fetchTask(episode: episode) { tasks in
-        self.taskList = tasks
-      }
-      self.tableView.reloadData()
+    guard let episode = episodeForUser else { return }
+    self.viewModel.fetchTask(episode: episode) { tasks in
+      self.taskList = tasks
     }
+    self.tableView.reloadData()
     setupNavItem()
   }
   
