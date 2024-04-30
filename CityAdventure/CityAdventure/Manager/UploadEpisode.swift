@@ -17,7 +17,7 @@ class UploadEpisode {
                                                                                locationName: "AppWorks School",
                                                                                locationAddress: "100台北市中正區仁愛路二段99號",
                                                                                questionAnswerPair: [QuestionAnswer(question: "問題A", answer: "答案B")]),
-                                                        geometry: Geometry(coordinate: [121.53252886867381, 25.03838950447114], type: "Point"))])
+                                                        geometry: Geometry(coordinate: [25.03838950447114, 121.53252886867381], type: "Point"))])
   let testTaskB = TaskLocations(type: "FeatureCollection",
                                 features: [LocationPath(type: "Feature",
                                                         properties: Properties(id: "1",
@@ -25,7 +25,7 @@ class UploadEpisode {
                                                                                content: "任務二任務二任務二任務二任務二",
                                                                                locationName: "大安森林公園",
                                                                                locationAddress: "106台北市大安區新生南路二段1號"),
-                                                        geometry: Geometry(coordinate: [121.53305121747286, 25.03332233595731],
+                                                        geometry: Geometry(coordinate: [25.03332233595731, 121.53305121747286],
                                                                            type: "Point")),
                                            LocationPath(type: "Feature",
                                                         properties: Properties(id: "1",
@@ -33,22 +33,14 @@ class UploadEpisode {
                                                                                content: "任務二任務二任務二任務二任務二",
                                                                                locationName: "大安森林公園",
                                                                                locationAddress: "106台北市大安區新生南路二段1號"),
-                                                        geometry: Geometry(coordinates: [[121.53305225771447,
-                                                                                          25.033322742847076],
-                                                                                         [121.53488324058293,
-                                                                                          25.033185301376662],
-                                                                                         [121.5360014438416,
-                                                                                          25.032832757897907],
-                                                                                         [121.53449912800517,
-                                                                                          25.032039961764184],
-                                                                                         [121.53534469063896,
-                                                                                          25.030230543017282],
-                                                                                         [121.53539483391842,
-                                                                                          25.029133120374283],
-                                                                                         [121.53661545882733,
-                                                                                          25.032482226630975],
-                                                                                         [121.53744842134074,
-                                                                                          25.033329432985497]],
+                                                        geometry: Geometry(coordinates: [[25.033322742847076,   121.53305225771447],
+                                                                                         [25.033185301376662, 121.53488324058293],
+                                                                                         [25.032832757897907, 121.5360014438416],
+                                                                                         [25.032039961764184,121.53449912800517],
+                                                                                         [25.030230543017282,121.53534469063896],
+                                                                                         [25.029133120374283, 121.53539483391842],
+                                                                                         [25.032482226630975, 121.53661545882733],
+                                                                                         [25.033329432985497, 121.53744842134074]],
                                                                            type: "LineString"))])
   let testTaskC = TaskLocations(type: "FeatureCollection",
                                 features: [LocationPath(type: "Feature",
@@ -59,7 +51,7 @@ class UploadEpisode {
                                                                                locationAddress: "100台北市中正區仁愛路二段99號",
                                                                                questionAnswerPair: [QuestionAnswer(question: "食物描述，想想這是什麼吧！",
                                                                                                                    answer: "peanutsIceRoll")]),
-                                                        geometry: Geometry(coordinate: [121.53252886867381, 25.03838950447114], type: "Point"))])
+                                                        geometry: Geometry(coordinate: [25.03838950447114, 121.53252886867381], type: "Point"))])
   func postEpisode() {
     do {
       let test = FireStoreManager.shared.firestore.collection("EpisodeList")

@@ -9,21 +9,19 @@ import Foundation
 import MapKit
 extension MKCoordinateRegion {
   init(coordinates: [CLLocationCoordinate2D]) {
-    var maxLat: CLLocationDegrees = -90.0
-    var maxLong: CLLocationDegrees = -180.0
-    var minLat: CLLocationDegrees = 90.0
-    var minLong: CLLocationDegrees = 180.0
+    let minLat = coordinates.min(by: { $0.latitude < $1.latitude })?.latitude ?? 0
+    let maxLat = coordinates.max(by: { $0.latitude < $1.latitude })?.latitude ?? 0
+    let minLon = coordinates.min(by: { $0.longitude < $1.longitude })?.longitude ?? 0
+    let maxLon = coordinates.max(by: { $0.longitude < $1.longitude })?.longitude ?? 0
     
-    for location in coordinates {
-      minLat = min(minLat, location.latitude)
-      minLong = min(minLong, location.longitude)
-      maxLat = max(maxLat, location.latitude)
-      maxLong = max(maxLong, location.longitude)
-    }
+    // 計算中心點
+    let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
     
-    let center = CLLocationCoordinate2D(latitude: (maxLat + minLat) / 2.0, longitude: (maxLong + minLong) / 2.0)
-    let span = MKCoordinateSpan(latitudeDelta: (maxLat - minLat), longitudeDelta: (maxLong - minLong))
-    
+    // 計算跨度，並確保有一個最小的跨度值
+    let minSpan = 0.01 // 最小跨度值，避免跨度太小
+    let latitudeDelta = max((maxLat - minLat) * 1.1, minSpan)
+    let longitudeDelta = max((maxLon - minLon) * 1.1, minSpan)
+    let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
     self.init(center: center, span: span)
   }
 }
