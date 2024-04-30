@@ -93,7 +93,6 @@ class EpisodeDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupNavItem()
-//    viewModel.setupLocationManager(self)
     setupUI()
     registerMapAnnotationViews()
     getTasksAndLocations()
@@ -254,7 +253,7 @@ class EpisodeDetailViewController: UIViewController {
     navigationItem.leftBarButtonItem = navBarItem
   }
 }
-
+// MARK: - MKMapViewDelegate
 extension EpisodeDetailViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     
@@ -282,7 +281,7 @@ extension EpisodeDetailViewController: MKMapViewDelegate {
     return view
   }
 }
-
+// MARK: - CLLocationManagerDelegate
 extension EpisodeDetailViewController: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     
