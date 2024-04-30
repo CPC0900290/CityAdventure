@@ -50,6 +50,7 @@ class EpisodeDetailViewController: UIViewController {
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 0
+    button.titleLabel?.highlightedTextColor = .black
     button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
@@ -63,6 +64,7 @@ class EpisodeDetailViewController: UIViewController {
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 1
+    button.titleLabel?.highlightedTextColor = .black
     button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
@@ -76,6 +78,7 @@ class EpisodeDetailViewController: UIViewController {
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 2
+    button.titleLabel?.highlightedTextColor = .black
     button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
@@ -186,17 +189,36 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   @objc private func showTasksAnnotation(_ sender: UIButton) {
-    if sender.isSelected {
-      displayedAnnotations = allAnnotations
-      centerMapForEpisode()
-    } else {
+    sender.isSelected.toggle()
+    resetButtonSelected(sender)
+    switch sender.isSelected {
+    case true:
       guard let allAnnotations = allAnnotations as? [CustomAnnotation] else { return }
       displayOne(allAnnotations[sender.tag])
+      
       guard let property = tasks[sender.tag].features.first?.properties else { return }
       taskDetailView.titleLabel.text = property.title
       taskDetailView.taskContentLabel.text = property.content
+    case false:
+      displayedAnnotations = allAnnotations
+      centerMapForEpisode()
     }
-    sender.isSelected.toggle()
+  }
+  
+  private func resetButtonSelected(_ sender: UIButton) {
+    switch sender.tag {
+    case 0:
+      taskBButton.isSelected = false
+      taskCButton.isSelected = false
+    case 1:
+      taskAButton.isSelected = false
+      taskCButton.isSelected = false
+    case 2:
+      taskAButton.isSelected = false
+      taskBButton.isSelected = false
+    default:
+      print("Button tag is out of range")
+    }
   }
   
   @objc private func showAllAnnotations(_ snder: Any) {
