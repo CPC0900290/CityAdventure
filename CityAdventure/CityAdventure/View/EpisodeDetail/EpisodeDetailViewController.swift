@@ -46,11 +46,10 @@ class EpisodeDetailViewController: UIViewController {
   lazy var taskAButton: UIButton = {
     let button = UIButton()
     button.setTitle("A", for: .normal)
-    button.setTitleColor(.black, for: .selected)
+    button.setTitleColor(.black, for: .normal)
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 0
-    button.titleLabel?.highlightedTextColor = .black
     button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
@@ -59,12 +58,11 @@ class EpisodeDetailViewController: UIViewController {
   lazy var taskBButton: UIButton = {
     let button = UIButton()
     button.setTitle("B", for: .normal)
-    button.setTitleColor(.black, for: .selected)
+    button.setTitleColor(.black, for: .normal)
     button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 1
-    button.titleLabel?.highlightedTextColor = .black
     button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
@@ -73,12 +71,11 @@ class EpisodeDetailViewController: UIViewController {
   lazy var taskCButton: UIButton = {
     let button = UIButton()
     button.setTitle("C", for: .normal)
-    button.setTitleColor(.black, for: .selected)
+    button.setTitleColor(.black, for: .normal)
     button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 2
-    button.titleLabel?.highlightedTextColor = .black
     button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
@@ -86,7 +83,7 @@ class EpisodeDetailViewController: UIViewController {
   
   lazy var mapView: MKMapView = {
     let map = MKMapView()
-    map.showsUserLocation = true
+    map.showsUserLocation = false
     map.delegate = self
     map.translatesAutoresizingMaskIntoConstraints = false
     return map
@@ -100,6 +97,7 @@ class EpisodeDetailViewController: UIViewController {
     setupUI()
     registerMapAnnotationViews()
     getTasksAndLocations()
+    viewModel.setupLocationManager(self)
   }
   
   override func viewDidLayoutSubviews() {
@@ -149,6 +147,13 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   // MARK: - Functions
+  private func getDistanceToTask(taskCoordinate: CLLocationCoordinate2D) -> CLLocationDistance {
+    guard let userCoordinate = viewModel.locationManager?.location else { return 0 }
+    let distance = userCoordinate.distance(from: CLLocation(latitude: taskCoordinate.latitude,
+                                                            longitude: taskCoordinate.longitude))
+    return distance
+  }
+  
   @objc private func startPlaying() {
     guard let episode = episode,
           let user = user
@@ -158,6 +163,15 @@ class EpisodeDetailViewController: UIViewController {
     let episodeVC = EpisodeViewController()
     episodeVC.episodeForUser = episode
     self.navigationController?.pushViewController(episodeVC, animated: true)
+  }
+  
+  @objc private func showAllAnnotations(_ snder: Any) {
+    guard let episode = episode else { return }
+    displayedAnnotations = allAnnotations
+    taskDetailView.titleLabel.text = episode.title
+    taskDetailView.taskContentLabel.text = episode.content
+    taskDetailView.taskDistanceLabel.text = ""
+    centerMapForEpisode()
   }
   
   private func centerMapForEpisode() {
@@ -172,14 +186,22 @@ class EpisodeDetailViewController: UIViewController {
     self.mapView.setRegion(region, animated: true)
   }
   
-  private func getTasksAndLocations() {
-    guard let episode = episode else { return }
-    viewModel.fetchTask(episode: episode) { taskLocations in
-      self.tasks = taskLocations
-      self.viewModel.fetchAnnotation(taskLocations: self.tasks) { annotations in
-        self.allAnnotations = annotations
-        self.showAllAnnotations(self)
-      }
+  @objc private func showTasksAnnotation(_ sender: UIButton) {
+    sender.isSelected.toggle()
+    resetButtonSelected(sender)
+    switch sender.isSelected {
+    case true:
+      guard let allAnnotations = allAnnotations as? [CustomAnnotation] else { return }
+      let annotation = allAnnotations[sender.tag]
+      displayOne(annotation)
+      
+      guard let property = tasks[sender.tag].features.first?.properties else { return }
+      let distance = Int(getDistanceToTask(taskCoordinate: annotation.coordinate))
+      taskDetailView.titleLabel.text = property.title
+      taskDetailView.taskContentLabel.text = property.content
+      taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
+    case false:
+      showAllAnnotations(self)
     }
   }
   
@@ -188,20 +210,14 @@ class EpisodeDetailViewController: UIViewController {
     centerForTask(coordinate: annotation.coordinate)
   }
   
-  @objc private func showTasksAnnotation(_ sender: UIButton) {
-    sender.isSelected.toggle()
-    resetButtonSelected(sender)
-    switch sender.isSelected {
-    case true:
-      guard let allAnnotations = allAnnotations as? [CustomAnnotation] else { return }
-      displayOne(allAnnotations[sender.tag])
-      
-      guard let property = tasks[sender.tag].features.first?.properties else { return }
-      taskDetailView.titleLabel.text = property.title
-      taskDetailView.taskContentLabel.text = property.content
-    case false:
-      displayedAnnotations = allAnnotations
-      centerMapForEpisode()
+  private func getTasksAndLocations() {
+    guard let episode = episode else { return }
+    viewModel.fetchTask(episode: episode) { taskLocations in
+      self.tasks = taskLocations
+      self.viewModel.fetchAnnotation(taskLocations: self.tasks) { annotations in
+        self.allAnnotations = annotations
+        self.showAllAnnotations(self)
+      }
     }
   }
   
@@ -221,17 +237,13 @@ class EpisodeDetailViewController: UIViewController {
     }
   }
   
-  @objc private func showAllAnnotations(_ snder: Any) {
-    displayedAnnotations = allAnnotations
-    centerMapForEpisode()
-  }
-  
   @objc func lastPage() {
     self.navigationController?.popViewController(animated: true)
   }
   
   func setupNavItem() {
     self.title = episode?.title
+    self.navigationController?.navigationItem.largeTitleDisplayMode = .never
     self.navigationController?.navigationBar.isTranslucent = true
     self.navigationController?.navigationBar.backgroundColor = .clear
     let navBarItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), 
@@ -268,5 +280,19 @@ extension EpisodeDetailViewController: MKMapViewDelegate {
       markerAnnotationView.markerTintColor = UIColor(hex: "E7F161", alpha: 1)
     }
     return view
+  }
+}
+
+extension EpisodeDetailViewController: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+  }
+  
+  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    viewModel.checkLocationAuthorization(mapView: mapView)
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print(error)
   }
 }

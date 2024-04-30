@@ -9,44 +9,31 @@ import Foundation
 import MapKit
 
 class EpisodeDetailViewModel {
-//  var locationManager: CLLocationManager?
+  var locationManager: CLLocationManager?
   
-  func setPinForTaskLocation(mapView: MKMapView,
-                             location: CLLocationCoordinate2D,
-                             title: String,
-                             locationName: String) {
-    let pin = MapPin(title: title, locationName: locationName, coordinate: location)
-    let region = MKCoordinateRegion(center: pin.coordinate,
-                                        latitudinalMeters: 500,
-                                        longitudinalMeters: 500)
-    mapView.setRegion(region, animated: true)
-    mapView.addAnnotation(pin)
+  func checkLocationAuthorization(mapView: MKMapView) {
+    guard let locationManager = locationManager,
+          let location = locationManager.location else { return }
+    
+    switch locationManager.authorizationStatus {
+    case .authorizedAlways, .authorizedWhenInUse:
+      print("")
+    case .denied:
+      print("")
+    case .restricted, .notDetermined:
+      print("")
+    @unknown default:
+      print("")
+    }
   }
   
-//  func checkLocationAuthorization(mapView: MKMapView) {
-//    guard let locationManager = locationManager,
-//          let location = locationManager.location else { return }
-//    
-//    switch locationManager.authorizationStatus {
-//    case .authorizedAlways, .authorizedWhenInUse:
-//      let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
-//      mapView.setRegion(region, animated: true)
-//    case .denied:
-//      print("")
-//    case .restricted, .notDetermined:
-//      print("")
-//    @unknown default:
-//      print("")
-//    }
-//  }
-  
-//  func setupLocationManager(_ viewController: CLLocationManagerDelegate) {
-//    locationManager = CLLocationManager()
-//    locationManager?.delegate = viewController
-//    locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-//    locationManager?.requestWhenInUseAuthorization()
-//    locationManager?.requestLocation()
-//  }
+  func setupLocationManager(_ viewController: CLLocationManagerDelegate) {
+    locationManager = CLLocationManager()
+    locationManager?.delegate = viewController
+    locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+    locationManager?.requestWhenInUseAuthorization()
+    locationManager?.requestLocation()
+  }
   
   func fetchTask(episode: Episode, sendTask: @escaping ([TaskLocations]) -> Void) {
     let tasks = episode.tasks

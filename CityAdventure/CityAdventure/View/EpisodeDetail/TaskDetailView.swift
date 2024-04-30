@@ -41,6 +41,7 @@ class TaskDetailView: UIView {
     let label = UILabel()
     label.text = "任務內容"
     label.font = UIFont(name: "PingFang TC", size: 18)
+    label.numberOfLines = 0
     label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -50,6 +51,7 @@ class TaskDetailView: UIView {
     let button = UIButton()
     button.setTitle("Start", for: .normal)
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
+    button.setTitleColor(.black, for: .normal)
     button.layer.cornerRadius = 25
     button.translatesAutoresizingMaskIntoConstraints = false
     return button
