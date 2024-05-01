@@ -61,8 +61,6 @@ class ThirdTaskViewController: EpisodeViewController {
   
   override func setupUI() {
     view.addSubview(taskView)
-    view.addSubview(locationALabel)
-    view.addSubview(locationBLabel)
     taskView.addSubview(taskTitleLabel)
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(recognizeButton)
@@ -72,12 +70,6 @@ class ThirdTaskViewController: EpisodeViewController {
       taskView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
       taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
       taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-      
-      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      
-      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
       
       taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
       taskContentLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 10),
@@ -91,8 +83,6 @@ class ThirdTaskViewController: EpisodeViewController {
       recognizeButton.heightAnchor.constraint(equalTo: recognizeButton.widthAnchor, multiplier: 1)
     ])
   }
-  
-  override func setupTableView() { }
   
   private func setupMarkerView() {
     DraggableMarkerManager.shared.showMarker(in: self) {

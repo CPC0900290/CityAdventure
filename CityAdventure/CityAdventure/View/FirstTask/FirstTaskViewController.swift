@@ -21,7 +21,8 @@ class FirstTaskViewController: EpisodeViewController {
   @objc func pushToScanner() {
     let scannerVC = ScannerViewController()
     scannerVC.task = task
-    self.navigationController?.pushViewController(scannerVC, animated: true)
+    scannerVC.modalPresentationStyle = .formSheet
+    self.present(scannerVC, animated: true)
   }
   
   // MARK: - UI Setup
@@ -50,16 +51,10 @@ class FirstTaskViewController: EpisodeViewController {
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(scannerButton)
     NSLayoutConstraint.activate([
-      taskView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      taskView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
-      taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-      taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-      
-//      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-//      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-//      
-//      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-//      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+      taskView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+      taskView.topAnchor.constraint(equalTo: self.view.topAnchor),
+      taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+      taskView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
       
       taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
       taskContentLabel.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
@@ -70,6 +65,4 @@ class FirstTaskViewController: EpisodeViewController {
       scannerButton.widthAnchor.constraint(equalTo: taskView.widthAnchor, multiplier: 0.6)
     ])
   }
-  
-  override func setupTableView() { }
 }

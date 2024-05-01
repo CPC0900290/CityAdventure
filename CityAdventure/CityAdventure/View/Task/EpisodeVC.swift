@@ -166,7 +166,11 @@ class EpisodeVC: EpisodeDetailViewController {
       let taskVC = FirstTaskViewController()
       let taskContent = tasks[0].features[0].properties
       taskVC.task = taskContent
-      self.navigationController?.pushViewController(taskVC, animated: true)
+      if let sheet = taskVC.sheetPresentationController {
+        sheet.detents = [.medium()]
+      }
+      self.present(taskVC, animated: true)
+//      self.navigationController?.pushViewController(taskVC, animated: true)
     case .taskB:
       print("taskB")
       let taskVC = SecondTaskViewController()

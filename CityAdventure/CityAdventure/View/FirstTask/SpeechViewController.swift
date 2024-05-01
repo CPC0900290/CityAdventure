@@ -45,12 +45,13 @@ class SpeechViewController: EpisodeViewController {
         if isRightAnswer {
           print(rightAnswer)
           print("Correct Answer! Good job!")
-          guard let controllers = self.navigationController?.viewControllers else { return }
-          for viewcontroller in controllers {
-            if let taskVC = viewcontroller as? EpisodeViewController {
-              self.navigationController?.popToViewController(taskVC, animated: true)
-            }
-          }
+          self.backToRoot()
+//          guard let controllers = self.navigationController?.viewControllers else { return }
+//          for viewcontroller in controllers {
+//            if let taskVC = viewcontroller as? EpisodeViewController {
+//              self.navigationController?.popToViewController(taskVC, animated: true)
+//            }
+//          }
         } else {
           print("Think about it again!")
         }
@@ -92,8 +93,6 @@ class SpeechViewController: EpisodeViewController {
   
   override func setupUI() {
     view.addSubview(taskView)
-    view.addSubview(locationALabel)
-    view.addSubview(locationBLabel)
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(speechButton)
     NSLayoutConstraint.activate([
@@ -101,12 +100,6 @@ class SpeechViewController: EpisodeViewController {
       taskView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
       taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
       taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-      
-      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      
-      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
       
       taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
       taskContentLabel.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
@@ -117,8 +110,6 @@ class SpeechViewController: EpisodeViewController {
       speechButton.heightAnchor.constraint(equalTo: speechButton.widthAnchor, multiplier: 1)
     ])
   }
-  
-  override func setupTableView() { }
 }
 
 extension SpeechViewController: SFSpeechRecognizerDelegate {

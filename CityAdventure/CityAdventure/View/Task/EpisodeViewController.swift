@@ -25,20 +25,11 @@ class EpisodeViewController: UIViewController {
     //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
     setupUI()
-    setupTableView()
-    setupMarkerView()
     guard let episode = episodeForUser else { return }
     self.viewModel.fetchTask(episode: episode) { tasks in
       self.taskList = tasks
     }
-    self.tableView.reloadData()
     setupNavItem()
-  }
-  
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    taskView.layer.cornerRadius = taskView.frame.width / 10
-    tableView.layer.cornerRadius = tableView.frame.width / 10
   }
   
   @objc func lastPage() {
@@ -62,124 +53,62 @@ class EpisodeViewController: UIViewController {
     return view
   }()
   
-  lazy var locationALabel: UILabel = {
-    let label = UILabel()
-    label.text = "LocationA"
-    label.font = UIFont(name: "PingFang TC", size: 18)
-    label.textColor = UIColor(hex: "E7F161", alpha: 1)
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
-  
-  lazy var locationBLabel: UILabel = {
-    let label = UILabel()
-    label.text = "LocationB"
-    label.font = UIFont(name: "PingFang TC", size: 18)
-    label.textColor = UIColor(hex: "E7F161", alpha: 1)
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
+//  lazy var locationALabel: UILabel = {
+//    let label = UILabel()
+//    label.text = "LocationA"
+//    label.font = UIFont(name: "PingFang TC", size: 18)
+//    label.textColor = UIColor(hex: "E7F161", alpha: 1)
+//    label.translatesAutoresizingMaskIntoConstraints = false
+//    return label
+//  }()
+//  
+//  lazy var locationBLabel: UILabel = {
+//    let label = UILabel()
+//    label.text = "LocationB"
+//    label.font = UIFont(name: "PingFang TC", size: 18)
+//    label.textColor = UIColor(hex: "E7F161", alpha: 1)
+//    label.translatesAutoresizingMaskIntoConstraints = false
+//    return label
+//  }()
   
   func setupUI() {
     view.addSubview(taskView)
-    view.addSubview(locationALabel)
-    view.addSubview(locationBLabel)
+//    view.addSubview(locationALabel)
+//    view.addSubview(locationBLabel)
     NSLayoutConstraint.activate([
-      taskView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      taskView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
-      taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-      taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+      taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      taskView.topAnchor.constraint(equalTo: view.topAnchor),
+      taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
       
-      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      
-      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
+//      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+//      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+//      
+//      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+//      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
     ])
-  }
-  
-  func setupTableView() {
-    taskView.addSubview(tableView)
-    tableView.isScrollEnabled = false
-    tableView.backgroundColor = .white
-    tableView.dataSource = self
-    tableView.delegate = self
-    tableView.rowHeight = tableView.estimatedRowHeight
-    tableView.estimatedRowHeight = 100
-    tableView.register(UINib(nibName: "TaskCell", bundle: nil), forCellReuseIdentifier: "TaskCell")
-    tableView.translatesAutoresizingMaskIntoConstraints = false
-    NSLayoutConstraint.activate([
-      tableView.leadingAnchor.constraint(equalTo: taskView.leadingAnchor),
-      tableView.topAnchor.constraint(equalTo: taskView.topAnchor),
-      tableView.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
-      tableView.bottomAnchor.constraint(equalTo: taskView.bottomAnchor)
-    ])
-  }
-  
-  private func setupMarkerView() {
-    DraggableMarkerManager.shared.showMarker(in: self) {
-      let mapVC = MapViewController()
-      mapVC.modalPresentationStyle = .automatic
-      mapVC.tasks = self.taskList
-      self.present(mapVC, animated: true)
-    }
   }
 }
 
-extension EpisodeViewController: UITableViewDelegate, UITableViewDataSource {
+extension UIViewController {
   
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    taskView.frame.height / 3
-  }
-  
-  func numberOfSections(in tableView: UITableView) -> Int {
-    1
-  }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard let episode = episodeForUser else {
-      print("TaskVC NumberOfRowInSection got 0, episodeForUser is nil")
-      return 0
+  func backToRoot(completion: (() -> Void)? = nil) {
+    if presentingViewController != nil {
+      let superVC = presentingViewController
+      dismiss(animated: false, completion: nil)
+      superVC?.backToRoot(completion: completion)
+      return
     }
-    return episode.tasks.count
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell") as? TaskViewCell,
-          let episode = episodeForUser
-    else {
-      return UITableViewCell()
-    }
-    viewModel.fetchTask(episode: episode) { task in
-      cell.taskLabel.text = task[indexPath.row].title
-      cell.taskTitleLabel.text = task[indexPath.row].content
-    }
-    return cell
-  }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let episode = episodeForUser else { return }
-    viewModel.fetchTask(episode: episode) { _ in
-      switch indexPath.row {
-      case 0:
-        let taskVC = FirstTaskViewController()
-        taskVC.setupNavItem()
-        taskVC.task = self.taskList[0]
-        taskVC.navigationItem.title = episode.title
-        self.navigationController?.pushViewController(taskVC, animated: true)
-      case 1:
-        let taskVC = SecondTaskViewController()
-        taskVC.setupNavItem()
-        self.navigationController?.pushViewController(taskVC, animated: true)
-      case 2:
-        let taskVC = ThirdTaskViewController()
-        taskVC.setupNavItem()
-        taskVC.navigationItem.title = episode.title
-        DraggableMarkerManager.shared.hideMarker()
-        self.navigationController?.pushViewController(taskVC, animated: true)
-      default:
-        print("task out of range")
-      }
-    }
+//    
+//    if let tabbarVC = self as? UITabBarController {
+//      tabbarVC.selectedViewController?.backToRoot(completion: completion)
+//      return
+//    }
+//    
+//    if let navigateVC = self as? UINavigationController {
+//      navigateVC.popToRootViewController(animated: false)
+//    }
+    
+    completion?()
   }
 }
