@@ -13,12 +13,6 @@ class MapViewModel {
   var locationManager: CLLocationManager?
   
   // MARK: - Function
-  func setPinUsingMKAnnotation(mapView: MKMapView ,location: CLLocationCoordinate2D) {
-    let pin1 = MapPin(title: "任務一", locationName: "任務地點", coordinate: location)
-    let coordinateRegion = MKCoordinateRegion(center: pin1.coordinate, latitudinalMeters: 800, longitudinalMeters: 800)
-    mapView.setRegion(coordinateRegion, animated: true)
-    mapView.addAnnotations([pin1])
-  }
   
   func checkLocationAuthorization(mapView: MKMapView) {
     guard let locationManager = locationManager,

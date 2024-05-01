@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class HomeViewModel {
   var idList: [String] = []
@@ -46,7 +47,14 @@ class HomeViewModel {
     }
   }
   
-  func fetchProfile() {
-    
+  func fetchProfile(uid: String, sendProfile: @escaping (Profile) -> Void) {
+    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: uid) { document in
+      do {
+        let data = try document.data(as: Profile.self)
+        sendProfile(data)
+      } catch {
+        print("fetchProfile fail to decode from doc: \(error)")
+      }
+    }
   }
 }

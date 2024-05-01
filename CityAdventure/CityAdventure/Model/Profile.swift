@@ -13,7 +13,8 @@ struct Profile: Hashable, Codable {
   var avatar: String
   var adventuringEpisode: [AdventuringEpisode]
   var finishedEpisodeID: [String]
-  var id: String
+  var userID: String
+  var documentID: String
 }
 
 struct AdventuringEpisode: Hashable, Codable {

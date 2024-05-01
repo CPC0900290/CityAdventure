@@ -61,6 +61,7 @@ class TaskDetailView: UIView {
     super.init(frame: frame)
     addSubview(backgroundMaterial)
     setupUI()
+    backgroundMaterial.layer.cornerRadius = 30
   }
   
   required init?(coder: NSCoder) {
@@ -83,7 +84,6 @@ class TaskDetailView: UIView {
     NSLayoutConstraint.activate([
       titleLabel.topAnchor.constraint(equalTo: backgroundMaterial.contentView.topAnchor, constant: 10),
       titleLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.contentView.leadingAnchor, constant: 20),
-//      titleLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.contentView.trailingAnchor, constant: -20),
       
       taskDistanceLabel.topAnchor.constraint(equalTo: backgroundMaterial.contentView.topAnchor, constant: 10),
       taskDistanceLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),

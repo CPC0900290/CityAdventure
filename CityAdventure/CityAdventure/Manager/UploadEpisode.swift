@@ -90,7 +90,9 @@ class UploadEpisode {
                                                                taskStatus: [false, false, false]),
                                             AdventuringEpisode(episodeID: "5PIzv445ELf88LS6s7pC",
                                                                taskStatus: [false, false, false])],
-                            finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"], id: test.documentID)
+                            finishedEpisodeID: ["7j3SpUCdYdWfeDsycJW3"], 
+                            userID: "",
+                            documentID: test.documentID)
 //      let document = test.document()
       
       try test.setData(from: profile)

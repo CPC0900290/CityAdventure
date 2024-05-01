@@ -63,16 +63,29 @@ class FireStoreManager {
     }
   }
   
+  func filterDocument(collection: String, field: String, with: String, sendSnapshot: @escaping (DocumentSnapshot) -> Void) {
+    firestore.collection(collection).whereField(field, isEqualTo: with).getDocuments { snapshot, error in
+      if let error = error {
+        print("filterDocument fail to get snapshot: \(error)")
+      }
+      guard let snapshot = snapshot,
+            let document = snapshot.documents.first
+      else { return }
+      sendSnapshot(document)
+    }
+  }
+  
   func updateUserProfile(userID: String, adventuringEpisode: AdventuringEpisode) {
     do {
       let userProfile = firestore.collection("Profile").document(userID)
       userProfile.getDocument { snapshot, error in
         do {
-          guard let data = try snapshot?.data(as: Profile.self)
+          guard var data = try snapshot?.data(as: Profile.self)
           else { return }
-          var newAdventuringEpisode = data.adventuringEpisode
-          newAdventuringEpisode.append(adventuringEpisode)
-          try userProfile.setData(from: newAdventuringEpisode, mergeFields: ["adventuringEpisode"])
+          data.adventuringEpisode.append(adventuringEpisode)
+//          var newAdventuringEpisode = data.adventuringEpisode
+//          newAdventuringEpisode.append(adventuringEpisode)
+          try userProfile.setData(from: data, mergeFields: ["adventuringEpisode"])
         } catch {
           print("FireStoreManager fail to get Profile document: \(error)")
         }

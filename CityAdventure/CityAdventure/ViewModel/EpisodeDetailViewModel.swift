@@ -81,6 +81,6 @@ class EpisodeDetailViewModel {
   
   func updateUserPlayingList(user: Profile,_ adventuringEpisode: AdventuringEpisode) {
     // Doing
-    FireStoreManager.shared.updateUserProfile(userID: user.id, adventuringEpisode: adventuringEpisode)
+    FireStoreManager.shared.updateUserProfile(userID: user.documentID, adventuringEpisode: adventuringEpisode)
   }
 }
