@@ -121,8 +121,7 @@ class EpisodeDetailViewController: UIViewController {
       
       taskDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       taskDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      taskDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      taskDetailView.heightAnchor.constraint(equalToConstant: 200)
+      taskDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
       
 //      taskAButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 //      taskAButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),

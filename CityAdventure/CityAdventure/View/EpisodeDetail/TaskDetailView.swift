@@ -95,6 +95,7 @@ class TaskDetailView: UIView {
       
       startButton.centerXAnchor.constraint(equalTo: backgroundMaterial.contentView.centerXAnchor),
       startButton.bottomAnchor.constraint(equalTo: backgroundMaterial.contentView.bottomAnchor, constant: -20),
+      startButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 20),
       startButton.widthAnchor.constraint(equalToConstant: 200),
       startButton.heightAnchor.constraint(equalToConstant: 50)
     ])
