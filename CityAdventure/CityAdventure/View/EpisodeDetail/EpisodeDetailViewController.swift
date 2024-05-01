@@ -15,8 +15,7 @@ class EpisodeDetailViewController: UIViewController {
   var episode: Episode?
   var user: Profile?
   var tasks: [TaskLocations] = []
-  private var viewModel = EpisodeDetailViewModel()
-  private var locationManager: CLLocationManager?
+  var viewModel = EpisodeDetailViewModel()
   var allAnnotations: [MKAnnotation]?
   
   var displayedAnnotations: [MKAnnotation]? {

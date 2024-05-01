@@ -15,10 +15,6 @@ class FirstTaskViewController: EpisodeViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-//    guard let episode = episodeForUser else { return }
-//    viewModel.fetchTask(episode: episode) { task in
-//      self.task = task[0]
-//    }
   }
   
   // MARK: - Function
@@ -40,9 +36,8 @@ class FirstTaskViewController: EpisodeViewController {
   
   lazy var scannerButton: UIButton = {
     let button = UIButton()
-    button.setImage(UIImage(named: "qrcode.viewfinder"), for: .normal)
-    button.setBackgroundImage(UIImage(named: "qrcode.viewfinder"), for: .normal)
-    button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
+    button.setBackgroundImage(UIImage(systemName: "qrcode.viewfinder"), for: .normal)
+    button.tintColor = UIColor(hex: "E7F161", alpha: 1)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.addTarget(self, action: #selector(pushToScanner), for: .touchUpInside)
     return button
@@ -50,8 +45,8 @@ class FirstTaskViewController: EpisodeViewController {
   
   override func setupUI() {
     view.addSubview(taskView)
-    view.addSubview(locationALabel)
-    view.addSubview(locationBLabel)
+//    view.addSubview(locationALabel)
+//    view.addSubview(locationBLabel)
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(scannerButton)
     NSLayoutConstraint.activate([
@@ -60,19 +55,19 @@ class FirstTaskViewController: EpisodeViewController {
       taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
       taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
       
-      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      
-      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+//      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+//      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+//      
+//      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+//      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
       
       taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
       taskContentLabel.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
       
       scannerButton.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
       scannerButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 80),
-      scannerButton.widthAnchor.constraint(equalTo: taskView.widthAnchor, multiplier: 0.6),
-      scannerButton.heightAnchor.constraint(equalTo: scannerButton.widthAnchor, multiplier: 1)
+      scannerButton.heightAnchor.constraint(equalTo: scannerButton.widthAnchor, multiplier: 1),
+      scannerButton.widthAnchor.constraint(equalTo: taskView.widthAnchor, multiplier: 0.6)
     ])
   }
   

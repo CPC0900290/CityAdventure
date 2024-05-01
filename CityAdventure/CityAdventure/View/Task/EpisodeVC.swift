@@ -61,24 +61,10 @@ class EpisodeVC: EpisodeDetailViewController {
     super.viewDidLoad()
     setupTaskButton()
     defaltTaskView()
+    mapView.showsUserLocation = true
   }
   
   // MARK: - Setup UI
-//  override func setupUI() {
-//    view.addSubview(mapView)
-//    view.addSubview(taskDetailView)
-//    
-//    NSLayoutConstraint.activate([
-//      mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//      mapView.topAnchor.constraint(equalTo: view.topAnchor),
-//      mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//      mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//      
-//      taskDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//      taskDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//      taskDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//    ])
-//  }
   private func defaltTaskView() {
     self.taskDetailView.startButton.setTitle("繼續", for: .normal)
     taskDetailView.startButton.isEnabled = false
@@ -132,6 +118,13 @@ class EpisodeVC: EpisodeDetailViewController {
       taskDetailView.titleLabel.text = property.title
       taskDetailView.taskContentLabel.text = property.content
       taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
+//      if distance < 300 {
+//        taskDetailView.startButton.isEnabled = true
+//        switchButtonAlpha(taskDetailView.startButton)
+//      } else {
+//        taskDetailView.startButton.isEnabled = false
+//        switchButtonAlpha(taskDetailView.startButton)
+//      }
       taskDetailView.startButton.isEnabled = true
       switchButtonAlpha(taskDetailView.startButton)
     case false:
@@ -189,8 +182,4 @@ class EpisodeVC: EpisodeDetailViewController {
       break
     }
   }
-//  
-//  @objc private func goToTaskVC(_ sender: UIButton) {
-//    
-//  }
 }
