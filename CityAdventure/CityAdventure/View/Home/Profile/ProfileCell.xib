@@ -26,18 +26,18 @@
                                     <constraint firstAttribute="width" secondItem="Kd7-0G-g7j" secondAttribute="height" multiplier="1:1" id="an9-n5-ezr"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="Htw-oN-UIJ">
-                                <rect key="frame" x="80" y="15" width="81" height="45"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Htw-oN-UIJ">
+                                <rect key="frame" x="80" y="5" width="101.33333333333331" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcb-qz-q9Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="81" height="20.333333333333332"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="101.33333333333333" height="26.333333333333332"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="UserTitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-Zd-M6b">
-                                        <rect key="frame" x="0.0" y="33.333333333333336" width="81" height="11.666666666666664"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="26.333333333333332" width="101.33333333333333" height="38.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -48,11 +48,11 @@
                         <color key="tintColor" red="0.96862745098039216" green="0.79607843137254897" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Kd7-0G-g7j" secondAttribute="bottom" constant="5" id="FTi-Rt-Rag"/>
-                            <constraint firstAttribute="bottom" secondItem="Htw-oN-UIJ" secondAttribute="bottom" constant="15" id="QYx-js-2eV"/>
+                            <constraint firstAttribute="bottom" secondItem="Htw-oN-UIJ" secondAttribute="bottom" constant="5" id="QYx-js-2eV"/>
                             <constraint firstItem="Htw-oN-UIJ" firstAttribute="leading" secondItem="Kd7-0G-g7j" secondAttribute="trailing" constant="10" id="QuB-sm-Bdu"/>
                             <constraint firstItem="Kd7-0G-g7j" firstAttribute="top" secondItem="XOY-Ch-Yll" secondAttribute="top" constant="5" id="bFO-gL-1xY"/>
                             <constraint firstItem="Kd7-0G-g7j" firstAttribute="leading" secondItem="XOY-Ch-Yll" secondAttribute="leading" constant="5" id="gZN-3D-Rsn"/>
-                            <constraint firstItem="Htw-oN-UIJ" firstAttribute="top" secondItem="XOY-Ch-Yll" secondAttribute="top" constant="15" id="yTh-8m-6Sw"/>
+                            <constraint firstItem="Htw-oN-UIJ" firstAttribute="top" secondItem="XOY-Ch-Yll" secondAttribute="top" constant="5" id="yTh-8m-6Sw"/>
                         </constraints>
                     </view>
                 </subviews>

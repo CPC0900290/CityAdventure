@@ -17,4 +17,6 @@ enum Section: String, CaseIterable {
 enum Item: Hashable {
   case profile(Profile)
   case episode(Episode)
+  case areaEpisode(Episode)
+  case adventuringEpisode(Episode)
 }

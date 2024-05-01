@@ -202,7 +202,7 @@ extension HomeViewController {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                           heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+    item.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 5, bottom: 15, trailing: 5)
     
     let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                            heightDimension: .fractionalWidth(0.7))
@@ -280,13 +280,13 @@ extension HomeViewController {
     guard let profile = profile else { return }
     currentSnapshot.appendItems([.profile(profile)], toSection: .profile)
     
+    let area = self.areaEpisodes.map { Item.areaEpisode($0) }
+    currentSnapshot.appendItems(area, toSection: .areaEpisode)
+    
     let episodeItems = episodeList.map { Item.episode($0) }
     currentSnapshot.appendItems(episodeItems, toSection: .episodeList)
     
-    let area = self.areaEpisodes.map { Item.episode($0) }
-    currentSnapshot.appendItems(area, toSection: .areaEpisode)
-    
-    let adventuringEpisode = adventuringEpisodes.map { Item.episode($0) }
+    let adventuringEpisode = adventuringEpisodes.map { Item.adventuringEpisode($0) }
     currentSnapshot.appendItems(adventuringEpisode, toSection: .doingEpisode)
     
     dataSource.apply(currentSnapshot, animatingDifferences: true)
@@ -311,10 +311,10 @@ extension HomeViewController: UICollectionViewDelegate {
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     case 3:
       print("EpisodeList is clicked, pop to spesific task")
-      let taskVC = EpisodeViewController()
-      taskVC.episodeID = episodeIDList[indexPath.row]
-      taskVC.episodeForUser = episodeList[indexPath.row]
-      self.navigationController?.pushViewController(taskVC, animated: true)
+      let episodeDetailVC = EpisodeDetailViewController()
+      episodeDetailVC.episode = episodeList[indexPath.row]
+      episodeDetailVC.user = profile
+      self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     default:
       break
     }
