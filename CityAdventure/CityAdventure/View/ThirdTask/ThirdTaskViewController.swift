@@ -9,17 +9,17 @@ import Foundation
 import UIKit
 
 class ThirdTaskViewController: EpisodeViewController {
-  private var task: Properties?
+  var task: Properties?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-    DraggableMarkerManager.shared.hideMarker()
-    setupMarkerView()
-    guard let episode = episodeForUser else { return }
-    viewModel.fetchTask(episode: episode) { task in
-      self.task = task[2]
-    }
+//    DraggableMarkerManager.shared.hideMarker()
+//    setupMarkerView()
+//    guard let episode = episodeForUser else { return }
+//    viewModel.fetchTask(episode: episode) { task in
+//      self.task = task[2]
+//    }
   }
   
   // MARK: - Function

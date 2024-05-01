@@ -38,6 +38,7 @@
 		00B989792BDF885500C695D7 /* MKCoordinateRegionExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */; };
 		00BD657B2BCC1D880070E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */; };
 		00BE28602BE1DCFC007457A7 /* LoginBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */; };
+		00BE28622BE22847007457A7 /* EpisodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28612BE22847007457A7 /* EpisodeVC.swift */; };
 		00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */; };
 		00C1AC302BD583F500C10DA0 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2F2BD583F500C10DA0 /* Section.swift */; };
 		00C35F8F2BC7C18800AB7B7D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F8E2BC7C18800AB7B7D /* FirebaseAuth */; };
@@ -101,6 +102,7 @@
 		00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegionExt.swift; sourceTree = "<group>"; };
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBackgroundViewController.swift; sourceTree = "<group>"; };
+		00BE28612BE22847007457A7 /* EpisodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeVC.swift; sourceTree = "<group>"; };
 		00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		00C1AC2F2BD583F500C10DA0 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		00C35F942BC7F27600AB7B7D /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				00CEB1342BCA957100AC350B /* TaskCell.swift */,
 				00CEB1362BCA95F500AC350B /* TaskCell.xib */,
 				0094CD922BCE992C00820BE5 /* MapPin.swift */,
+				00BE28612BE22847007457A7 /* EpisodeVC.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				00B72E3C2BD68DFE00F531C0 /* TitleSupplementaryView.swift in Sources */,
 				00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */,
 				00B72E382BD6749100F531C0 /* EpisodeCell.swift in Sources */,
+				00BE28622BE22847007457A7 /* EpisodeVC.swift in Sources */,
 				00D01B912BDCB9BF00E4A0C7 /* EpisodeDetailViewController.swift in Sources */,
 				00D01B8E2BDC9A5400E4A0C7 /* ProfileViewModel.swift in Sources */,
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,

@@ -14,12 +14,12 @@ class EpisodeDetailViewController: UIViewController {
   // MARK: - Properties
   var episode: Episode?
   var user: Profile?
-  private var tasks: [TaskLocations] = []
+  var tasks: [TaskLocations] = []
   private var viewModel = EpisodeDetailViewModel()
   private var locationManager: CLLocationManager?
-  private var allAnnotations: [MKAnnotation]?
+  var allAnnotations: [MKAnnotation]?
   
-  private var displayedAnnotations: [MKAnnotation]? {
+  var displayedAnnotations: [MKAnnotation]? {
     willSet {
       if let currentAnnotations = displayedAnnotations {
         mapView.removeAnnotations(currentAnnotations)
@@ -42,44 +42,6 @@ class EpisodeDetailViewController: UIViewController {
     taskDetailView.translatesAutoresizingMaskIntoConstraints = false
     return taskDetailView
   }()
-  
-//  lazy var taskAButton: UIButton = {
-//    let button = UIButton()
-//    button.setTitle("A", for: .normal)
-//    button.setTitleColor(.black, for: .normal)
-//    button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
-//    button.layer.cornerRadius = 10
-//    button.tag = 0
-//    button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
-//    button.translatesAutoresizingMaskIntoConstraints = false
-//    return button
-//  }()
-//  
-//  lazy var taskBButton: UIButton = {
-//    let button = UIButton()
-//    button.setTitle("B", for: .normal)
-//    button.setTitleColor(.black, for: .normal)
-//    button.tintColor = .black
-//    button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
-//    button.layer.cornerRadius = 10
-//    button.tag = 1
-//    button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
-//    button.translatesAutoresizingMaskIntoConstraints = false
-//    return button
-//  }()
-//  
-//  lazy var taskCButton: UIButton = {
-//    let button = UIButton()
-//    button.setTitle("C", for: .normal)
-//    button.setTitleColor(.black, for: .normal)
-//    button.tintColor = .black
-//    button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
-//    button.layer.cornerRadius = 10
-//    button.tag = 2
-//    button.addTarget(self, action: #selector(showTasksAnnotation), for: .touchUpInside)
-//    button.translatesAutoresizingMaskIntoConstraints = false
-//    return button
-//  }()
   
   lazy var mapView: MKMapView = {
     let map = MKMapView()
@@ -109,9 +71,6 @@ class EpisodeDetailViewController: UIViewController {
   private func setupUI() {
     view.addSubview(mapView)
     view.addSubview(taskDetailView)
-//    view.addSubview(taskAButton)
-//    view.addSubview(taskBButton)
-//    view.addSubview(taskCButton)
     
     NSLayoutConstraint.activate([
       mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -122,21 +81,6 @@ class EpisodeDetailViewController: UIViewController {
       taskDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       taskDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       taskDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-      
-//      taskAButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//      taskAButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-//      taskAButton.widthAnchor.constraint(equalTo: taskAButton.heightAnchor),
-//      taskAButton.widthAnchor.constraint(equalToConstant: 50),
-//      
-//      taskBButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//      taskBButton.topAnchor.constraint(equalTo: taskAButton.bottomAnchor, constant: 20),
-//      taskBButton.widthAnchor.constraint(equalTo: taskBButton.heightAnchor),
-//      taskBButton.widthAnchor.constraint(equalToConstant: 50),
-//      
-//      taskCButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-//      taskCButton.topAnchor.constraint(equalTo: taskBButton.bottomAnchor, constant: 20),
-//      taskCButton.widthAnchor.constraint(equalTo: taskCButton.heightAnchor),
-//      taskCButton.widthAnchor.constraint(equalToConstant: 50)
     ])
   }
   
@@ -145,25 +89,26 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   // MARK: - Functions
-  private func getDistanceToTask(taskCoordinate: CLLocationCoordinate2D) -> CLLocationDistance {
+  func getDistanceToTask(taskCoordinate: CLLocationCoordinate2D) -> CLLocationDistance {
     guard let userCoordinate = viewModel.locationManager?.location else { return 0 }
     let distance = userCoordinate.distance(from: CLLocation(latitude: taskCoordinate.latitude,
                                                             longitude: taskCoordinate.longitude))
     return distance
   }
   
-  @objc private func startPlaying() {
+  @objc func startPlaying() {
     guard let episode = episode,
           let user = user
     else { return }
     let adventuringEpisode = AdventuringEpisode(episodeID: episode.id, taskStatus: [false, false, false])
     viewModel.updateUserPlayingList(user: user, adventuringEpisode)
-    let episodeVC = EpisodeViewController()
-    episodeVC.episodeForUser = episode
+    let episodeVC = EpisodeVC()
+    episodeVC.episode = episode
+    episodeVC.user = user
     self.navigationController?.pushViewController(episodeVC, animated: true)
   }
   
-  @objc private func showAllAnnotations(_ snder: Any) {
+  @objc func showAllAnnotations(_ snder: Any) {
     guard let episode = episode else { return }
     displayedAnnotations = allAnnotations
     taskDetailView.titleLabel.text = episode.title
@@ -179,35 +124,6 @@ class EpisodeDetailViewController: UIViewController {
     }
   }
   
-//  private func centerForTask(coordinate: CLLocationCoordinate2D) {
-//    let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 300, longitudinalMeters: 300)
-//    self.mapView.setRegion(region, animated: true)
-//  }
-  
-//  @objc private func showTasksAnnotation(_ sender: UIButton) {
-//    sender.isSelected.toggle()
-//    resetButtonSelected(sender)
-//    switch sender.isSelected {
-//    case true:
-//      guard let allAnnotations = allAnnotations as? [CustomAnnotation] else { return }
-//      let annotation = allAnnotations[sender.tag]
-//      displayOne(annotation)
-//      
-//      guard let property = tasks[sender.tag].features.first?.properties else { return }
-//      let distance = Int(getDistanceToTask(taskCoordinate: annotation.coordinate))
-//      taskDetailView.titleLabel.text = property.title
-//      taskDetailView.taskContentLabel.text = property.content
-//      taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
-//    case false:
-//      showAllAnnotations(self)
-//    }
-//  }
-  
-//  private func displayOne(_ annotation: CustomAnnotation) {
-//    displayedAnnotations = [annotation]
-//    centerForTask(coordinate: annotation.coordinate)
-//  }
-  
   private func getTasksAndLocations() {
     guard let episode = episode else { return }
     viewModel.fetchTask(episode: episode) { taskLocations in
@@ -218,22 +134,6 @@ class EpisodeDetailViewController: UIViewController {
       }
     }
   }
-  
-//  private func resetButtonSelected(_ sender: UIButton) {
-//    switch sender.tag {
-//    case 0:
-//      taskBButton.isSelected = false
-//      taskCButton.isSelected = false
-//    case 1:
-//      taskAButton.isSelected = false
-//      taskCButton.isSelected = false
-//    case 2:
-//      taskAButton.isSelected = false
-//      taskBButton.isSelected = false
-//    default:
-//      print("Button tag is out of range")
-//    }
-//  }
   
   @objc func lastPage() {
     self.navigationController?.popViewController(animated: true)

@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class SecondTaskViewController: MapViewController {
-  var secondTask: Properties?
+  var secondTask: TaskLocations?
   private var taskRouteOverlay: MKOverlay?
 //  var currentPlacemark: CLPlacemark?
 //  var boundingMapRect: MKMapRect?

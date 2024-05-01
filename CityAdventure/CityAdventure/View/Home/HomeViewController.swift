@@ -110,8 +110,9 @@ class HomeViewController: UIViewController {
   @objc func segueToEpisode(_ sender: UIButton) {
     guard let profile = profile else { return }
     guard !profile.adventuringEpisode.isEmpty else { return }
-    let episodeVC = EpisodeViewController()
-    episodeVC.episodeID = profile.adventuringEpisode[sender.tag].episodeID
+    let episodeVC = EpisodeVC()
+    episodeVC.episode = adventuringEpisodes[sender.tag]
+    episodeVC.user = profile
     navigationController?.pushViewController(episodeVC, animated: true)
   }
   
