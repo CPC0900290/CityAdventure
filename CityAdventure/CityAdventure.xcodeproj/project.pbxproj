@@ -20,7 +20,6 @@
 		0094CD912BCE151B00820BE5 /* SecondTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */; };
 		0094CD932BCE992C00820BE5 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD922BCE992C00820BE5 /* MapPin.swift */; };
 		0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0095D00A2BC94CAA001E680B /* TaskViewModel.swift */; };
-		00A35D502BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 00A35D4F2BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel */; };
 		00A629212BCCD7C100F72AC0 /* FirstTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */; };
 		00B72E262BD6078600F531C0 /* UploadEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B72E252BD6078600F531C0 /* UploadEpisode.swift */; };
 		00B72E282BD63B2C00F531C0 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B72E272BD63B2C00F531C0 /* ProfileCell.swift */; };
@@ -39,6 +38,7 @@
 		00BD657B2BCC1D880070E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */; };
 		00BE28602BE1DCFC007457A7 /* LoginBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */; };
 		00BE28622BE22847007457A7 /* EpisodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28612BE22847007457A7 /* EpisodeVC.swift */; };
+		00BE28642BE275ED007457A7 /* FoodFromTaiwan.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28632BE275ED007457A7 /* FoodFromTaiwan.mlmodel */; };
 		00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */; };
 		00C1AC302BD583F500C10DA0 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2F2BD583F500C10DA0 /* Section.swift */; };
 		00C35F8F2BC7C18800AB7B7D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F8E2BC7C18800AB7B7D /* FirebaseAuth */; };
@@ -84,7 +84,6 @@
 		0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTaskViewController.swift; sourceTree = "<group>"; };
 		0094CD922BCE992C00820BE5 /* MapPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		0095D00A2BC94CAA001E680B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
-		00A35D4F2BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodFromTaiwan.mlmodel; sourceTree = "<group>"; };
 		00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTaskViewController.swift; sourceTree = "<group>"; };
 		00B72E252BD6078600F531C0 /* UploadEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadEpisode.swift; sourceTree = "<group>"; };
 		00B72E272BD63B2C00F531C0 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
@@ -103,6 +102,7 @@
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBackgroundViewController.swift; sourceTree = "<group>"; };
 		00BE28612BE22847007457A7 /* EpisodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeVC.swift; sourceTree = "<group>"; };
+		00BE28632BE275ED007457A7 /* FoodFromTaiwan.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodFromTaiwan.mlmodel; sourceTree = "<group>"; };
 		00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		00C1AC2F2BD583F500C10DA0 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		00C35F942BC7F27600AB7B7D /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
@@ -269,8 +269,8 @@
 		00C35F872BC78A9200AB7B7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				00BE28632BE275ED007457A7 /* FoodFromTaiwan.mlmodel */,
 				00C35F942BC7F27600AB7B7D /* TaskModel.swift */,
-				00A35D4F2BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel */,
 				00C1AC2F2BD583F500C10DA0 /* Section.swift */,
 				00C92D682BD7DBD800631D3E /* Profile.swift */,
 			);
@@ -540,7 +540,6 @@
 				0090D90C2BE0AF9300CE1F05 /* LoginViewController.swift in Sources */,
 				00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */,
 				005EEFCA2BC685EA00D46BB6 /* EpisodeViewController.swift in Sources */,
-				00A35D502BD26FAB006F49F8 /* FoodFromTaiwan.mlmodel in Sources */,
 				00C66F2C2BCF7A8000B5DA62 /* MapViewModel.swift in Sources */,
 				00C890A32BDA568D00A430A2 /* ProfileViewController.swift in Sources */,
 				00D01B932BDE0B4D00E4A0C7 /* CustomAnnotations.swift in Sources */,
@@ -552,6 +551,7 @@
 				00B72E332BD66FFA00F531C0 /* ExploreAreaCell.swift in Sources */,
 				00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */,
 				0039BEBF2BD120BD00D8B20A /* ThirdTaskViewController.swift in Sources */,
+				00BE28642BE275ED007457A7 /* FoodFromTaiwan.mlmodel in Sources */,
 				0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */,
 				00D01B972BDE964600E4A0C7 /* EpisodeDetailViewModel.swift in Sources */,
 				005EEFC62BC685EA00D46BB6 /* AppDelegate.swift in Sources */,

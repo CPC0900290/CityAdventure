@@ -31,6 +31,9 @@ DerivedData/
 *.dSYM
 /GoogleService-Info.plist
 
+## App Model
+*.mlmodel
+
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
