@@ -294,13 +294,13 @@
 		00C35F892BC78AF000AB7B7D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				0090D9102BE10B0100CE1F05 /* LoginViewModel.swift */,
 				00C92D662BD75B1200631D3E /* HomeViewModel.swift */,
 				00D01B8D2BDC9A5400E4A0C7 /* ProfileViewModel.swift */,
+				00D01B962BDE964600E4A0C7 /* EpisodeDetailViewModel.swift */,
 				0095D00A2BC94CAA001E680B /* TaskViewModel.swift */,
 				00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */,
 				00C66F2B2BCF7A8000B5DA62 /* MapViewModel.swift */,
-				00D01B962BDE964600E4A0C7 /* EpisodeDetailViewModel.swift */,
-				0090D9102BE10B0100CE1F05 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
