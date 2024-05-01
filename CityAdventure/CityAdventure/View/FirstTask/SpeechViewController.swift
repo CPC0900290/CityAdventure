@@ -34,18 +34,24 @@ class SpeechViewController: EpisodeViewController {
   // MARK: - Function
   @objc func speechRecord() {
     if speechVM.audioEngine.isRunning {
+//      speechButton.isHighlighted = false
       speechVM.audioEngine.stop()
       speechVM.recognitionRequest?.endAudio()
       speechButton.isEnabled = false
-      speechButton.setTitle("Start Recording", for: .normal)
+//      speechButton.setTitle("Start Recording", for: .normal)
     } else {
+      
       guard let rightAnswer = task?.questionAnswerPair?[0].answer else { return }
       print("=======Mic open")
       speechVM.startRecording(rightAnswer: rightAnswer,sender: speechButton) { isRightAnswer in
         if isRightAnswer {
           print(rightAnswer)
           print("Correct Answer! Good job!")
-          self.backToRoot()
+          let successVC = SuccessViewController()
+          successVC.modalPresentationStyle = .fullScreen
+          self.speechVM.audioEngine.stop()
+          self.present(successVC, animated: true)
+//          self.backToRoot()
 //          guard let controllers = self.navigationController?.viewControllers else { return }
 //          for viewcontroller in controllers {
 //            if let taskVC = viewcontroller as? EpisodeViewController {
@@ -56,7 +62,6 @@ class SpeechViewController: EpisodeViewController {
           print("Think about it again!")
         }
       }
-      speechButton.setTitle("Stop Recording", for: .normal)
     }
   }
   
@@ -83,9 +88,8 @@ class SpeechViewController: EpisodeViewController {
   
   lazy var speechButton: UIButton = {
     let button = UIButton()
-    button.setImage(UIImage(named: "mic.circle"), for: .normal)
-    button.setBackgroundImage(UIImage(named: "mic.circle"), for: .normal)
-    button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
+    button.setBackgroundImage(UIImage(systemName: "mic.circle"), for: .normal)
+    button.tintColor = UIColor(hex: "E7F161", alpha: 1)
     button.translatesAutoresizingMaskIntoConstraints = false
     button.addTarget(self, action: #selector(speechRecord), for: .touchUpInside)
     return button
@@ -115,8 +119,10 @@ class SpeechViewController: EpisodeViewController {
 extension SpeechViewController: SFSpeechRecognizerDelegate {
   func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) {
     if available {
+      speechButton.isHighlighted = false
       speechButton.isEnabled = true
     } else {
+      speechButton.isHighlighted = true
       speechButton.isEnabled = false
     }
   }

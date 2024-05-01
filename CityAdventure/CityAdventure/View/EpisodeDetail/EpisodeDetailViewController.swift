@@ -135,7 +135,8 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   @objc func lastPage() {
-    self.navigationController?.popViewController(animated: true)
+    self.navigationController?.popToRootViewController(animated: true)
+//    self.navigationController?.popViewController(animated: true)
   }
   
   func setupNavItem() {

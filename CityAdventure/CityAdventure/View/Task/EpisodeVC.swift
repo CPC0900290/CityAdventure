@@ -118,15 +118,15 @@ class EpisodeVC: EpisodeDetailViewController {
       taskDetailView.titleLabel.text = property.title
       taskDetailView.taskContentLabel.text = property.content
       taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
-//      if distance < 300 {
-//        taskDetailView.startButton.isEnabled = true
-//        switchButtonAlpha(taskDetailView.startButton)
-//      } else {
-//        taskDetailView.startButton.isEnabled = false
-//        switchButtonAlpha(taskDetailView.startButton)
-//      }
-      taskDetailView.startButton.isEnabled = true
-      switchButtonAlpha(taskDetailView.startButton)
+      if distance < 300 {
+        taskDetailView.startButton.isEnabled = true
+        switchButtonAlpha(taskDetailView.startButton)
+      } else {
+        taskDetailView.startButton.isEnabled = false
+        switchButtonAlpha(taskDetailView.startButton)
+      }
+//      taskDetailView.startButton.isEnabled = true
+//      switchButtonAlpha(taskDetailView.startButton)
     case false:
       showAllAnnotations(self)
       taskDetailView.startButton.isEnabled = false
@@ -182,6 +182,10 @@ class EpisodeVC: EpisodeDetailViewController {
       let taskVC = ThirdTaskViewController()
       let taskContent = tasks[2].features[0].properties
       taskVC.task = taskContent
+      if let sheet = taskVC.sheetPresentationController {
+        sheet.detents = [.medium()]
+      }
+      self.present(taskVC, animated: true)
     case .none:
       break
     }

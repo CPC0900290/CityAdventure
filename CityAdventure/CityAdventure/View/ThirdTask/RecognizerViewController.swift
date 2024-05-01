@@ -21,6 +21,7 @@ class RecognizerViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .black
     configureSession()
   }
   
@@ -81,14 +82,16 @@ extension RecognizerViewController: AVCaptureVideoDataOutputSampleBufferDelegate
       let output = try model.prediction(input: input)
       
       guard let answer = answer,
-            let similarity = output.classLabelProbs["mango_shaved_ice"]
+            let similarity = output.classLabelProbs[answer]
       else { return }
       if similarity > 0.8 {
-        // TODO 成功畫面
         print(answer)
         self.captureSession.stopRunning()
         DispatchQueue.main.async {
-          self.backToRoot()
+          let successVC = SuccessViewController()
+          successVC.modalPresentationStyle = .fullScreen
+          self.present(successVC, animated: true)
+//          self.backToRoot()
 //          guard let controllers = self.navigationController?.viewControllers else { return }
 //          for viewcontroller in controllers {
 //            if let taskVC = viewcontroller as? EpisodeViewController {

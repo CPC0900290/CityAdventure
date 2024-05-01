@@ -25,14 +25,15 @@ class ThirdTaskViewController: EpisodeViewController {
   // MARK: - Function
   @objc func recognizeButtonPressed() {
     let recogVC = RecognizerViewController()
-    recogVC.answer = "peanutsIceRoll"
-    self.navigationController?.pushViewController(recogVC, animated: true)
+    recogVC.answer = "mango_shaved_ice"
+    recogVC.modalPresentationStyle = .formSheet
+    self.present(recogVC, animated: true)
   }
   
   // MARK: - UI Setup
   lazy var taskContentLabel: UILabel = {
     let label = UILabel()
-    label.text = "請找到QR Code並掃描取得任務！"
+    label.text = "請根據線索找到指定美食！"
     label.font = UIFont(name: "PingFang TC", size: 20)
     label.textColor = .black
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +42,7 @@ class ThirdTaskViewController: EpisodeViewController {
   
   lazy var taskTitleLabel: UILabel = {
     let label = UILabel()
-    label.text = "請根據線索找到指定美食"
+    label.text = "請找到一個黃色的食物"
     label.font = UIFont(name: "PingFang TC", size: 18)
     label.textColor = .black
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,10 +51,8 @@ class ThirdTaskViewController: EpisodeViewController {
   
   lazy var recognizeButton: UIButton = {
     let button = UIButton()
-    button.setImage(UIImage(named: "qrcode.viewfinder"), for: .normal)
+    button.setBackgroundImage(UIImage(systemName: "qrcode.viewfinder"), for: .normal)
     button.tintColor = UIColor(hex: "E7F161", alpha: 1)
-//    button.setBackgroundImage(UIImage(named: "qrcode.viewfinder"), for: .normal)
-    button.backgroundColor = .opaqueSeparator
     button.translatesAutoresizingMaskIntoConstraints = false
     button.addTarget(self, action: #selector(recognizeButtonPressed), for: .touchUpInside)
     return button
@@ -66,10 +65,10 @@ class ThirdTaskViewController: EpisodeViewController {
     taskView.addSubview(recognizeButton)
     
     NSLayoutConstraint.activate([
-      taskView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      taskView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
-      taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-      taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+      taskView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+      taskView.topAnchor.constraint(equalTo: self.view.topAnchor),
+      taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+      taskView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
       
       taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
       taskContentLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 10),

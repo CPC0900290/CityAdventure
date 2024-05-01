@@ -39,6 +39,8 @@
 		00BE28602BE1DCFC007457A7 /* LoginBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */; };
 		00BE28622BE22847007457A7 /* EpisodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28612BE22847007457A7 /* EpisodeVC.swift */; };
 		00BE28642BE275ED007457A7 /* FoodFromTaiwan.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28632BE275ED007457A7 /* FoodFromTaiwan.mlmodel */; };
+		00BE28662BE27C46007457A7 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28652BE27C46007457A7 /* SuccessViewController.swift */; };
+		00BE28682BE28028007457A7 /* Animation_Success.json in Resources */ = {isa = PBXBuildFile; fileRef = 00BE28672BE28028007457A7 /* Animation_Success.json */; };
 		00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */; };
 		00C1AC302BD583F500C10DA0 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C1AC2F2BD583F500C10DA0 /* Section.swift */; };
 		00C35F8F2BC7C18800AB7B7D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00C35F8E2BC7C18800AB7B7D /* FirebaseAuth */; };
@@ -103,6 +105,8 @@
 		00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBackgroundViewController.swift; sourceTree = "<group>"; };
 		00BE28612BE22847007457A7 /* EpisodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeVC.swift; sourceTree = "<group>"; };
 		00BE28632BE275ED007457A7 /* FoodFromTaiwan.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodFromTaiwan.mlmodel; sourceTree = "<group>"; };
+		00BE28652BE27C46007457A7 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		00BE28672BE28028007457A7 /* Animation_Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation_Success.json; sourceTree = "<group>"; };
 		00C1AC2D2BD548D800C10DA0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		00C1AC2F2BD583F500C10DA0 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		00C35F942BC7F27600AB7B7D /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
@@ -182,6 +186,7 @@
 				00C35F8A2BC78B0100AB7B7D /* Helper */,
 				005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */,
 				005EEFC72BC685EA00D46BB6 /* SceneDelegate.swift */,
+				00BE28692BE2804A007457A7 /* Resources */,
 				005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */,
 				005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */,
 				005EEFD32BC685EC00D46BB6 /* Info.plist */,
@@ -266,6 +271,14 @@
 			path = FirstTask;
 			sourceTree = "<group>";
 		};
+		00BE28692BE2804A007457A7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				00BE28672BE28028007457A7 /* Animation_Success.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		00C35F872BC78A9200AB7B7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +302,7 @@
 				00B97F012BCD317B003E2327 /* FirstTask */,
 				0094CD8F2BCE14FD00820BE5 /* SecondTask */,
 				0039BEBD2BD1209B00D8B20A /* ThirdTask */,
+				00BE28652BE27C46007457A7 /* SuccessViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -460,6 +474,7 @@
 				00B72E3A2BD674D000F531C0 /* EpisodeCell.xib in Resources */,
 				00CEB1372BCA95F500AC350B /* TaskCell.xib in Resources */,
 				00B72E302BD6613600F531C0 /* AdventuringTaskCell.xib in Resources */,
+				00BE28682BE28028007457A7 /* Animation_Success.json in Resources */,
 				00C890A82BDAD27100A430A2 /* PostCell.xib in Resources */,
 				00B72E2A2BD63C3000F531C0 /* ProfileCell.xib in Resources */,
 				005EEFD22BC685EC00D46BB6 /* LaunchScreen.storyboard in Resources */,
@@ -579,6 +594,7 @@
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,
 				00D01B952BDE921A00E4A0C7 /* CustomAnnotationsView.swift in Sources */,
 				00C92D672BD75B1200631D3E /* HomeViewModel.swift in Sources */,
+				00BE28662BE27C46007457A7 /* SuccessViewController.swift in Sources */,
 				00A629212BCCD7C100F72AC0 /* FirstTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
