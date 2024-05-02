@@ -12,6 +12,7 @@ import CoreML
 // import Vision
 
 class RecognizerViewController: UIViewController {
+  var episode: Episode?
   var answer: String?
   private let captureSession = AVCaptureSession()
   private let videoOutput = AVCaptureVideoDataOutput()
@@ -90,14 +91,9 @@ extension RecognizerViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         DispatchQueue.main.async {
           let successVC = SuccessViewController()
           successVC.modalPresentationStyle = .fullScreen
+          successVC.episodeID = self.episode?.id
+          successVC.taskNum = 2
           self.present(successVC, animated: true)
-//          self.backToRoot()
-//          guard let controllers = self.navigationController?.viewControllers else { return }
-//          for viewcontroller in controllers {
-//            if let taskVC = viewcontroller as? EpisodeViewController {
-//              self.navigationController?.popToViewController(taskVC, animated: true)
-//            }
-//          }
         }
       }
       print(output.classLabel)

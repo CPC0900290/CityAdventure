@@ -15,6 +15,7 @@ class ScannerViewController: UIViewController {
   private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   private var qrCodeFrameView: UIView?
   var task: Properties?
+  var episode: Episode?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -95,7 +96,7 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
         let speechVC = SpeechViewController()
         speechVC.question = question
         speechVC.task = task
-        
+        speechVC.episodeForUser = episode
         self.captureSession.stopRunning()
         speechVC.modalPresentationStyle = .fullScreen
         self.present(speechVC, animated: true)

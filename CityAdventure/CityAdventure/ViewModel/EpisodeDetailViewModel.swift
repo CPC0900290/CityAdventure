@@ -13,7 +13,7 @@ class EpisodeDetailViewModel {
   
   func checkLocationAuthorization(mapView: MKMapView) {
     guard let locationManager = locationManager,
-          let location = locationManager.location else { return }
+          let _ = locationManager.location else { return }
     
     switch locationManager.authorizationStatus {
     case .authorizedAlways, .authorizedWhenInUse:
@@ -81,6 +81,25 @@ class EpisodeDetailViewModel {
   
   func updateUserPlayingList(user: Profile,_ adventuringEpisode: AdventuringEpisode) {
     // Doing
-    FireStoreManager.shared.updateUserProfile(userID: user.documentID, adventuringEpisode: adventuringEpisode)
+//    FireStoreManager.shared.updateUserProfile(userID: user.documentID, adventuringEpisode: adventuringEpisode)
+    FireStoreManager.shared.getDocumentReference(collection: "Profile", id: user.documentID) { ref in
+      ref.getDocument { snapshot, error in
+        if let error = error {
+          print("EpisodeDetailViewModel fail to get document: \(error)")
+          return
+        }
+        guard let snapshot = snapshot else { return }
+        do {
+          var data = try snapshot.data(as: Profile.self)
+          let episodeIDList = data.adventuringEpisode.map { $0.episodeID }
+          if !episodeIDList.contains(adventuringEpisode.episodeID) {
+            data.adventuringEpisode.append(adventuringEpisode)
+            try ref.setData(from: data, mergeFields: ["adventuringEpisode"])
+          }
+        } catch {
+          print("EpisodeDetailViewModel fail to decode data: \(error)")
+        }
+      }
+    }
   }
 }

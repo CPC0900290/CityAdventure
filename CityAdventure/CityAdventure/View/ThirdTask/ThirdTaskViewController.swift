@@ -20,6 +20,7 @@ class ThirdTaskViewController: BaseTaskViewController {
   @objc func recognizeButtonPressed() {
     let recogVC = RecognizerViewController()
     recogVC.answer = "mango_shaved_ice"
+    recogVC.episode = episodeForUser
     recogVC.modalPresentationStyle = .formSheet
     self.present(recogVC, animated: true)
   }

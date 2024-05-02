@@ -21,6 +21,7 @@ class FirstTaskViewController: BaseTaskViewController {
   @objc func pushToScanner() {
     let scannerVC = ScannerViewController()
     scannerVC.task = task
+    scannerVC.episode = self.episodeForUser
     scannerVC.modalPresentationStyle = .formSheet
     self.present(scannerVC, animated: true)
   }

@@ -10,24 +10,18 @@ import UIKit
 class BaseTaskViewController: UIViewController {
   
   let viewModel = TaskViewModel()
-  private var tableView = UITableView()
   var episodeList: [Episode] = []
   var episodeForUser: Episode?
-  var episodeID: String?
-  var taskList: [Properties] = []
-  var taskStatus: [Bool] = []
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    //    FireStoreManager.shared.postEpisode()
-    //    FireStoreManager.shared.fetchTask()
     view.backgroundColor = .black
     setupUI()
-    guard let episode = episodeForUser else { return }
-    self.viewModel.fetchTask(episode: episode) { tasks in
-      self.taskList = tasks
-    }
+//    guard let episode = episodeForUser else { return }
+//    self.viewModel.fetchTask(episode: episode) { tasks in
+//      self.taskList = tasks
+//    }
     setupNavItem()
   }
   
@@ -52,39 +46,13 @@ class BaseTaskViewController: UIViewController {
     return view
   }()
   
-//  lazy var locationALabel: UILabel = {
-//    let label = UILabel()
-//    label.text = "LocationA"
-//    label.font = UIFont(name: "PingFang TC", size: 18)
-//    label.textColor = UIColor(hex: "E7F161", alpha: 1)
-//    label.translatesAutoresizingMaskIntoConstraints = false
-//    return label
-//  }()
-//  
-//  lazy var locationBLabel: UILabel = {
-//    let label = UILabel()
-//    label.text = "LocationB"
-//    label.font = UIFont(name: "PingFang TC", size: 18)
-//    label.textColor = UIColor(hex: "E7F161", alpha: 1)
-//    label.translatesAutoresizingMaskIntoConstraints = false
-//    return label
-//  }()
-  
   func setupUI() {
     view.addSubview(taskView)
-//    view.addSubview(locationALabel)
-//    view.addSubview(locationBLabel)
     NSLayoutConstraint.activate([
       taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       taskView.topAnchor.constraint(equalTo: view.topAnchor),
       taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-      
-//      locationALabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-//      locationALabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-//      
-//      locationBLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
-//      locationBLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20)
     ])
   }
 }

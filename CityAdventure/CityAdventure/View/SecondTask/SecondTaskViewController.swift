@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 
 class SecondTaskViewController: MapViewController {
+  var episode: Episode?
   var secondTask: TaskLocations?
   private var taskRouteOverlay: MKOverlay?
 //  var currentPlacemark: CLPlacemark?
@@ -159,7 +160,11 @@ class SecondTaskViewController: MapViewController {
         if arrivedTaskCount > testLocation.count / 2 {
           locationManager?.stopUpdatingLocation()
           locationManager?.stopUpdatingHeading()
-          self.navigationController?.popViewController(animated: true)
+          let successVC = SuccessViewController()
+          successVC.modalPresentationStyle = .fullScreen
+          successVC.episodeID = self.episode?.id
+          successVC.taskNum = 1
+          self.present(successVC, animated: true)
         }
       }
     }

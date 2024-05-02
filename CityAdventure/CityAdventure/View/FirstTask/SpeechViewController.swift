@@ -13,6 +13,7 @@ class SpeechViewController: BaseTaskViewController {
   var question: String?
   var task: Properties?
   
+  
   private let speechVM = SpeechViewModel()
   
   override func viewDidLoad() {
@@ -50,6 +51,8 @@ class SpeechViewController: BaseTaskViewController {
           let successVC = SuccessViewController()
           successVC.modalPresentationStyle = .fullScreen
           self.speechVM.audioEngine.stop()
+          successVC.episodeID = self.episodeForUser?.id
+          successVC.taskNum = 0
           self.present(successVC, animated: true)
 //          self.backToRoot()
 //          guard let controllers = self.navigationController?.viewControllers else { return }
@@ -66,12 +69,9 @@ class SpeechViewController: BaseTaskViewController {
   }
   
   func getTask() {
-    // ToFix
-    guard let episodeID = episodeID else { return }
-    viewModel.fetchEpisode(id: episodeID) { episode in
-      self.viewModel.fetchTask(episode: episode) { task in
-        self.task = task[0]
-      }
+    guard let episode = episodeForUser else { return }
+    viewModel.fetchTask(episode: episode) { task in
+      self.task = task[0]
     }
   }
   

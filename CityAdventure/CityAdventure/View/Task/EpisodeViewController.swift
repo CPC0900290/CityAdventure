@@ -166,6 +166,7 @@ class EpisodeViewController: EpisodeDetailViewController {
       let taskVC = FirstTaskViewController()
       let taskContent = tasks[0].features[0].properties
       taskVC.task = taskContent
+      taskVC.episodeForUser = episode
       if let sheet = taskVC.sheetPresentationController {
         sheet.detents = [.medium()]
       }
@@ -175,6 +176,7 @@ class EpisodeViewController: EpisodeDetailViewController {
       print("taskB")
       let taskVC = SecondTaskViewController()
       let taskContent = tasks[1]
+      taskVC.episode = episode
       taskVC.secondTask = taskContent
       self.navigationController?.pushViewController(taskVC, animated: true)
     case .taskC:
@@ -182,6 +184,7 @@ class EpisodeViewController: EpisodeDetailViewController {
       let taskVC = ThirdTaskViewController()
       let taskContent = tasks[2].features[0].properties
       taskVC.task = taskContent
+      taskVC.episodeForUser = episode
       if let sheet = taskVC.sheetPresentationController {
         sheet.detents = [.medium()]
       }

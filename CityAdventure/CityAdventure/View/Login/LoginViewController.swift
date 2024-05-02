@@ -175,7 +175,11 @@ extension LoginViewController {
     let uid = user.uid
     viewModel.postProfile(nickName: "User", userID: uid)
     userDefault.set(uid, forKey: "uid")
-    self.dismiss(animated: true)
+    let homeVC = HomeViewController()
+    let nav = UINavigationController(rootViewController: homeVC)
+    nav.modalPresentationStyle = .fullScreen
+    self.present(nav, animated: true)
+//    self.dismiss(animated: true)
     CustomFunc.customAlert(title: "使用者資訊", message: "UID：\(uid)\nEmail：\(email)", viewController: self, actionHandler: nil)
   }
 }

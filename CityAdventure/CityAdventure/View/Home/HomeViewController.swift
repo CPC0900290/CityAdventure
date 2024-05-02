@@ -113,7 +113,7 @@ class HomeViewController: UIViewController {
     let episodeVC = EpisodeViewController()
     episodeVC.episode = adventuringEpisodes[sender.tag]
     episodeVC.user = profile
-    navigationController?.pushViewController(episodeVC, animated: true)
+    navigationController?.pushViewController(episodeVC, animated: false)
   }
   
   private func fetchUser() {

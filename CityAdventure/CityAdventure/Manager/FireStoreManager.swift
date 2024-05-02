@@ -83,13 +83,25 @@ class FireStoreManager {
           guard var data = try snapshot?.data(as: Profile.self)
           else { return }
           data.adventuringEpisode.append(adventuringEpisode)
-//          var newAdventuringEpisode = data.adventuringEpisode
-//          newAdventuringEpisode.append(adventuringEpisode)
           try userProfile.setData(from: data, mergeFields: ["adventuringEpisode"])
         } catch {
           print("FireStoreManager fail to get Profile document: \(error)")
         }
       }
     }
+  }
+  
+  func getDocumentReference(collection: String,
+                            id: String,
+                            sendDocRef: @escaping (DocumentReference) -> Void) {
+    let ref = firestore.collection(collection).document(id)
+    sendDocRef(ref)
+  }
+  
+  func getFilteredDocumentRef(collection: String,
+                              id: String,
+                              field: String,
+                              sendDocRef: @escaping (DocumentReference) -> Void) {
+    
   }
 }
