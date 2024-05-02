@@ -37,7 +37,7 @@
 		00B989792BDF885500C695D7 /* MKCoordinateRegionExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */; };
 		00BD657B2BCC1D880070E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */; };
 		00BE28602BE1DCFC007457A7 /* LoginBackgroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */; };
-		00BE28622BE22847007457A7 /* EpisodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28612BE22847007457A7 /* EpisodeVC.swift */; };
+		00BE28622BE22847007457A7 /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28612BE22847007457A7 /* EpisodeViewController.swift */; };
 		00BE28642BE275ED007457A7 /* FoodFromTaiwan.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28632BE275ED007457A7 /* FoodFromTaiwan.mlmodel */; };
 		00BE28662BE27C46007457A7 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE28652BE27C46007457A7 /* SuccessViewController.swift */; };
 		00BE28682BE28028007457A7 /* Animation_Success.json in Resources */ = {isa = PBXBuildFile; fileRef = 00BE28672BE28028007457A7 /* Animation_Success.json */; };
@@ -101,7 +101,7 @@
 		00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegionExt.swift; sourceTree = "<group>"; };
 		00BD657A2BCC1D880070E013 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00BE285F2BE1DCFC007457A7 /* LoginBackgroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBackgroundViewController.swift; sourceTree = "<group>"; };
-		00BE28612BE22847007457A7 /* EpisodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeVC.swift; sourceTree = "<group>"; };
+		00BE28612BE22847007457A7 /* EpisodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
 		00BE28632BE275ED007457A7 /* FoodFromTaiwan.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodFromTaiwan.mlmodel; sourceTree = "<group>"; };
 		00BE28652BE27C46007457A7 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		00BE28672BE28028007457A7 /* Animation_Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Animation_Success.json; sourceTree = "<group>"; };
@@ -356,7 +356,7 @@
 		00CEB1382BCAC07400AC350B /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				00BE28612BE22847007457A7 /* EpisodeVC.swift */,
+				00BE28612BE22847007457A7 /* EpisodeViewController.swift */,
 				00CEB13D2BCAC4A900AC350B /* MapViewController.swift */,
 				00CEB1342BCA957100AC350B /* TaskCell.swift */,
 				00CEB1362BCA95F500AC350B /* TaskCell.xib */,
@@ -580,7 +580,7 @@
 				00B72E3C2BD68DFE00F531C0 /* TitleSupplementaryView.swift in Sources */,
 				00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */,
 				00B72E382BD6749100F531C0 /* EpisodeCell.swift in Sources */,
-				00BE28622BE22847007457A7 /* EpisodeVC.swift in Sources */,
+				00BE28622BE22847007457A7 /* EpisodeViewController.swift in Sources */,
 				00D01B912BDCB9BF00E4A0C7 /* EpisodeDetailViewController.swift in Sources */,
 				00D01B8E2BDC9A5400E4A0C7 /* ProfileViewModel.swift in Sources */,
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,

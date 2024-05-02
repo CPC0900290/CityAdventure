@@ -15,7 +15,7 @@ enum TaskBlock {
   case taskC
 }
 
-class EpisodeVC: EpisodeDetailViewController {
+class EpisodeViewController: EpisodeDetailViewController {
   // MARK: - Properties var
   private var currentTask: TaskBlock?
   lazy var taskAButton: UIButton = {

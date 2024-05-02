@@ -101,7 +101,7 @@ class EpisodeDetailViewController: UIViewController {
     else { return }
     let adventuringEpisode = AdventuringEpisode(episodeID: episode.id, taskStatus: [false, false, false])
     viewModel.updateUserPlayingList(user: user, adventuringEpisode)
-    let episodeVC = EpisodeVC()
+    let episodeVC = EpisodeViewController()
     episodeVC.episode = episode
     episodeVC.user = user
     self.navigationController?.pushViewController(episodeVC, animated: false)
