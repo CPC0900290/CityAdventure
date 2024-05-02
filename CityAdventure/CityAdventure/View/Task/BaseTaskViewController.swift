@@ -4,11 +4,10 @@
 //
 //  Created by Pin Chen on 2024/4/10.
 //
-// TODO: 繼承EpisodeDetailVC
 
 import UIKit
 
-class EpisodeViewController: UIViewController {
+class BaseTaskViewController: UIViewController {
   
   let viewModel = TaskViewModel()
   private var tableView = UITableView()

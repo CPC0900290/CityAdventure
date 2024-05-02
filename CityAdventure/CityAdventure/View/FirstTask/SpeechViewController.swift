@@ -9,7 +9,7 @@ import Foundation
 import Speech
 import UIKit
 
-class SpeechViewController: EpisodeViewController {
+class SpeechViewController: BaseTaskViewController {
   var question: String?
   var task: Properties?
   

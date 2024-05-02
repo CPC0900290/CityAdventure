@@ -104,7 +104,7 @@ class EpisodeDetailViewController: UIViewController {
     let episodeVC = EpisodeVC()
     episodeVC.episode = episode
     episodeVC.user = user
-    self.navigationController?.pushViewController(episodeVC, animated: true)
+    self.navigationController?.pushViewController(episodeVC, animated: false)
   }
   
   @objc func showAllAnnotations(_ snder: Any) {

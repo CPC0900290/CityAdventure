@@ -11,7 +11,7 @@
 		0039BEC12BD153DD00D8B20A /* RecognizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039BEC02BD153DD00D8B20A /* RecognizerViewController.swift */; };
 		005EEFC62BC685EA00D46BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */; };
 		005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC72BC685EA00D46BB6 /* SceneDelegate.swift */; };
-		005EEFCA2BC685EA00D46BB6 /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC92BC685EA00D46BB6 /* EpisodeViewController.swift */; };
+		005EEFCA2BC685EA00D46BB6 /* BaseTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC92BC685EA00D46BB6 /* BaseTaskViewController.swift */; };
 		005EEFCF2BC685EC00D46BB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */; };
 		005EEFD22BC685EC00D46BB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005EEFD02BC685EC00D46BB6 /* LaunchScreen.storyboard */; };
 		0090D90C2BE0AF9300CE1F05 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0090D90B2BE0AF9300CE1F05 /* LoginViewController.swift */; };
@@ -57,8 +57,6 @@
 		00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1322BCA87D900AC350B /* UIColorExt.swift */; };
 		00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1342BCA957100AC350B /* TaskCell.swift */; };
 		00CEB1372BCA95F500AC350B /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00CEB1362BCA95F500AC350B /* TaskCell.xib */; };
-		00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */; };
-		00CEB13C2BCAC15C00AC350B /* DraggableMarkerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB13B2BCAC15C00AC350B /* DraggableMarkerManager.swift */; };
 		00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB13D2BCAC4A900AC350B /* MapViewController.swift */; };
 		00D01B8E2BDC9A5400E4A0C7 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D01B8D2BDC9A5400E4A0C7 /* ProfileViewModel.swift */; };
 		00D01B912BDCB9BF00E4A0C7 /* EpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D01B902BDCB9BF00E4A0C7 /* EpisodeDetailViewController.swift */; };
@@ -75,7 +73,7 @@
 		005EEFC22BC685EA00D46BB6 /* CityAdventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityAdventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		005EEFC72BC685EA00D46BB6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		005EEFC92BC685EA00D46BB6 /* EpisodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
+		005EEFC92BC685EA00D46BB6 /* BaseTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTaskViewController.swift; sourceTree = "<group>"; };
 		005EEFCE2BC685EC00D46BB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		005EEFD12BC685EC00D46BB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		005EEFD32BC685EC00D46BB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,8 +118,6 @@
 		00CEB1322BCA87D900AC350B /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		00CEB1342BCA957100AC350B /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		00CEB1362BCA95F500AC350B /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
-		00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableMarkableView.swift; sourceTree = "<group>"; };
-		00CEB13B2BCAC15C00AC350B /* DraggableMarkerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableMarkerManager.swift; sourceTree = "<group>"; };
 		00CEB13D2BCAC4A900AC350B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		00D01B8D2BDC9A5400E4A0C7 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		00D01B902BDCB9BF00E4A0C7 /* EpisodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailViewController.swift; sourceTree = "<group>"; };
@@ -293,7 +289,6 @@
 		00C35F882BC78AE600AB7B7D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				00CEB1392BCAC0C500AC350B /* DraggableMarkableView.swift */,
 				0090D90A2BE0AF6C00CE1F05 /* Login */,
 				00C890A12BDA567500A430A2 /* Profile */,
 				00B72E242BD5FC3A00F531C0 /* Home */,
@@ -335,7 +330,6 @@
 			isa = PBXGroup;
 			children = (
 				00C35F972BC822D600AB7B7D /* FireStoreManager.swift */,
-				00CEB13B2BCAC15C00AC350B /* DraggableMarkerManager.swift */,
 				00B72E252BD6078600F531C0 /* UploadEpisode.swift */,
 			);
 			path = Manager;
@@ -362,12 +356,12 @@
 		00CEB1382BCAC07400AC350B /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				005EEFC92BC685EA00D46BB6 /* EpisodeViewController.swift */,
+				00BE28612BE22847007457A7 /* EpisodeVC.swift */,
 				00CEB13D2BCAC4A900AC350B /* MapViewController.swift */,
 				00CEB1342BCA957100AC350B /* TaskCell.swift */,
 				00CEB1362BCA95F500AC350B /* TaskCell.xib */,
+				005EEFC92BC685EA00D46BB6 /* BaseTaskViewController.swift */,
 				0094CD922BCE992C00820BE5 /* MapPin.swift */,
-				00BE28612BE22847007457A7 /* EpisodeVC.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -554,13 +548,12 @@
 				0039BEC12BD153DD00D8B20A /* RecognizerViewController.swift in Sources */,
 				0090D90C2BE0AF9300CE1F05 /* LoginViewController.swift in Sources */,
 				00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */,
-				005EEFCA2BC685EA00D46BB6 /* EpisodeViewController.swift in Sources */,
+				005EEFCA2BC685EA00D46BB6 /* BaseTaskViewController.swift in Sources */,
 				00C66F2C2BCF7A8000B5DA62 /* MapViewModel.swift in Sources */,
 				00C890A32BDA568D00A430A2 /* ProfileViewController.swift in Sources */,
 				00D01B932BDE0B4D00E4A0C7 /* CustomAnnotations.swift in Sources */,
 				00B97F052BCD5E1F003E2327 /* SpeechViewController.swift in Sources */,
 				00C890A62BDAD16B00A430A2 /* PostCell.swift in Sources */,
-				00CEB13C2BCAC15C00AC350B /* DraggableMarkerManager.swift in Sources */,
 				00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */,
 				00C92D692BD7DBD800631D3E /* Profile.swift in Sources */,
 				00B72E332BD66FFA00F531C0 /* ExploreAreaCell.swift in Sources */,
@@ -582,7 +575,6 @@
 				00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */,
 				00D01B992BDEB27100E4A0C7 /* TaskDetailView.swift in Sources */,
 				00B989792BDF885500C695D7 /* MKCoordinateRegionExt.swift in Sources */,
-				00CEB13A2BCAC0C500AC350B /* DraggableMarkableView.swift in Sources */,
 				00B72E282BD63B2C00F531C0 /* ProfileCell.swift in Sources */,
 				00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */,
 				00B72E3C2BD68DFE00F531C0 /* TitleSupplementaryView.swift in Sources */,

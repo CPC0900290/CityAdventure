@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class FirstTaskViewController: EpisodeViewController {
+class FirstTaskViewController: BaseTaskViewController {
   var task: Properties?
   
   override func viewDidLoad() {

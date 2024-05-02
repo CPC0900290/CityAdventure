@@ -8,18 +8,12 @@
 import Foundation
 import UIKit
 
-class ThirdTaskViewController: EpisodeViewController {
+class ThirdTaskViewController: BaseTaskViewController {
   var task: Properties?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-//    DraggableMarkerManager.shared.hideMarker()
-//    setupMarkerView()
-//    guard let episode = episodeForUser else { return }
-//    viewModel.fetchTask(episode: episode) { task in
-//      self.task = task[2]
-//    }
   }
   
   // MARK: - Function
@@ -81,14 +75,5 @@ class ThirdTaskViewController: EpisodeViewController {
       recognizeButton.widthAnchor.constraint(equalTo: taskView.widthAnchor, multiplier: 0.5),
       recognizeButton.heightAnchor.constraint(equalTo: recognizeButton.widthAnchor, multiplier: 1)
     ])
-  }
-  
-  private func setupMarkerView() {
-    DraggableMarkerManager.shared.showMarker(in: self) {
-      let mapVC = MapViewController()
-      mapVC.modalPresentationStyle = .automatic
-      mapVC.tasks = self.taskList
-      self.present(mapVC, animated: true)
-    }
   }
 }
