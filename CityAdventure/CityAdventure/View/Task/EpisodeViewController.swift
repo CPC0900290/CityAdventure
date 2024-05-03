@@ -21,6 +21,8 @@ class EpisodeViewController: EpisodeDetailViewController {
   lazy var taskAButton: UIButton = {
     let button = UIButton()
     button.setTitle("A", for: .normal)
+    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    button.tintColor = .darkGray
     button.setTitleColor(.black, for: .normal)
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
@@ -34,6 +36,8 @@ class EpisodeViewController: EpisodeDetailViewController {
     let button = UIButton()
     button.setTitle("B", for: .normal)
     button.setTitleColor(.black, for: .normal)
+    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    button.tintColor = .darkGray
     button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
@@ -47,6 +51,8 @@ class EpisodeViewController: EpisodeDetailViewController {
     let button = UIButton()
     button.setTitle("C", for: .normal)
     button.setTitleColor(.black, for: .normal)
+    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    button.tintColor = .darkGray
     button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
@@ -99,6 +105,17 @@ class EpisodeViewController: EpisodeDetailViewController {
   }
   
   // MARK: - Function
+  func getDistanceToTask(taskCoordinate: CLLocationCoordinate2D) -> CLLocationDistance {
+    guard let userCoordinate = viewModel.locationManager?.location else { return 0 }
+    let distance = userCoordinate.distance(from: CLLocation(latitude: taskCoordinate.latitude,
+                                                            longitude: taskCoordinate.longitude))
+    return distance
+  }
+  
+  private func configButtonStatus() {
+    // Doing: Setting Button status with Profile.AdventuringEpisode.taskStatus
+  }
+  
   private func centerForTask(coordinate: CLLocationCoordinate2D) {
     let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 300, longitudinalMeters: 300)
     self.mapView.setRegion(region, animated: true)

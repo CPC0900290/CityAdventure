@@ -112,7 +112,6 @@ class HomeViewController: UIViewController {
     guard !profile.adventuringEpisode.isEmpty else { return }
     let episodeVC = EpisodeViewController()
     episodeVC.episode = adventuringEpisodes[sender.tag]
-    episodeVC.user = profile
     navigationController?.pushViewController(episodeVC, animated: false)
   }
   

@@ -56,7 +56,9 @@ class EpisodeDetailViewController: UIViewController {
     setupNavItem()
     setupUI()
     registerMapAnnotationViews()
-    getTasksAndLocations()
+    guard let episode = episode else { return }
+    viewModel.getData(episode: episode)
+    showAllAnnotations(self)
     viewModel.setupLocationManager(self)
   }
   
@@ -88,28 +90,22 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   // MARK: - Functions
-  func getDistanceToTask(taskCoordinate: CLLocationCoordinate2D) -> CLLocationDistance {
-    guard let userCoordinate = viewModel.locationManager?.location else { return 0 }
-    let distance = userCoordinate.distance(from: CLLocation(latitude: taskCoordinate.latitude,
-                                                            longitude: taskCoordinate.longitude))
-    return distance
-  }
-  
+  // UI 接收使用者指令
   @objc func startPlaying() {
-    guard let episode = episode,
-          let user = user
-    else { return }
+    guard let episode = episode else { return }
     let adventuringEpisode = AdventuringEpisode(episodeID: episode.id, taskStatus: [false, false, false])
-    viewModel.updateUserPlayingList(user: user, adventuringEpisode)
+    viewModel.updateUserPlayingList(adventuringEpisode)
     let episodeVC = EpisodeViewController()
     episodeVC.episode = episode
-    episodeVC.user = user
     self.navigationController?.pushViewController(episodeVC, animated: false)
   }
-  
+  // UI 顯示畫面
   @objc func showAllAnnotations(_ snder: Any) {
-    guard let episode = episode else { return }
-    displayedAnnotations = allAnnotations
+    guard let episode = episode,
+          !viewModel.taskAnnotations.isEmpty
+    else { return }
+    displayedAnnotations = viewModel.taskAnnotations
+    allAnnotations = viewModel.taskAnnotations
     taskDetailView.titleLabel.text = episode.title
     taskDetailView.taskContentLabel.text = episode.content
     taskDetailView.taskDistanceLabel.text = ""
@@ -117,21 +113,9 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   private func centerMapForEpisode() {
-    viewModel.fetchCoordinate(taskLocations: tasks) { coordinates in
-      let region = MKCoordinateRegion(coordinates: coordinates)
-      self.mapView.setRegion(region, animated: true)
-    }
-  }
-  
-  private func getTasksAndLocations() {
-    guard let episode = episode else { return }
-    viewModel.fetchTask(episode: episode) { taskLocations in
-      self.tasks = taskLocations
-      self.viewModel.fetchAnnotation(taskLocations: self.tasks) { annotations in
-        self.allAnnotations = annotations
-        self.showAllAnnotations(self)
-      }
-    }
+    guard !viewModel.taskCoordinates.isEmpty else { return }
+    let region = MKCoordinateRegion(coordinates: viewModel.taskCoordinates)
+    mapView.setRegion(region, animated: true)
   }
   
   @objc func lastPage() {
@@ -152,6 +136,7 @@ class EpisodeDetailViewController: UIViewController {
     navigationItem.leftBarButtonItem = navBarItem
   }
 }
+
 // MARK: - MKMapViewDelegate
 extension EpisodeDetailViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

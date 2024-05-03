@@ -8,8 +8,25 @@
 import Foundation
 import MapKit
 
+protocol EpisodeDetailModelProtocol: AnyObject {
+  func updatedDataModels()
+}
+
 class EpisodeDetailViewModel {
   var locationManager: CLLocationManager?
+  private var delegate: EpisodeDetailModelProtocol?
+  private var userDefault: UserDefaults?
+  
+  private var episode: Episode?
+  var tasks: [TaskLocations]? {
+    didSet {
+      fetchAnnotationsAndCoordinate()
+    }
+  }
+  
+  var taskAnnotations: [CustomAnnotation] = []
+  
+  var taskCoordinates: [CLLocationCoordinate2D] = []
   
   func checkLocationAuthorization(mapView: MKMapView) {
     guard let locationManager = locationManager,
@@ -26,7 +43,7 @@ class EpisodeDetailViewModel {
       print("")
     }
   }
-  
+  // MARK: - New
   func setupLocationManager(_ viewController: CLLocationManagerDelegate) {
     locationManager = CLLocationManager()
     locationManager?.delegate = viewController
@@ -35,36 +52,24 @@ class EpisodeDetailViewModel {
     locationManager?.requestLocation()
   }
   
-  func fetchTask(episode: Episode, sendTask: @escaping ([TaskLocations]) -> Void) {
-    let tasks = episode.tasks
-    var results: [TaskLocations] = []
-    for task in tasks {
+  func getData(episode: Episode) {
+    self.episode = episode
+    var temp: [TaskLocations] = []
+    for task in episode.tasks {
       guard let data = task.data(using: .utf8) else { return }
       do {
         let taskLocation = try JSONDecoder().decode(TaskLocations.self , from: data)
-        results.append(taskLocation)
+        temp.append(taskLocation)
       } catch let error {
         print("fail to decode data from task: \(error)")
       }
     }
-    sendTask(results)
+    tasks = temp
   }
   
-  func fetchCoordinate(taskLocations: [TaskLocations], sendLocation: @escaping ([CLLocationCoordinate2D]) -> Void) {
-    var taskLocationList: [CLLocationCoordinate2D] = []
-    for taskLocation in taskLocations {
-      let locationPath = taskLocation.features
-      guard let points = locationPath.first?.geometry.coordinate else { return }
-      taskLocationList.append(CLLocationCoordinate2D(latitude: CLLocationDegrees(points[0]),
-                                                     longitude: CLLocationDegrees(points[1])))
-      
-    }
-    sendLocation(taskLocationList)
-  }
-  
-  func fetchAnnotation(taskLocations: [TaskLocations], sendLocation: @escaping ([CustomAnnotation]) -> Void) {
-    var taskLocationList: [CustomAnnotation] = []
-    for taskLocation in taskLocations {
+  func fetchAnnotationsAndCoordinate() {
+    guard let tasks = tasks else { return }
+    for taskLocation in tasks {
       let locationPath = taskLocation.features
       guard let location = locationPath.first,
             let points = location.geometry.coordinate
@@ -74,15 +79,14 @@ class EpisodeDetailViewModel {
       let annotation = CustomAnnotation(coordinate: coordinate)
       annotation.title = locationPath.first?.properties.title
       annotation.subtitle = locationPath.first?.properties.locationName
-      taskLocationList.append(annotation)
+      self.taskAnnotations.append(annotation)
+      self.taskCoordinates.append(coordinate)
     }
-    sendLocation(taskLocationList)
   }
   
-  func updateUserPlayingList(user: Profile,_ adventuringEpisode: AdventuringEpisode) {
-    // Doing
-//    FireStoreManager.shared.updateUserProfile(userID: user.documentID, adventuringEpisode: adventuringEpisode)
-    FireStoreManager.shared.getDocumentReference(collection: "Profile", id: user.documentID) { ref in
+  func updateUserPlayingList(_ adventuringEpisode: AdventuringEpisode) {
+    guard let profile = userDefault?.value(forKey: "uid") as? Profile else { return }
+    FireStoreManager.shared.getDocumentReference(collection: "Profile", id: profile.documentID) { ref in
       ref.getDocument { snapshot, error in
         if let error = error {
           print("EpisodeDetailViewModel fail to get document: \(error)")
