@@ -31,7 +31,7 @@ class FirstTaskViewController: BaseTaskViewController {
     let label = UILabel()
     label.text = "請找到QR Code並掃描取得任務！"
     label.font = UIFont(name: "PingFang TC", size: 20)
-    label.textColor = .black
+    label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()

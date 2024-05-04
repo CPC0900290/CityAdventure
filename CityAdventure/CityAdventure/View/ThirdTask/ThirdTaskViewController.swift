@@ -30,7 +30,7 @@ class ThirdTaskViewController: BaseTaskViewController {
     let label = UILabel()
     label.text = "請根據線索找到指定美食！"
     label.font = UIFont(name: "PingFang TC", size: 20)
-    label.textColor = .black
+    label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -39,7 +39,7 @@ class ThirdTaskViewController: BaseTaskViewController {
     let label = UILabel()
     label.text = "請找到一個黃色的食物"
     label.font = UIFont(name: "PingFang TC", size: 18)
-    label.textColor = .black
+    label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()

@@ -18,10 +18,6 @@ class BaseTaskViewController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = .black
     setupUI()
-//    guard let episode = episodeForUser else { return }
-//    self.viewModel.fetchTask(episode: episode) { tasks in
-//      self.taskList = tasks
-//    }
     setupNavItem()
   }
   
@@ -30,6 +26,21 @@ class BaseTaskViewController: UIViewController {
   }
   
   // MARK: - UI Setup
+  private let blurEffect = UIBlurEffect(style: .systemMaterialDark)
+  
+  lazy var backgroundMaterial: UIVisualEffectView = {
+    let view = UIVisualEffectView(effect: blurEffect)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+  
+  lazy var taskView: UIView = {
+    let view = UIView()
+    view.backgroundColor = .white
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+  
   func setupNavItem() {
     navigationController?.navigationBar.prefersLargeTitles = true
     navigationController?.navigationItem.largeTitleDisplayMode = .always
@@ -39,43 +50,19 @@ class BaseTaskViewController: UIViewController {
     navigationItem.leftBarButtonItem = navBarItem
   }
   
-  lazy var taskView: UIView = {
-    let view = UIView()
-    view.backgroundColor = .white
-    view.translatesAutoresizingMaskIntoConstraints = false
-    return view
-  }()
-  
   func setupUI() {
     view.addSubview(taskView)
+    taskView.addSubview(backgroundMaterial)
     NSLayoutConstraint.activate([
       taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
       taskView.topAnchor.constraint(equalTo: view.topAnchor),
       taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+      
+      backgroundMaterial.leadingAnchor.constraint(equalTo: taskView.leadingAnchor),
+      backgroundMaterial.topAnchor.constraint(equalTo: taskView.topAnchor),
+      backgroundMaterial.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
+      backgroundMaterial.bottomAnchor.constraint(equalTo: taskView.bottomAnchor)
     ])
-  }
-}
-
-extension UIViewController {
-  
-  func backToRoot(completion: (() -> Void)? = nil) {
-    if presentingViewController != nil {
-      let superVC = presentingViewController
-      dismiss(animated: false, completion: nil)
-      superVC?.backToRoot(completion: completion)
-      return
-    }
-//    
-//    if let tabbarVC = self as? UITabBarController {
-//      tabbarVC.selectedViewController?.backToRoot(completion: completion)
-//      return
-//    }
-//    
-//    if let navigateVC = self as? UINavigationController {
-//      navigateVC.popToRootViewController(animated: false)
-//    }
-    
-    completion?()
   }
 }

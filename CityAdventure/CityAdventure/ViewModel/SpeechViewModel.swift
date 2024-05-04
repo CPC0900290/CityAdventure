@@ -14,6 +14,7 @@ class SpeechViewModel {
   var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
   private var recognitionTask: SFSpeechRecognitionTask?
   let audioEngine = AVAudioEngine()
+  var recognitionResultHandler: (String?, Error?) -> Void = { _, _ in }
   
   func setupSpeech(sender: UIButton, viewController: UIViewController) {
     sender.isEnabled = false
@@ -42,10 +43,10 @@ class SpeechViewModel {
     }
   }
   
-  func startRecording(rightAnswer: String,sender: UIButton, sendAnswer: @escaping (Bool) -> Void) {
-    
+  func startRecording() {
     if recognitionTask != nil {
       recognitionTask?.cancel()
+      audioEngine.inputNode.removeTap(onBus: 0)
       recognitionTask = nil
     }
     
@@ -58,39 +59,21 @@ class SpeechViewModel {
       print("audioSession properties weren't set because of an error.")
     }
     
-    recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-    
     let inputNode = audioEngine.inputNode
-    
-    guard let recognitionRequest = recognitionRequest else {
-      fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
-    }
-    
+    recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+    guard let recognitionRequest = recognitionRequest else { return }
     recognitionRequest.shouldReportPartialResults = true
     
-    recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
-      
-      var isFinal = false
-      
-      if result != nil {
-        guard let answer = result?.bestTranscription.formattedString else { return }
-        print(answer)
-        let isRightAnswer = rightAnswer.contains(answer)
-        print("ViewModel conform isRightAnswer \(isRightAnswer)")
-        sendAnswer(isRightAnswer)
-        isFinal = (result?.isFinal)!
+    recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) {[weak self] result, error in
+      guard let self = self else { return }
+      if let result = result {
+        if result.isFinal {
+          self.recognitionResultHandler(result.bestTranscription.formattedString, nil)
+        }
+      } else if let error = error {
+        self.recognitionResultHandler(nil, error)
       }
-      
-      if error != nil || isFinal {
-        self.audioEngine.stop()
-        inputNode.removeTap(onBus: 0)
-        
-        self.recognitionRequest = nil
-        self.recognitionTask = nil
-        
-        sender.isEnabled = true
-      }
-    })
+    }
     
     let recordingFormat = inputNode.outputFormat(forBus: 0)
     inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, _) in
@@ -104,5 +87,38 @@ class SpeechViewModel {
     } catch {
       print("audioEngine couldn't start because of an error.")
     }
+  }
+  
+  func stopRecording() {
+//    guard let recognitionRequest = recognitionRequest else {
+//      audioEngine.stop()
+//      self.recognitionTask?.cancel()
+//      self.recognitionTask = nil
+//      return
+//    }
+    audioEngine.stop()
+    recognitionRequest?.endAudio()
+//
+//    speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
+//      if let result = result, result.isFinal {
+//        completion(result.bestTranscription.formattedString)
+//      } else {
+//        completion(nil)
+//      }
+//      if let error = error {
+//        print("SpeechVM.stopRecording get error when from ")
+//      }
+//      self.recognitionTask?.finish()
+//      self.recognitionTask = nil
+//    }
+  }
+  
+  func cancelRecording() {
+    audioEngine.stop()
+    recognitionRequest?.endAudio()
+    audioEngine.inputNode.removeTap(onBus: 0)
+    recognitionTask?.cancel()
+    recognitionTask = nil
+    print("Recording canceled")
   }
 }

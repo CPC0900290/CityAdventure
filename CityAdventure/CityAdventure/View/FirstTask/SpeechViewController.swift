@@ -32,45 +32,61 @@ class SpeechViewController: BaseTaskViewController {
   }
   
   // MARK: - Function
-  @objc func speechRecord() {
-    if speechVM.audioEngine.isRunning {
-//      speechButton.isHighlighted = false
-      speechVM.audioEngine.stop()
-      speechVM.recognitionRequest?.endAudio()
-      speechButton.isEnabled = false
-//      speechButton.setTitle("Start Recording", for: .normal)
-    } else {
-      
-      guard let rightAnswer = task?.questionAnswerPair?[0].answer else { return }
-      print("=======Mic open")
-      speechVM.startRecording(rightAnswer: rightAnswer,sender: speechButton) { isRightAnswer in
-        if isRightAnswer {
-          print(rightAnswer)
-          print("Correct Answer! Good job!")
-          let successVC = SuccessViewController()
-          successVC.modalPresentationStyle = .fullScreen
-          self.speechVM.audioEngine.stop()
-          successVC.episodeID = self.episodeForUser?.id
-          successVC.taskNum = 0
-          self.present(successVC, animated: true)
-//          self.backToRoot()
-//          guard let controllers = self.navigationController?.viewControllers else { return }
-//          for viewcontroller in controllers {
-//            if let taskVC = viewcontroller as? EpisodeViewController {
-//              self.navigationController?.popToViewController(taskVC, animated: true)
-//            }
-//          }
-        } else {
-          print("Think about it again!")
-        }
-      }
-    }
-  }
+//  @objc func speechRecord() {
+//    if speechVM.audioEngine.isRunning {
+////      speechButton.isHighlighted = false
+//      speechVM.audioEngine.stop()
+//      speechVM.recognitionRequest.endAudio()
+//      speechButton.isEnabled = false
+//      speechVM.audioEngine.reset()
+//      speechVM.audioEngine.start()
+////      speechButton.setTitle("Start Recording", for: .normal)
+//    } else {
+//      
+//      guard let rightAnswer = task?.questionAnswerPair?[0].answer else { return }
+//      print("=======Mic open")
+//      speechVM.startRecording(rightAnswer: rightAnswer,sender: speechButton) { isRightAnswer in
+//        if isRightAnswer {
+//          print(rightAnswer)
+//          print("Correct Answer! Good job!")
+//          let successVC = SuccessViewController()
+//          successVC.modalPresentationStyle = .fullScreen
+//          self.speechVM.audioEngine.stop()
+//          successVC.episodeID = self.episodeForUser?.id
+//          successVC.taskNum = 0
+//          self.present(successVC, animated: true)
+//        } else {
+//          print("Think about it again!")
+//        }
+//      }
+//    }
+//  }
   
   func getTask() {
     guard let episode = episodeForUser else { return }
     viewModel.fetchTask(episode: episode) { task in
       self.task = task[0]
+    }
+  }
+  
+  @objc func buttonTouchDown() {
+    speechVM.startRecording()
+  }
+  
+  @objc func buttonTouchOutside() {
+    speechVM.cancelRecording()
+  }
+  
+  @objc func buttonTouchUpInside() {
+    speechVM.stopRecording()
+    speechVM.recognitionResultHandler = {text, error in
+      DispatchQueue.main.async {
+        if let text = text {
+          print("Final recognized text: \(text)")
+        } else {
+          print("Error or no result")
+        }
+      }
     }
   }
   
@@ -80,7 +96,7 @@ class SpeechViewController: BaseTaskViewController {
     label.text = "Question"
     label.font = UIFont(name: "PingFang TC", size: 15)
     label.numberOfLines = 0
-    label.textColor = .black
+    label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -90,7 +106,9 @@ class SpeechViewController: BaseTaskViewController {
     button.setBackgroundImage(UIImage(systemName: "mic.circle"), for: .normal)
     button.tintColor = UIColor(hex: "E7F161", alpha: 1)
     button.translatesAutoresizingMaskIntoConstraints = false
-    button.addTarget(self, action: #selector(speechRecord), for: .touchUpInside)
+    button.addTarget(self, action: #selector(buttonTouchDown), for: .touchDown)
+    button.addTarget(self, action: #selector(buttonTouchOutside), for: .touchUpOutside)
+    button.addTarget(self, action: #selector(buttonTouchUpInside), for: .touchUpInside)
     return button
   }()
   
@@ -105,7 +123,8 @@ class SpeechViewController: BaseTaskViewController {
       taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
       
       taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
-      taskContentLabel.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
+      taskContentLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 20),
+      taskContentLabel.trailingAnchor.constraint(equalTo: taskView.trailingAnchor, constant: -20),
       
       speechButton.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
       speechButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 80),
