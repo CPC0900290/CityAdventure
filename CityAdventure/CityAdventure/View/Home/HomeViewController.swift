@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
   let uploadEpisode = UploadEpisode()
   private let userDefault = UserDefaults()
   private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
+  private var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
   private var sectionArray: [Section] = Section.allCases
   private let viewModel = HomeViewModel()
   private var episodeIDList: [String] = []
@@ -28,6 +29,7 @@ class HomeViewController: UIViewController {
     super.viewDidLoad()
     //    uploadEpisode.postProfile()
     //    uploadEpisode.postEpisode()
+    viewModel.delegate = self
     fetchUser()
     fetchData()
     setupNavigation()
@@ -99,11 +101,19 @@ class HomeViewController: UIViewController {
   private func fetchUserPlayingData() {
     guard let profile = profile else { return }
     guard !profile.adventuringEpisode.isEmpty else { return }
+    adventuringEpisodes.removeAll()
     for episdoe in profile.adventuringEpisode {
       let id = episdoe.episodeID
       viewModel.fetchEpisode(id: id) { episode in
         self.adventuringEpisodes.append(episode)
       }
+    }
+  }
+  
+  private func fetchUser() {
+    guard let user = Auth.auth().currentUser else { return }
+    viewModel.fetchProfile(uid: user.uid) { profile in
+      self.profile = profile
     }
   }
   
@@ -113,16 +123,6 @@ class HomeViewController: UIViewController {
     let episodeVC = EpisodeViewController()
     episodeVC.episode = adventuringEpisodes[sender.tag]
     navigationController?.pushViewController(episodeVC, animated: false)
-  }
-  
-  private func fetchUser() {
-    // 判斷是否已經登入 -是：就不顯示loginVC -否：顯示loginVC
-    // 如果沒登入過，要sign in with apple後才會dismiss這個ViewController
-    guard let user = Auth.auth().currentUser else { return }
-    viewModel.fetchProfile(uid: user.uid) { profile in
-      self.profile = profile
-      self.fetchUserPlayingData()
-    }
   }
 }
 
@@ -272,7 +272,6 @@ extension HomeViewController {
   }
   
   private func configSnapshot() {
-    var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
     sectionArray.forEach { section in
       currentSnapshot.appendSections([section])
     }
@@ -291,8 +290,19 @@ extension HomeViewController {
     
     dataSource.apply(currentSnapshot, animatingDifferences: true)
   }
+  
+  private func updateSnapshotForDoingEpisode() {
+    var snapshot = dataSource.snapshot()
+    if snapshot.sectionIdentifiers.contains(.doingEpisode) {
+      snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .doingEpisode))
+      let newItems = adventuringEpisodes.map { Item.adventuringEpisode($0) }
+      snapshot.appendItems(newItems, toSection: .doingEpisode)
+    }
+    dataSource.apply(snapshot, animatingDifferences: true)
+  }
 }
 
+// MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     switch indexPath.section {
@@ -307,16 +317,21 @@ extension HomeViewController: UICollectionViewDelegate {
       print("AreaEpisode is clicked, pop to spesific task")
       let episodeDetailVC = EpisodeDetailViewController()
       episodeDetailVC.episode = episodeList[indexPath.row]
-      episodeDetailVC.user = profile
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     case 3:
       print("EpisodeList is clicked, pop to spesific task")
       let episodeDetailVC = EpisodeDetailViewController()
       episodeDetailVC.episode = episodeList[indexPath.row]
-      episodeDetailVC.user = profile
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     default:
       break
     }
+  }
+}
+
+// MARK: - HomeVMDelegate
+extension HomeViewController: HomeVMDelegate {
+  func profileUpdated() {
+    fetchUserPlayingData()
   }
 }

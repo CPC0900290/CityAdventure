@@ -9,7 +9,7 @@ import Foundation
 class SuccessViewModel {
   func updateFinishingTask(episdoeID: String, taskNum: Int) {
     let userDefault = UserDefaults()
-    guard let userID = UserDefaults.value(forKey: "uid") as? String else { return }
+    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
     FireStoreManager.shared.getDocumentReference(collection: "Profile", id: userID) { ref in
       ref.getDocument { snapshot, error in
         if let error = error {

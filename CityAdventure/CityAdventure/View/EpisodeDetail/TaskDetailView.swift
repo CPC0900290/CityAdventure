@@ -12,7 +12,7 @@ class TaskDetailView: UIView {
   
   private let blurEffect = UIBlurEffect(style: .systemMaterialDark)
   
-  private lazy var backgroundMaterial: UIVisualEffectView = {
+  lazy var backgroundMaterial: UIVisualEffectView = {
     let view = UIVisualEffectView(effect: blurEffect)
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
@@ -61,7 +61,6 @@ class TaskDetailView: UIView {
     super.init(frame: frame)
     addSubview(backgroundMaterial)
     setupUI()
-    backgroundMaterial.layer.cornerRadius = 30
   }
   
   required init?(coder: NSCoder) {
@@ -82,10 +81,10 @@ class TaskDetailView: UIView {
     }
     
     NSLayoutConstraint.activate([
-      titleLabel.topAnchor.constraint(equalTo: backgroundMaterial.contentView.topAnchor, constant: 10),
+      titleLabel.topAnchor.constraint(equalTo: backgroundMaterial.contentView.topAnchor, constant: 20),
       titleLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.contentView.leadingAnchor, constant: 20),
       
-      taskDistanceLabel.topAnchor.constraint(equalTo: backgroundMaterial.contentView.topAnchor, constant: 10),
+      taskDistanceLabel.topAnchor.constraint(equalTo: backgroundMaterial.contentView.topAnchor, constant: 20),
       taskDistanceLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10),
       taskDistanceLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.contentView.trailingAnchor, constant: -20),
       

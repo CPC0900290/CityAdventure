@@ -13,8 +13,6 @@ class EpisodeDetailViewController: UIViewController {
   
   // MARK: - Properties
   var episode: Episode?
-  var user: Profile?
-  var tasks: [TaskLocations] = []
   var viewModel = EpisodeDetailViewModel()
   var allAnnotations: [MKAnnotation]?
   
@@ -64,7 +62,8 @@ class EpisodeDetailViewController: UIViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    taskDetailView.layer.cornerRadius = taskDetailView.frame.width / 50
+    taskDetailView.layer.cornerRadius = taskDetailView.frame.width / 30
+    taskDetailView.clipsToBounds = true
   }
   
   // MARK: - UI Setup

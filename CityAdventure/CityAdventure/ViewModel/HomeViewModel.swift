@@ -8,10 +8,22 @@
 import Foundation
 import FirebaseAuth
 
+protocol HomeVMDelegate: AnyObject {
+  func profileUpdated()
+}
+
 class HomeViewModel {
+  weak var delegate: HomeVMDelegate?
+  private let userDefault = UserDefaults()
   var idList: [String] = []
   var episodeList: [Episode] = []
   var areaEpisodes: [Episode] = []
+  
+  var profile: Profile? {
+    didSet {
+      delegate?.profileUpdated()
+    }
+  }
   
   func fetchEpisode(id: String, sendEpisode: @escaping (Episode) -> Void) {
     FireStoreManager.shared.fetchDocument(collection: "EpisodeList", id: id) { snapshot in
@@ -52,9 +64,35 @@ class HomeViewModel {
       do {
         let data = try document.data(as: Profile.self)
         sendProfile(data)
+        self.profile = data
       } catch {
         print("fetchProfile fail to decode from doc: \(error)")
       }
     }
   }
+  
+//  func fetchAdventuringEpisodes(send: @escaping ([Episode]) -> Void) {
+//    guard let profile = profile else { return }
+//    let adventuringEpisodeIDList = profile.adventuringEpisode.map { $0.episodeID }
+//    adventuringEpisodeIDList.forEach { episodeID in
+//      let query = FireStoreManager.shared.firestore.collection("EpisodeList").whereField("id", isEqualTo: adventuringEpisodeIDList)
+//      query.getDocuments { snapshots, error in
+//        if let error = error {
+//          print("HomeVM.fetchAdventuringEpisodes fail to filter snapshot: \(error)")
+//        }
+//        guard let snapshots = snapshots else { return }
+//        var adventuringEpisodeList: [Episode] = []
+//        snapshots.documents.forEach { snapshot in
+//          do {
+//            let data = try snapshot.data(as: Episode.self)
+//            adventuringEpisodeList.append(data)
+//          } catch {
+//            print("HomeVM.fetchAdventuringEpisodes fail to decode data: \(error)")
+//          }
+//        }
+//        send(adventuringEpisodeList)
+//      }
+//    }
+//    
+//  }
 }

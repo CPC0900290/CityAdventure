@@ -12,8 +12,7 @@ import UIKit
 class SpeechViewController: BaseTaskViewController {
   var question: String?
   var task: Properties?
-  
-  
+
   private let speechVM = SpeechViewModel()
   
   override func viewDidLoad() {

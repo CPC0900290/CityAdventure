@@ -14,19 +14,31 @@ protocol EpisodeDetailModelProtocol: AnyObject {
 
 class EpisodeDetailViewModel {
   var locationManager: CLLocationManager?
-  private var delegate: EpisodeDetailModelProtocol?
-  private var userDefault: UserDefaults?
+  weak var delegate: EpisodeDetailModelProtocol?
+  private var userDefault = UserDefaults()
+  
+  private var user: Profile? 
   
   private var episode: Episode?
   var tasks: [TaskLocations]? {
     didSet {
       fetchAnnotationsAndCoordinate()
+      fetchProfile()
+      getDistance()
     }
   }
   
   var taskAnnotations: [CustomAnnotation] = []
   
   var taskCoordinates: [CLLocationCoordinate2D] = []
+  
+  var distanceToTask: [CLLocationDistance]?
+  
+  var taskStatus: [Bool]? {
+    didSet {
+      delegate?.updatedDataModels()
+    }
+  }
   
   func checkLocationAuthorization(mapView: MKMapView) {
     guard let locationManager = locationManager,
@@ -43,7 +55,7 @@ class EpisodeDetailViewModel {
       print("")
     }
   }
-  // MARK: - New
+  // MARK: - EpisodeDetailVC
   func setupLocationManager(_ viewController: CLLocationManagerDelegate) {
     locationManager = CLLocationManager()
     locationManager?.delegate = viewController
@@ -84,9 +96,21 @@ class EpisodeDetailViewModel {
     }
   }
   
+  func fetchProfile() {
+    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
+    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
+      do {
+        let profile = try snapshot.data(as: Profile.self)
+        self.user = profile
+      } catch {
+        print("EpisdoeDetailViewModel fail to decode Profile: \(error)")
+      }
+    }
+  }
+  
   func updateUserPlayingList(_ adventuringEpisode: AdventuringEpisode) {
-    guard let profile = userDefault?.value(forKey: "uid") as? Profile else { return }
-    FireStoreManager.shared.getDocumentReference(collection: "Profile", id: profile.documentID) { ref in
+    guard let user = user else { return }
+    FireStoreManager.shared.getDocumentReference(collection: "Profile", id: user.documentID) { ref in
       ref.getDocument { snapshot, error in
         if let error = error {
           print("EpisodeDetailViewModel fail to get document: \(error)")
@@ -103,6 +127,44 @@ class EpisodeDetailViewModel {
         } catch {
           print("EpisodeDetailViewModel fail to decode data: \(error)")
         }
+      }
+    }
+  }
+  
+  // MARK: - EpisodeVC
+  func getDistanceToTask(coordinate: CLLocationCoordinate2D) -> CLLocationDistance {
+    guard let userCoordinate = locationManager?.location else { return 0 }
+    let distance = userCoordinate.distance(from: CLLocation(latitude: coordinate.latitude,
+                                                            longitude: coordinate.longitude))
+ return distance
+  }
+  
+  func getDistance() {
+    guard let userCoordinate = locationManager?.location else { return }
+    var distanceList: [CLLocationDistance] = []
+    for coordinate in taskCoordinates {
+      let distance = userCoordinate.distance(from: CLLocation(latitude: coordinate.latitude,
+                                                              longitude: coordinate.longitude))
+      distanceList.append(distance)
+    }
+    self.distanceToTask = distanceList
+  }
+  
+  func configureTaskStatus() {
+    guard let userID = userDefault.value(forKey: "uid") as? String,
+          let episode = episode
+    else { return }
+    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
+      do {
+        let localAdventuringEpisode = episode.id
+        let profile = try snapshot.data(as: Profile.self)
+        profile.adventuringEpisode.forEach { adventuringEpisode in
+          if adventuringEpisode.episodeID == localAdventuringEpisode {
+            self.taskStatus = adventuringEpisode.taskStatus
+          }
+        }
+      } catch {
+        print("EpisdoeDetailViewModel fail to decode Profile: \(error)")
       }
     }
   }

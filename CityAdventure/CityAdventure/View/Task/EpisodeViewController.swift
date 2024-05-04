@@ -21,9 +21,10 @@ class EpisodeViewController: EpisodeDetailViewController {
   lazy var taskAButton: UIButton = {
     let button = UIButton()
     button.setTitle("A", for: .normal)
-    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
-    button.tintColor = .darkGray
     button.setTitleColor(.black, for: .normal)
+    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    button.setTitle("", for: .disabled)
+    button.tintColor = .darkGray
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 0
@@ -37,8 +38,8 @@ class EpisodeViewController: EpisodeDetailViewController {
     button.setTitle("B", for: .normal)
     button.setTitleColor(.black, for: .normal)
     button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    button.setTitle("", for: .disabled)
     button.tintColor = .darkGray
-    button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 1
@@ -52,8 +53,8 @@ class EpisodeViewController: EpisodeDetailViewController {
     button.setTitle("C", for: .normal)
     button.setTitleColor(.black, for: .normal)
     button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    button.setTitle("", for: .disabled)
     button.tintColor = .darkGray
-    button.tintColor = .black
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
     button.tag = 2
@@ -67,7 +68,13 @@ class EpisodeViewController: EpisodeDetailViewController {
     super.viewDidLoad()
     setupTaskButton()
     defaltTaskView()
+    viewModel.delegate = self
     mapView.showsUserLocation = true
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    viewModel.configureTaskStatus()
   }
   
   // MARK: - Setup UI
@@ -105,15 +112,11 @@ class EpisodeViewController: EpisodeDetailViewController {
   }
   
   // MARK: - Function
-  func getDistanceToTask(taskCoordinate: CLLocationCoordinate2D) -> CLLocationDistance {
-    guard let userCoordinate = viewModel.locationManager?.location else { return 0 }
-    let distance = userCoordinate.distance(from: CLLocation(latitude: taskCoordinate.latitude,
-                                                            longitude: taskCoordinate.longitude))
-    return distance
-  }
-  
   private func configButtonStatus() {
-    // Doing: Setting Button status with Profile.AdventuringEpisode.taskStatus
+    guard let taskStatus = viewModel.taskStatus else { return }
+    taskAButton.isEnabled = !taskStatus[0]
+    taskBButton.isEnabled = !taskStatus[1]
+    taskCButton.isEnabled = !taskStatus[2]
   }
   
   private func centerForTask(coordinate: CLLocationCoordinate2D) {
@@ -126,12 +129,17 @@ class EpisodeViewController: EpisodeDetailViewController {
     resetButtonSelected(sender)
     switch sender.isSelected {
     case true:
-      guard let allAnnotations = allAnnotations as? [CustomAnnotation] else { return }
-      let annotation = allAnnotations[sender.tag]
+      guard let allAnnotations = allAnnotations as? [CustomAnnotation],
+            !viewModel.taskAnnotations.isEmpty
+      else { return }
+      let annotation = viewModel.taskAnnotations[sender.tag]
       displayOne(annotation)
 
-      guard let property = tasks[sender.tag].features.first?.properties else { return }
-      let distance = Int(getDistanceToTask(taskCoordinate: annotation.coordinate))
+      guard let tasks = viewModel.tasks,
+            let property = tasks[sender.tag].features.first?.properties
+      else { return }
+      let coordinate = viewModel.taskCoordinates[sender.tag]
+      let distance = Int(viewModel.getDistanceToTask(coordinate: coordinate))
       taskDetailView.titleLabel.text = property.title
       taskDetailView.taskContentLabel.text = property.content
       taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
@@ -177,6 +185,7 @@ class EpisodeViewController: EpisodeDetailViewController {
   }
   
   @objc override func startPlaying() {
+    guard let tasks = viewModel.tasks else { return }
     switch currentTask {
     case .taskA:
       print("taskA")
@@ -209,5 +218,11 @@ class EpisodeViewController: EpisodeDetailViewController {
     case .none:
       break
     }
+  }
+}
+
+extension EpisodeViewController: EpisodeDetailModelProtocol {
+  func updatedDataModels() {
+    configButtonStatus()
   }
 }
