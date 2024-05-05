@@ -11,6 +11,7 @@ import AVFoundation
 
 class ScannerViewController: UIViewController {
   
+  private let slideUpAnimationController = SlideUpAnimationController()
   private var captureSession = AVCaptureSession()
   private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
   private var qrCodeFrameView: UIView?
@@ -98,12 +99,35 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
         speechVC.task = task
         speechVC.episodeForUser = episode
         self.captureSession.stopRunning()
-        speechVC.modalPresentationStyle = .fullScreen
-        self.present(speechVC, animated: true)
-//        self.dismiss(animated: true) {
-//          self.presentingViewController?.present(speechVC, animated: false)
-//        }
+        presentCustomViewController(viewController: speechVC)
       }
     }
+  }
+}
+
+// MARK: - Animation UIViewControllerTransitioningDelegate
+extension ScannerViewController: UIViewControllerTransitioningDelegate {
+  func presentCustomViewController(viewController: UIViewController) {
+    guard let VCs = self.view.window?.rootViewController as? UINavigationController,
+          let last = VCs.viewControllers.last
+    else {return}
+    viewController.transitioningDelegate = self
+    last.dismiss(animated: true)
+    if let sheet = viewController.sheetPresentationController {
+      sheet.detents = [.medium()]
+    }
+    last.present(viewController, animated: false, completion: nil)
+  }
+  
+  func animationController(forPresented presented: UIViewController,
+                           presenting: UIViewController,
+                           source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    slideUpAnimationController.isPresenting = true
+    return slideUpAnimationController
+  }
+  
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    slideUpAnimationController.isPresenting = false
+    return slideUpAnimationController
   }
 }

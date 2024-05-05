@@ -90,27 +90,8 @@ class SpeechViewModel {
   }
   
   func stopRecording() {
-//    guard let recognitionRequest = recognitionRequest else {
-//      audioEngine.stop()
-//      self.recognitionTask?.cancel()
-//      self.recognitionTask = nil
-//      return
-//    }
     audioEngine.stop()
     recognitionRequest?.endAudio()
-//
-//    speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
-//      if let result = result, result.isFinal {
-//        completion(result.bestTranscription.formattedString)
-//      } else {
-//        completion(nil)
-//      }
-//      if let error = error {
-//        print("SpeechVM.stopRecording get error when from ")
-//      }
-//      self.recognitionTask?.finish()
-//      self.recognitionTask = nil
-//    }
   }
   
   func cancelRecording() {

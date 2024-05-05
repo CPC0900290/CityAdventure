@@ -12,7 +12,7 @@ import UIKit
 class SpeechViewController: BaseTaskViewController {
   var question: String?
   var task: Properties?
-
+  
   private let speechVM = SpeechViewModel()
   
   override func viewDidLoad() {
@@ -32,35 +32,6 @@ class SpeechViewController: BaseTaskViewController {
   }
   
   // MARK: - Function
-//  @objc func speechRecord() {
-//    if speechVM.audioEngine.isRunning {
-////      speechButton.isHighlighted = false
-//      speechVM.audioEngine.stop()
-//      speechVM.recognitionRequest.endAudio()
-//      speechButton.isEnabled = false
-//      speechVM.audioEngine.reset()
-//      speechVM.audioEngine.start()
-////      speechButton.setTitle("Start Recording", for: .normal)
-//    } else {
-//      
-//      guard let rightAnswer = task?.questionAnswerPair?[0].answer else { return }
-//      print("=======Mic open")
-//      speechVM.startRecording(rightAnswer: rightAnswer,sender: speechButton) { isRightAnswer in
-//        if isRightAnswer {
-//          print(rightAnswer)
-//          print("Correct Answer! Good job!")
-//          let successVC = SuccessViewController()
-//          successVC.modalPresentationStyle = .fullScreen
-//          self.speechVM.audioEngine.stop()
-//          successVC.episodeID = self.episodeForUser?.id
-//          successVC.taskNum = 0
-//          self.present(successVC, animated: true)
-//        } else {
-//          print("Think about it again!")
-//        }
-//      }
-//    }
-//  }
   
   func getTask() {
     guard let episode = episodeForUser else { return }
@@ -80,9 +51,18 @@ class SpeechViewController: BaseTaskViewController {
   @objc func buttonTouchUpInside() {
     speechVM.stopRecording()
     speechVM.recognitionResultHandler = {text, error in
+      guard let rightAnswer = self.task?.questionAnswerPair?.first?.answer else { return }
       DispatchQueue.main.async {
         if let text = text {
           print("Final recognized text: \(text)")
+          let isRightAnswer = rightAnswer.contains(text)
+          if isRightAnswer {
+            let successVC = SuccessViewController()
+            successVC.modalPresentationStyle = .fullScreen
+            successVC.episodeID = self.episodeForUser?.id
+            successVC.taskNum = 2
+            self.present(successVC, animated: true)
+          }
         } else {
           print("Error or no result")
         }
@@ -115,6 +95,16 @@ class SpeechViewController: BaseTaskViewController {
     return button
   }()
   
+  lazy var answerTextView: UITextView = {
+    let textView = UITextView()
+    textView.font = UIFont(name: "PingFang TC", size: 18)
+    textView.text = "您的答案是"
+    textView.isEditable = false
+    textView.isSelectable = false
+    textView.translatesAutoresizingMaskIntoConstraints = false
+    return textView
+  }()
+  
   override func setupUI() {
     view.backgroundColor = .clear
     view.addSubview(taskView)
@@ -122,23 +112,23 @@ class SpeechViewController: BaseTaskViewController {
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(speechButton)
     NSLayoutConstraint.activate([
-      taskView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-      taskView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
-      taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-      taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+      taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      taskView.topAnchor.constraint(equalTo: view.topAnchor),
+      taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       
       backgroundMaterial.leadingAnchor.constraint(equalTo: taskView.leadingAnchor),
       backgroundMaterial.topAnchor.constraint(equalTo: taskView.topAnchor),
       backgroundMaterial.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
       backgroundMaterial.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
       
-      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 80),
+      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 20),
       taskContentLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 20),
       taskContentLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -20),
       
       speechButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
-      speechButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 80),
-      speechButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.6),
+      speechButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 40),
+      speechButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.5),
       speechButton.heightAnchor.constraint(equalTo: speechButton.widthAnchor, multiplier: 1)
     ])
   }

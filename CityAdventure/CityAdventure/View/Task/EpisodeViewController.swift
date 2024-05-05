@@ -223,7 +223,7 @@ extension EpisodeViewController: EpisodeDetailModelProtocol {
 // MARK: - Animation UIViewControllerTransitioningDelegate
 extension EpisodeViewController: UIViewControllerTransitioningDelegate {
   func presentCustomViewController(viewController: UIViewController) {
-    viewController.transitioningDelegate = self
+//    viewController.transitioningDelegate = self
     if let sheet = viewController.sheetPresentationController {
       sheet.detents = [.medium()]
     }
