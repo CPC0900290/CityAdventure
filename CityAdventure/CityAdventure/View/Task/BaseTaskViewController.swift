@@ -36,7 +36,8 @@ class BaseTaskViewController: UIViewController {
   
   lazy var taskView: UIView = {
     let view = UIView()
-    view.backgroundColor = .white
+    view.isOpaque = false
+    view.backgroundColor = .clear
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()

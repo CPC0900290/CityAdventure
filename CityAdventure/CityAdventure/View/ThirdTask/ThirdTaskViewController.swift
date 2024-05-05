@@ -54,7 +54,9 @@ class ThirdTaskViewController: BaseTaskViewController {
   }()
   
   override func setupUI() {
+    view.backgroundColor = .clear
     view.addSubview(taskView)
+    taskView.addSubview(backgroundMaterial)
     taskView.addSubview(taskTitleLabel)
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(recognizeButton)
@@ -65,15 +67,20 @@ class ThirdTaskViewController: BaseTaskViewController {
       taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
       taskView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
       
-      taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
-      taskContentLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 10),
+      backgroundMaterial.leadingAnchor.constraint(equalTo: taskView.leadingAnchor),
+      backgroundMaterial.topAnchor.constraint(equalTo: taskView.topAnchor),
+      backgroundMaterial.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
+      backgroundMaterial.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
       
-      taskTitleLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 10),
+      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 80),
+      taskContentLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 10),
+      
+      taskTitleLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 10),
       taskTitleLabel.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 30),
       
-      recognizeButton.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
+      recognizeButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
       recognizeButton.topAnchor.constraint(equalTo: taskTitleLabel.bottomAnchor, constant: 50),
-      recognizeButton.widthAnchor.constraint(equalTo: taskView.widthAnchor, multiplier: 0.5),
+      recognizeButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.5),
       recognizeButton.heightAnchor.constraint(equalTo: recognizeButton.widthAnchor, multiplier: 1)
     ])
   }

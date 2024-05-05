@@ -87,6 +87,9 @@ class SpeechViewController: BaseTaskViewController {
           print("Error or no result")
         }
       }
+      if let error = error {
+        print("SpeechVC.speechVM.recognitionResultHandler got error: \(error)")
+      }
     }
   }
   
@@ -113,7 +116,9 @@ class SpeechViewController: BaseTaskViewController {
   }()
   
   override func setupUI() {
+    view.backgroundColor = .clear
     view.addSubview(taskView)
+    taskView.addSubview(backgroundMaterial)
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(speechButton)
     NSLayoutConstraint.activate([
@@ -122,13 +127,18 @@ class SpeechViewController: BaseTaskViewController {
       taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
       taskView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
       
-      taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
-      taskContentLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 20),
-      taskContentLabel.trailingAnchor.constraint(equalTo: taskView.trailingAnchor, constant: -20),
+      backgroundMaterial.leadingAnchor.constraint(equalTo: taskView.leadingAnchor),
+      backgroundMaterial.topAnchor.constraint(equalTo: taskView.topAnchor),
+      backgroundMaterial.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
+      backgroundMaterial.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
       
-      speechButton.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
+      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 80),
+      taskContentLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 20),
+      taskContentLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -20),
+      
+      speechButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
       speechButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 80),
-      speechButton.widthAnchor.constraint(equalTo: taskView.widthAnchor, multiplier: 0.6),
+      speechButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.6),
       speechButton.heightAnchor.constraint(equalTo: speechButton.widthAnchor, multiplier: 1)
     ])
   }

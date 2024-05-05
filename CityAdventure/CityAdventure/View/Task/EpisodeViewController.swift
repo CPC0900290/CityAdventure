@@ -18,6 +18,7 @@ enum TaskBlock {
 class EpisodeViewController: EpisodeDetailViewController {
   // MARK: - Properties var
   private var currentTask: TaskBlock?
+  let slideUpAnimationController = SlideUpAnimationController()
   lazy var taskAButton: UIButton = {
     let button = UIButton()
     button.setTitle("A", for: .normal)
@@ -129,8 +130,7 @@ class EpisodeViewController: EpisodeDetailViewController {
     resetButtonSelected(sender)
     switch sender.isSelected {
     case true:
-      guard let allAnnotations = allAnnotations as? [CustomAnnotation],
-            !viewModel.taskAnnotations.isEmpty
+      guard !viewModel.taskAnnotations.isEmpty
       else { return }
       let annotation = viewModel.taskAnnotations[sender.tag]
       displayOne(annotation)
@@ -193,11 +193,7 @@ class EpisodeViewController: EpisodeDetailViewController {
       let taskContent = tasks[0].features[0].properties
       taskVC.task = taskContent
       taskVC.episodeForUser = episode
-      if let sheet = taskVC.sheetPresentationController {
-        sheet.detents = [.medium()]
-      }
-      self.present(taskVC, animated: true)
-//      self.navigationController?.pushViewController(taskVC, animated: true)
+      presentCustomViewController(viewController: taskVC)
     case .taskB:
       print("taskB")
       let taskVC = SecondTaskViewController()
@@ -211,10 +207,7 @@ class EpisodeViewController: EpisodeDetailViewController {
       let taskContent = tasks[2].features[0].properties
       taskVC.task = taskContent
       taskVC.episodeForUser = episode
-      if let sheet = taskVC.sheetPresentationController {
-        sheet.detents = [.medium()]
-      }
-      self.present(taskVC, animated: true)
+      presentCustomViewController(viewController: taskVC)
     case .none:
       break
     }
@@ -224,5 +217,28 @@ class EpisodeViewController: EpisodeDetailViewController {
 extension EpisodeViewController: EpisodeDetailModelProtocol {
   func updatedDataModels() {
     configButtonStatus()
+  }
+}
+
+// MARK: - Animation UIViewControllerTransitioningDelegate
+extension EpisodeViewController: UIViewControllerTransitioningDelegate {
+  func presentCustomViewController(viewController: UIViewController) {
+    viewController.transitioningDelegate = self
+    if let sheet = viewController.sheetPresentationController {
+      sheet.detents = [.medium()]
+    }
+    present(viewController, animated: true, completion: nil)
+  }
+  
+  func animationController(forPresented presented: UIViewController,
+                           presenting: UIViewController,
+                           source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    slideUpAnimationController.isPresenting = true
+    return slideUpAnimationController
+  }
+  
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    slideUpAnimationController.isPresenting = false
+    return slideUpAnimationController
   }
 }

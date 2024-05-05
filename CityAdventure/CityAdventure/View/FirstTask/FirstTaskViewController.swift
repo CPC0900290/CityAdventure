@@ -46,9 +46,11 @@ class FirstTaskViewController: BaseTaskViewController {
   }()
   
   override func setupUI() {
+    view.backgroundColor = .clear
     view.addSubview(taskView)
 //    view.addSubview(locationALabel)
 //    view.addSubview(locationBLabel)
+    taskView.addSubview(backgroundMaterial)
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(scannerButton)
     NSLayoutConstraint.activate([
@@ -57,13 +59,18 @@ class FirstTaskViewController: BaseTaskViewController {
       taskView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
       taskView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
       
-      taskContentLabel.topAnchor.constraint(equalTo: taskView.topAnchor, constant: 80),
-      taskContentLabel.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
+      backgroundMaterial.leadingAnchor.constraint(equalTo: taskView.leadingAnchor),
+      backgroundMaterial.topAnchor.constraint(equalTo: taskView.topAnchor),
+      backgroundMaterial.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
+      backgroundMaterial.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
       
-      scannerButton.centerXAnchor.constraint(equalTo: taskView.centerXAnchor),
+      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 80),
+      taskContentLabel.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
+      
+      scannerButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
       scannerButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 80),
       scannerButton.heightAnchor.constraint(equalTo: scannerButton.widthAnchor, multiplier: 1),
-      scannerButton.widthAnchor.constraint(equalTo: taskView.widthAnchor, multiplier: 0.6)
+      scannerButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.6)
     ])
   }
 }

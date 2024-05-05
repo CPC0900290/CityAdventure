@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0015A5322BE7218D00FE931E /* UIAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015A5312BE7218D00FE931E /* UIAnimationController.swift */; };
 		0039BEBF2BD120BD00D8B20A /* ThirdTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039BEBE2BD120BD00D8B20A /* ThirdTaskViewController.swift */; };
 		0039BEC12BD153DD00D8B20A /* RecognizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039BEC02BD153DD00D8B20A /* RecognizerViewController.swift */; };
 		005EEFC62BC685EA00D46BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */; };
@@ -70,6 +71,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0015A5312BE7218D00FE931E /* UIAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnimationController.swift; sourceTree = "<group>"; };
 		0039BEBE2BD120BD00D8B20A /* ThirdTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdTaskViewController.swift; sourceTree = "<group>"; };
 		0039BEC02BD153DD00D8B20A /* RecognizerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizerViewController.swift; sourceTree = "<group>"; };
 		005EEFC22BC685EA00D46BB6 /* CityAdventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityAdventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -368,6 +370,7 @@
 				00CEB1362BCA95F500AC350B /* TaskCell.xib */,
 				005EEFC92BC685EA00D46BB6 /* BaseTaskViewController.swift */,
 				0094CD922BCE992C00820BE5 /* MapPin.swift */,
+				0015A5312BE7218D00FE931E /* UIAnimationController.swift */,
 			);
 			path = Task;
 			sourceTree = "<group>";
@@ -582,6 +585,7 @@
 				00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */,
 				00D01B992BDEB27100E4A0C7 /* TaskDetailView.swift in Sources */,
 				00B989792BDF885500C695D7 /* MKCoordinateRegionExt.swift in Sources */,
+				0015A5322BE7218D00FE931E /* UIAnimationController.swift in Sources */,
 				00B72E282BD63B2C00F531C0 /* ProfileCell.swift in Sources */,
 				00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */,
 				00B3E88E2BE38C5700B612AA /* SuccessViewModel.swift in Sources */,
