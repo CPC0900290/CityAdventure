@@ -21,6 +21,7 @@ class ScannerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupCaptureDevice()
+    setupUI()
   }
   
   // MARK: - Function
@@ -60,11 +61,28 @@ class ScannerViewController: UIViewController {
     return label
   }()
   
+  lazy var scanRecView: ScanRectView = {
+    let view = ScanRectView()
+    view.cornerColor = .lightGray
+    view.cornerWidth = 3
+    view.cornerLength = 30
+//    view.cornerRadius = self.view.bounds.width * 0.8 / 5
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+  }()
+  
   private func setupUI() {
-    view.addSubview(taskContentLabel)
+//    view.addSubview(taskContentLabel)
+    view.addSubview(scanRecView)
+    view.bringSubviewToFront(scanRecView)
     NSLayoutConstraint.activate([
-      taskContentLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-      taskContentLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//      taskContentLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//      taskContentLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      
+      scanRecView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      scanRecView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+      scanRecView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+      scanRecView.heightAnchor.constraint(equalTo: scanRecView.widthAnchor, multiplier: 1)
     ])
   }
   

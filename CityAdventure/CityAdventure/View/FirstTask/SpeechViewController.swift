@@ -60,7 +60,7 @@ class SpeechViewController: BaseTaskViewController {
             let successVC = SuccessViewController()
             successVC.modalPresentationStyle = .fullScreen
             successVC.episodeID = self.episodeForUser?.id
-            successVC.taskNum = 2
+            successVC.taskNum = 0
             self.present(successVC, animated: true)
           }
         } else {
@@ -74,10 +74,19 @@ class SpeechViewController: BaseTaskViewController {
   }
   
   // MARK: - UI setup
+  lazy var taskTitleLabel: UILabel = {
+    let label = UILabel()
+    label.text = "請以語音回答下方問題！"
+    label.font = UIFont(name: "PingFang TC", size: 20)
+    label.textColor = UIColor(hex: "E7F161", alpha: 1)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
   lazy var taskContentLabel: UILabel = {
     let label = UILabel()
     label.text = "Question"
-    label.font = UIFont(name: "PingFang TC", size: 15)
+    label.font = UIFont(name: "PingFang TC", size: 18)
     label.numberOfLines = 0
     label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +107,7 @@ class SpeechViewController: BaseTaskViewController {
   lazy var answerTextView: UITextView = {
     let textView = UITextView()
     textView.font = UIFont(name: "PingFang TC", size: 18)
-    textView.text = "您的答案是"
+    textView.text = "您的答案："
     textView.isEditable = false
     textView.isSelectable = false
     textView.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +118,7 @@ class SpeechViewController: BaseTaskViewController {
     view.backgroundColor = .clear
     view.addSubview(taskView)
     taskView.addSubview(backgroundMaterial)
+    taskView.addSubview(taskTitleLabel)
     taskView.addSubview(taskContentLabel)
     taskView.addSubview(speechButton)
     NSLayoutConstraint.activate([
@@ -122,12 +132,16 @@ class SpeechViewController: BaseTaskViewController {
       backgroundMaterial.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
       backgroundMaterial.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
       
-      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 20),
-      taskContentLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 20),
-      taskContentLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -20),
+      taskTitleLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 20),
+      taskTitleLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 20),
+      taskTitleLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -20),
+      
+      taskContentLabel.leadingAnchor.constraint(equalTo: taskTitleLabel.leadingAnchor),
+      taskContentLabel.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
+      taskContentLabel.topAnchor.constraint(equalTo: taskTitleLabel.bottomAnchor, constant: 10),
       
       speechButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
-      speechButton.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 40),
+      speechButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
       speechButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.5),
       speechButton.heightAnchor.constraint(equalTo: speechButton.widthAnchor, multiplier: 1)
     ])

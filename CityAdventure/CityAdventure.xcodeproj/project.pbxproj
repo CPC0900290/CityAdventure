@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0015A5322BE7218D00FE931E /* UIAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015A5312BE7218D00FE931E /* UIAnimationController.swift */; };
+		0015A5342BE76DEB00FE931E /* ScanRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0015A5332BE76DEB00FE931E /* ScanRectView.swift */; };
 		0039BEBF2BD120BD00D8B20A /* ThirdTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039BEBE2BD120BD00D8B20A /* ThirdTaskViewController.swift */; };
 		0039BEC12BD153DD00D8B20A /* RecognizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039BEC02BD153DD00D8B20A /* RecognizerViewController.swift */; };
 		005EEFC62BC685EA00D46BB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005EEFC52BC685EA00D46BB6 /* AppDelegate.swift */; };
@@ -72,6 +73,7 @@
 
 /* Begin PBXFileReference section */
 		0015A5312BE7218D00FE931E /* UIAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnimationController.swift; sourceTree = "<group>"; };
+		0015A5332BE76DEB00FE931E /* ScanRectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRectView.swift; sourceTree = "<group>"; };
 		0039BEBE2BD120BD00D8B20A /* ThirdTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdTaskViewController.swift; sourceTree = "<group>"; };
 		0039BEC02BD153DD00D8B20A /* RecognizerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognizerViewController.swift; sourceTree = "<group>"; };
 		005EEFC22BC685EA00D46BB6 /* CityAdventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityAdventure.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,6 +271,7 @@
 				00A629202BCCD7C100F72AC0 /* FirstTaskViewController.swift */,
 				00B97F022BCD31C7003E2327 /* ScannerViewController.swift */,
 				00B97F042BCD5E1F003E2327 /* SpeechViewController.swift */,
+				0015A5332BE76DEB00FE931E /* ScanRectView.swift */,
 			);
 			path = FirstTask;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				00D01B912BDCB9BF00E4A0C7 /* EpisodeDetailViewController.swift in Sources */,
 				00D01B8E2BDC9A5400E4A0C7 /* ProfileViewModel.swift in Sources */,
 				005EEFC82BC685EA00D46BB6 /* SceneDelegate.swift in Sources */,
+				0015A5342BE76DEB00FE931E /* ScanRectView.swift in Sources */,
 				00D01B952BDE921A00E4A0C7 /* CustomAnnotationsView.swift in Sources */,
 				00C92D672BD75B1200631D3E /* HomeViewModel.swift in Sources */,
 				00BE28662BE27C46007457A7 /* SuccessViewController.swift in Sources */,

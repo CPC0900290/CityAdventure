@@ -115,9 +115,12 @@ class EpisodeViewController: EpisodeDetailViewController {
   // MARK: - Function
   private func configButtonStatus() {
     guard let taskStatus = viewModel.taskStatus else { return }
-    taskAButton.isEnabled = !taskStatus[0]
-    taskBButton.isEnabled = !taskStatus[1]
-    taskCButton.isEnabled = !taskStatus[2]
+    DispatchQueue.main.async {
+      self.taskAButton.isEnabled = !taskStatus[0]
+      self.taskBButton.isEnabled = !taskStatus[1]
+      self.taskCButton.isEnabled = !taskStatus[2]
+      self.view.layoutIfNeeded()
+    }
   }
   
   private func centerForTask(coordinate: CLLocationCoordinate2D) {
@@ -153,11 +156,15 @@ class EpisodeViewController: EpisodeDetailViewController {
       taskDetailView.startButton.isEnabled = true
       switchButtonAlpha(taskDetailView.startButton)
     case false:
-      showAllAnnotations(self)
-      taskDetailView.startButton.isEnabled = false
-      switchButtonAlpha(taskDetailView.startButton)
-      currentTask = .none
+      showAllTask(self)
     }
+  }
+  
+  func showAllTask(_ snder: Any) {
+    showAllAnnotations(snder)
+    taskDetailView.startButton.isEnabled = false
+    switchButtonAlpha(taskDetailView.startButton)
+    currentTask = .none
   }
   
   private func displayOne(_ annotation: CustomAnnotation) {
