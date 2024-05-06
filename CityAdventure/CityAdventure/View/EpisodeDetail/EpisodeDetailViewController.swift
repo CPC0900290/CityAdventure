@@ -119,6 +119,15 @@ class EpisodeDetailViewController: UIViewController {
   
   @objc func lastPage() {
     self.navigationController?.popToRootViewController(animated: true)
+    guard let controllers = self.navigationController?.viewControllers else { return }
+    for controller in controllers {
+      if let homeVC = controller as? HomeViewController {
+        homeVC.viewModel.fetchProfile {
+          homeVC.viewModel.fetchAdventuringEpisodes { }
+        }
+        self.navigationController?.popToViewController(homeVC, animated: true)
+      }
+    }
 //    self.navigationController?.popViewController(animated: true)
   }
   

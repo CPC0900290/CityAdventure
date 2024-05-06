@@ -31,6 +31,19 @@ class FireStoreManager {
     }
   }
   
+  func fetchCollectionQuery(collectionName: String, sendSnapshots: @escaping (QuerySnapshot) -> Void) {
+    firestore.collection(collectionName).getDocuments { snapshots, error in
+      if let error = error {
+        print("FireStoreManager.fetchCollectionQueryDoc Failed to get snapshots: \(error)")
+      }
+      guard let snapshots = snapshots else {
+        print("Get snapshot as nil when fetch collection")
+        return
+      }
+      sendSnapshots(snapshots)
+    }
+  }
+  
   func fetchDocument(collection: String,
                      id: String,
                      getDocument: @escaping (DocumentSnapshot) -> Void) {
@@ -45,21 +58,34 @@ class FireStoreManager {
     }
   }
   
-  func fetchFilteredDoc(collection: String, 
-                        field: String,
-                        with: String,
-                        sendFilteredDoc: @escaping ([String]) -> Void) {
+  func fetchFilteredSnapshots(collection: String,
+                              field: String,
+                              with: String,
+                              sendFilteredquery: @escaping (QuerySnapshot) -> Void) {
     firestore.collection(collection).whereField(field, isEqualTo: with).getDocuments { snapshots, error in
       if let error = error { print(error) }
       
       guard let snapshots = snapshots else {
-        print("Get snapshot as nil when fetch document")
+        print("FirestoreManager.fetchFilteredSnapshots Get snapshot as nil when fetch document")
         return
       }
-      let list: [String] = snapshots.documents.map { document in
-        return document.documentID
+      sendFilteredquery(snapshots)
+    }
+  }
+  
+  func fetchFilteredArrayQuery(collection: String,
+                               field: String,
+                               with: [Any],
+                               sendFilteredquery: @escaping (QuerySnapshot) -> Void) {
+    firestore.collection(collection).whereField(field, in: with).getDocuments { snapshots, error in
+      if let error = error {
+        print("FirestoreManager.fetchFilteredArrayQuery fail to get snapshots from Firebase: \(error)")
       }
-      sendFilteredDoc(list)
+      guard let snapshots = snapshots else {
+        print("FirestoreManager.fetchFilteredArrayQuery Get snapshot as nil when fetch document")
+        return
+      }
+      sendFilteredquery(snapshots)
     }
   }
   
