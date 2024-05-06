@@ -25,6 +25,7 @@ class SpeechViewController: BaseTaskViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    answerTextView.layer.cornerRadius = taskView.frame.width / 20
     if let question = question {
       taskContentLabel.text = question
       speechVM.setupSpeech(sender: speechButton, viewController: self)
@@ -55,6 +56,7 @@ class SpeechViewController: BaseTaskViewController {
       DispatchQueue.main.async {
         if let text = text {
           print("Final recognized text: \(text)")
+          self.answerTextView.text = text
           let isRightAnswer = rightAnswer.contains(text)
           if isRightAnswer {
             let successVC = SuccessViewController()
@@ -62,6 +64,11 @@ class SpeechViewController: BaseTaskViewController {
             successVC.episodeID = self.episodeForUser?.id
             successVC.taskNum = 0
             self.present(successVC, animated: true)
+          } else {
+            self.answerTextView.backgroundColor = .systemPink
+            self.answerTextView.layer.borderColor = UIColor.red.cgColor
+            self.answerTextView.layer.borderWidth = 1
+            self.answerTextView.text = "請再接再厲！"
           }
         } else {
           print("Error or no result")
@@ -104,10 +111,21 @@ class SpeechViewController: BaseTaskViewController {
     return button
   }()
   
+  lazy var answerLabel: UILabel = {
+    let label = UILabel()
+    label.text = "您的答案："
+    label.font = UIFont(name: "PingFang TC", size: 18)
+    label.textColor = .white
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
   lazy var answerTextView: UITextView = {
     let textView = UITextView()
     textView.font = UIFont(name: "PingFang TC", size: 18)
-    textView.text = "您的答案："
+    textView.text = "請作答..."
+    textView.isScrollEnabled = false
+    textView.isUserInteractionEnabled = false
     textView.isEditable = false
     textView.isSelectable = false
     textView.translatesAutoresizingMaskIntoConstraints = false
@@ -120,6 +138,8 @@ class SpeechViewController: BaseTaskViewController {
     taskView.addSubview(backgroundMaterial)
     taskView.addSubview(taskTitleLabel)
     taskView.addSubview(taskContentLabel)
+    taskView.addSubview(answerLabel)
+    taskView.addSubview(answerTextView)
     taskView.addSubview(speechButton)
     NSLayoutConstraint.activate([
       taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -140,9 +160,18 @@ class SpeechViewController: BaseTaskViewController {
       taskContentLabel.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
       taskContentLabel.topAnchor.constraint(equalTo: taskTitleLabel.bottomAnchor, constant: 10),
       
+      answerLabel.leadingAnchor.constraint(equalTo: taskTitleLabel.leadingAnchor),
+      answerLabel.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
+      answerLabel.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 10),
+      
+      answerTextView.leadingAnchor.constraint(equalTo: taskTitleLabel.leadingAnchor),
+      answerTextView.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
+      answerTextView.topAnchor.constraint(equalTo: answerLabel.bottomAnchor),
+      answerTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
+      
       speechButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
       speechButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
-      speechButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.5),
+      speechButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.4),
       speechButton.heightAnchor.constraint(equalTo: speechButton.widthAnchor, multiplier: 1)
     ])
   }

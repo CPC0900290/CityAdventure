@@ -9,22 +9,20 @@ import Foundation
 import UIKit
 import MapKit
 
-enum TaskBlock {
-  case taskA
-  case taskB
-  case taskC
-}
-
 class EpisodeViewController: EpisodeDetailViewController {
   // MARK: - Properties var
-  private var currentTask: TaskBlock?
   let slideUpAnimationController = SlideUpAnimationController()
+  private var currentTaskTag: Int?
+  
   lazy var taskAButton: UIButton = {
     let button = UIButton()
+    
     button.setTitle("A", for: .normal)
     button.setTitleColor(.black, for: .normal)
-    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+
     button.setTitle("", for: .disabled)
+    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    
     button.tintColor = .darkGray
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
@@ -36,10 +34,13 @@ class EpisodeViewController: EpisodeDetailViewController {
 
   lazy var taskBButton: UIButton = {
     let button = UIButton()
+    
     button.setTitle("B", for: .normal)
     button.setTitleColor(.black, for: .normal)
-    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+
     button.setTitle("", for: .disabled)
+    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+    
     button.tintColor = .darkGray
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
@@ -51,10 +52,13 @@ class EpisodeViewController: EpisodeDetailViewController {
 
   lazy var taskCButton: UIButton = {
     let button = UIButton()
+    
     button.setTitle("C", for: .normal)
     button.setTitleColor(.black, for: .normal)
-    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+
     button.setTitle("", for: .disabled)
+    button.setBackgroundImage(UIImage(systemName: "checkmark.square"), for: .disabled)
+
     button.tintColor = .darkGray
     button.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
     button.layer.cornerRadius = 10
@@ -73,8 +77,8 @@ class EpisodeViewController: EpisodeDetailViewController {
     mapView.showsUserLocation = true
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     viewModel.configureTaskStatus()
   }
   
@@ -113,14 +117,11 @@ class EpisodeViewController: EpisodeDetailViewController {
   }
   
   // MARK: - Function
-  private func configButtonStatus() {
+  func configButtonStatus() {
     guard let taskStatus = viewModel.taskStatus else { return }
-    DispatchQueue.main.async {
       self.taskAButton.isEnabled = !taskStatus[0]
       self.taskBButton.isEnabled = !taskStatus[1]
       self.taskCButton.isEnabled = !taskStatus[2]
-      self.view.layoutIfNeeded()
-    }
   }
   
   private func centerForTask(coordinate: CLLocationCoordinate2D) {
@@ -128,24 +129,20 @@ class EpisodeViewController: EpisodeDetailViewController {
     self.mapView.setRegion(region, animated: true)
   }
   
-  @objc private func showTasksAnnotation(_ sender: UIButton) {
-    sender.isSelected.toggle()
-    resetButtonSelected(sender)
-    switch sender.isSelected {
-    case true:
-      guard !viewModel.taskAnnotations.isEmpty
-      else { return }
-      let annotation = viewModel.taskAnnotations[sender.tag]
-      displayOne(annotation)
+  private func zoomInToTask(_ sender: UIButton) {
+    guard !viewModel.taskAnnotations.isEmpty
+    else { return }
+    let annotation = viewModel.taskAnnotations[sender.tag]
+    displayOne(annotation)
 
-      guard let tasks = viewModel.tasks,
-            let property = tasks[sender.tag].features.first?.properties
-      else { return }
-      let coordinate = viewModel.taskCoordinates[sender.tag]
-      let distance = Int(viewModel.getDistanceToTask(coordinate: coordinate))
-      taskDetailView.titleLabel.text = property.title
-      taskDetailView.taskContentLabel.text = property.content
-      taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
+    guard let tasks = viewModel.tasks,
+          let property = tasks[sender.tag].features.first?.properties
+    else { return }
+    let coordinate = viewModel.taskCoordinates[sender.tag]
+    let distance = Int(viewModel.getDistanceToTask(coordinate: coordinate))
+    taskDetailView.titleLabel.text = property.title
+    taskDetailView.taskContentLabel.text = property.content
+    taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
 //      if distance < 300 {
 //        taskDetailView.startButton.isEnabled = true
 //        switchButtonAlpha(taskDetailView.startButton)
@@ -153,18 +150,28 @@ class EpisodeViewController: EpisodeDetailViewController {
 //        taskDetailView.startButton.isEnabled = false
 //        switchButtonAlpha(taskDetailView.startButton)
 //      }
-      taskDetailView.startButton.isEnabled = true
-      switchButtonAlpha(taskDetailView.startButton)
-    case false:
+    taskDetailView.startButton.isEnabled = true
+    switchButtonAlpha(taskDetailView.startButton)
+    currentTaskTag = sender.tag
+  }
+  
+  @objc private func showTasksAnnotation(_ sender: UIButton) {
+    guard let currentTaskTag = currentTaskTag else {
+      zoomInToTask(sender)
+      return
+    }
+    if sender.tag == currentTaskTag {
       showAllTask(self)
+    } else {
+      zoomInToTask(sender)
     }
   }
   
-  func showAllTask(_ snder: Any) {
-    showAllAnnotations(snder)
+  func showAllTask(_ sender: Any) {
+    showAllAnnotations(sender)
     taskDetailView.startButton.isEnabled = false
     switchButtonAlpha(taskDetailView.startButton)
-    currentTask = .none
+    currentTaskTag = nil
   }
   
   private func displayOne(_ annotation: CustomAnnotation) {
@@ -172,50 +179,30 @@ class EpisodeViewController: EpisodeDetailViewController {
     centerForTask(coordinate: annotation.coordinate)
   }
   
-  private func resetButtonSelected(_ sender: UIButton) {
-    switch sender.tag {
-    case 0:
-      currentTask = .taskA
-      taskBButton.isSelected = false
-      taskCButton.isSelected = false
-    case 1:
-      currentTask = .taskB
-      taskAButton.isSelected = false
-      taskCButton.isSelected = false
-    case 2:
-      currentTask = .taskC
-      taskAButton.isSelected = false
-      taskBButton.isSelected = false
-    default:
-      print("Button tag is out of range")
-    }
-  }
-  
   @objc override func startPlaying() {
-    guard let tasks = viewModel.tasks else { return }
-    switch currentTask {
-    case .taskA:
-      print("taskA")
+    guard let tasks = viewModel.tasks,
+          let currentTaskTag = currentTaskTag
+    else { return }
+    switch currentTaskTag {
+    case 0:
       let taskVC = FirstTaskViewController()
       let taskContent = tasks[0].features[0].properties
       taskVC.task = taskContent
       taskVC.episodeForUser = episode
       presentCustomViewController(viewController: taskVC)
-    case .taskB:
-      print("taskB")
+    case 1:
       let taskVC = SecondTaskViewController()
       let taskContent = tasks[1]
       taskVC.episode = episode
       taskVC.secondTask = taskContent
       self.navigationController?.pushViewController(taskVC, animated: true)
-    case .taskC:
-      print("taskC")
+    case 2:
       let taskVC = ThirdTaskViewController()
       let taskContent = tasks[2].features[0].properties
       taskVC.task = taskContent
       taskVC.episodeForUser = episode
       presentCustomViewController(viewController: taskVC)
-    case .none:
+    default:
       break
     }
   }
