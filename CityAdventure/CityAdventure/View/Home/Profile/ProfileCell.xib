@@ -26,17 +26,17 @@
                                     <constraint firstAttribute="width" secondItem="Kd7-0G-g7j" secondAttribute="height" multiplier="1:1" id="an9-n5-ezr"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Htw-oN-UIJ">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Htw-oN-UIJ">
                                 <rect key="frame" x="80" y="5" width="101.33333333333331" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcb-qz-q9Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="101.33333333333333" height="26.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="101.33333333333333" height="42.333333333333336"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="UserTitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnA-Zd-M6b">
-                                        <rect key="frame" x="0.0" y="26.333333333333332" width="101.33333333333333" height="38.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="22.666666666666668" width="101.33333333333333" height="42.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>

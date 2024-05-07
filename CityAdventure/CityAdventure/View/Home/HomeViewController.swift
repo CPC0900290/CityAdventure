@@ -47,7 +47,7 @@ class HomeViewController: UIViewController {
       collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-      collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+      collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
     ])
     collectionView.register(TitleSupplementaryView.self,
                             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -274,19 +274,16 @@ extension HomeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     switch indexPath.section {
     case 0:
-      print("Profile row is clicked, pop to ProfileVC")
       let profileVC = ProfileViewController()
       profileVC.userProfile = viewModel.profile
       navigationController?.pushViewController(profileVC, animated: true)
     case 1:
-      print("DoingEpisode Section Button is clicked, disable the select function")
+      return
     case 2:
-      print("AreaEpisode is clicked, pop to spesific task")
       let episodeDetailVC = EpisodeDetailViewController()
       episodeDetailVC.episode = viewModel.areaEpisodes[indexPath.row]
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     case 3:
-      print("EpisodeList is clicked, pop to spesific task")
       let episodeDetailVC = EpisodeDetailViewController()
       episodeDetailVC.episode = viewModel.totalEpisodes[indexPath.row]
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
@@ -299,7 +296,6 @@ extension HomeViewController: UICollectionViewDelegate {
 // MARK: - HomeVMDelegate
 extension HomeViewController: HomeVMDelegate {
   func profileUpdated() {
-    print("profileUpdated() function get called")
       self.updateSnapshotForDoingEpisode()
   }
 }

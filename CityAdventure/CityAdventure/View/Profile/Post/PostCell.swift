@@ -7,13 +7,15 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class PostCell: UICollectionViewCell {
   static let identifier = String(describing: PostCell.self)
   
   @IBOutlet weak var postImg: UIImageView!
   
-  func update(with profile: Profile) {
-    
+  func update(with episode: Episode) {
+    self.postImg.kf.setImage(with: URL(string: episode.image))
+    self.layer.cornerRadius = self.frame.width / 10
   }
 }

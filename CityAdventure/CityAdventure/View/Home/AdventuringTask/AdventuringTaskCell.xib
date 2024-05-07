@@ -20,13 +20,30 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Fe-9e-OOT">
                         <rect key="frame" x="0.0" y="0.0" width="426" height="260"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYG-Bo-QWQ">
-                                <rect key="frame" x="225.66666666666663" y="152" width="170.33333333333337" height="35"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="figure.climbing" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EFf-aj-cY8">
+                                <rect key="frame" x="0.0" y="-2.6666666666666572" width="426" height="265.33333333333326"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
+                            </imageView>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqH-qd-Sq7">
+                                <rect key="frame" x="0.0" y="0.0" width="426" height="260"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CYG-Bo-QWQ">
+                                <rect key="frame" x="225.66666666666663" y="147" width="170.33333333333337" height="33.666666666666657"/>
+                                <color key="backgroundColor" red="0.89753144979999999" green="0.93343991039999996" blue="0.37628686430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="繼續遊戲">
-                                    <color key="baseForegroundColor" red="0.90588235294117647" green="0.94509803921568625" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="繼續遊戲">
+                                            <attributes>
+                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <font key="NSFont" size="14" name="PingFangTC-Regular"/>
+                                                <font key="NSOriginalFont" size="14" name="SFPro-Regular"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -34,37 +51,37 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="figure.climbing" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EFf-aj-cY8">
-                                <rect key="frame" x="0.0" y="-2.6666666666666572" width="220.66666666666666" height="265.33333333333326"/>
-                                <color key="tintColor" systemColor="systemGreenColor"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEZ-uH-IgV">
-                                <rect key="frame" x="332.33333333333331" y="80" width="63.666666666666686" height="26"/>
+                                <rect key="frame" x="332.33333333333331" y="75" width="63.666666666666686" height="26"/>
                                 <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="26"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HtV-NM-eFo">
-                                <rect key="frame" x="332.33333333333331" y="116" width="63.666666666666686" height="26"/>
+                                <rect key="frame" x="332.33333333333331" y="111" width="63.666666666666686" height="26"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="26"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90588235294117647" green="0.94509803921568625" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="HtV-NM-eFo" firstAttribute="top" secondItem="dEZ-uH-IgV" secondAttribute="bottom" constant="10" id="3hE-GY-KrI"/>
+                            <constraint firstAttribute="bottom" secondItem="XqH-qd-Sq7" secondAttribute="bottom" id="9FC-W3-FeF"/>
                             <constraint firstAttribute="bottom" secondItem="EFf-aj-cY8" secondAttribute="bottom" id="9ZA-5Z-nbu"/>
                             <constraint firstItem="EFf-aj-cY8" firstAttribute="leading" secondItem="4Fe-9e-OOT" secondAttribute="leading" id="9oa-ef-sdj"/>
-                            <constraint firstItem="CYG-Bo-QWQ" firstAttribute="leading" secondItem="EFf-aj-cY8" secondAttribute="trailing" constant="5" id="GJY-ry-gxH"/>
+                            <constraint firstAttribute="trailing" secondItem="XqH-qd-Sq7" secondAttribute="trailing" id="FRJ-ai-BaG"/>
                             <constraint firstItem="EFf-aj-cY8" firstAttribute="top" secondItem="4Fe-9e-OOT" secondAttribute="top" id="H8a-9U-gPv"/>
                             <constraint firstAttribute="trailing" secondItem="HtV-NM-eFo" secondAttribute="trailing" constant="30" id="KCR-Ox-jra"/>
-                            <constraint firstItem="dEZ-uH-IgV" firstAttribute="top" secondItem="4Fe-9e-OOT" secondAttribute="top" constant="80" id="Qkx-Cy-REk"/>
+                            <constraint firstAttribute="trailing" secondItem="EFf-aj-cY8" secondAttribute="trailing" id="M8T-on-Bew"/>
+                            <constraint firstItem="XqH-qd-Sq7" firstAttribute="top" secondItem="4Fe-9e-OOT" secondAttribute="top" id="Pkr-5o-y2H"/>
+                            <constraint firstItem="dEZ-uH-IgV" firstAttribute="top" secondItem="4Fe-9e-OOT" secondAttribute="top" constant="75" id="Qkx-Cy-REk"/>
                             <constraint firstAttribute="trailing" secondItem="CYG-Bo-QWQ" secondAttribute="trailing" constant="30" id="bs1-AM-oLP"/>
                             <constraint firstItem="CYG-Bo-QWQ" firstAttribute="width" secondItem="4Fe-9e-OOT" secondAttribute="width" multiplier="2/5" id="kJb-Up-SQw"/>
                             <constraint firstAttribute="trailing" secondItem="dEZ-uH-IgV" secondAttribute="trailing" constant="30" id="llT-40-7wm"/>
                             <constraint firstItem="CYG-Bo-QWQ" firstAttribute="top" secondItem="HtV-NM-eFo" secondAttribute="bottom" constant="10" id="sqv-nu-qTq"/>
+                            <constraint firstItem="XqH-qd-Sq7" firstAttribute="leading" secondItem="4Fe-9e-OOT" secondAttribute="leading" id="te8-nl-53H"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -88,8 +105,8 @@
     </objects>
     <resources>
         <image name="figure.climbing" catalog="system" width="108" height="128"/>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGrayColor">
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

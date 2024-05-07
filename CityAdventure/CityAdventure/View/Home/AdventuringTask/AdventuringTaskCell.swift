@@ -18,7 +18,7 @@ class AdventuringTaskCell: UICollectionViewCell {
   @IBOutlet weak var adventuringTaskImg: UIImageView!
   
   func update(with episode: Episode) {
-    adventuringTaskImg.image = UIImage(systemName: "figure.climbing")
+    adventuringTaskImg.kf.setImage(with: URL(string: episode.image))
     adventuringTaskSloganLabel.text = "Let's Make Our"
     adventuringSloganLabelB.text = "Life so a Life"
     self.layer.cornerRadius = self.frame.width / 20

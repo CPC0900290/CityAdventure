@@ -193,12 +193,13 @@ extension ProfileViewController {
   typealias ProfileDataSource = UICollectionViewDiffableDataSource<ProfileSection, String>
   private func configDataSource() {
     dataSource = ProfileDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, _ in
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.identifier, for: indexPath) as? PostCell else {
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.identifier, for: indexPath) as? PostCell,
+            let episodes = self.finishedEpisodes
+      else {
         print("ProfileVC PostCell fail to init")
         return UICollectionViewCell()
       }
-      cell.layer.cornerRadius = cell.frame.width / 10
-      cell.postImg.image = UIImage(systemName: "figure.play")
+      cell.update(with: episodes[indexPath.row])
       return cell
     })
   }
