@@ -43,6 +43,11 @@ class SpeechViewController: BaseTaskViewController {
   
   @objc func buttonTouchDown() {
     speechVM.startRecording()
+    DispatchQueue.main.async {
+      self.answerTextView.backgroundColor = .darkGray
+      self.answerTextView.layer.borderWidth = 0
+      self.answerTextView.text = "回答中..."
+    }
   }
   
   @objc func buttonTouchOutside() {
@@ -68,7 +73,7 @@ class SpeechViewController: BaseTaskViewController {
             self.answerTextView.backgroundColor = .systemPink
             self.answerTextView.layer.borderColor = UIColor.red.cgColor
             self.answerTextView.layer.borderWidth = 1
-            self.answerTextView.text = "請再接再厲！"
+            self.answerTextView.text = "答案錯誤：\(text)，請再試試！"
           }
         } else {
           print("Error or no result")
@@ -166,7 +171,7 @@ class SpeechViewController: BaseTaskViewController {
       
       answerTextView.leadingAnchor.constraint(equalTo: taskTitleLabel.leadingAnchor),
       answerTextView.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
-      answerTextView.topAnchor.constraint(equalTo: answerLabel.bottomAnchor),
+      answerTextView.topAnchor.constraint(equalTo: answerLabel.bottomAnchor, constant: 5),
       answerTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
       
       speechButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),

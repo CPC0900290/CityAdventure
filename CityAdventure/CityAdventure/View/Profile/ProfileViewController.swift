@@ -37,6 +37,7 @@ class ProfileViewController: UIViewController {
   lazy var avatarImgView: UIImageView = {
     let view = UIImageView()
     view.backgroundColor = UIColor(hex: "E7F161", alpha: 1)
+    view.tintColor = .systemGray
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
