@@ -16,7 +16,6 @@ protocol HomeVMDelegate: AnyObject {
 class HomeViewModel {
   weak var delegate: HomeVMDelegate?
   private let userDefault = UserDefaults()
-  var idList: [String] = []
   var totalEpisodes: [Episode] = []
   var areaEpisodes: [Episode] = []
   var adventuringEpisodes: [Episode] = [] {
@@ -71,7 +70,6 @@ class HomeViewModel {
         }
         self.adventuringEpisodes = results
         completion()
-        print(self.adventuringEpisodes)
       } catch {
         print("HomeVM.fetchAdventuringEpisodes fail to decode snapshots: \(error)")
       }
@@ -89,25 +87,6 @@ class HomeViewModel {
       } catch {
         print("fetchProfile fail to decode from doc: \(error)")
       }
-    }
-  }
-  
-  func fetchEpisode(id: String, sendEpisode: @escaping (Episode) -> Void) {
-    FireStoreManager.shared.fetchDocument(collection: "EpisodeList", id: id) { snapshot in
-      do {
-        let episode = try snapshot.data(as: Episode.self)
-        self.totalEpisodes.append(episode)
-        sendEpisode(episode)
-      } catch let error {
-        print("Fail to decode Episode: \(error)")
-      }
-    }
-  }
-  
-  func fetchEpisodeList(sendEpisodeIDList: @escaping ([String]) -> Void) {
-    FireStoreManager.shared.fetchCollection(collectionName: "EpisodeList") { episodeIDList in
-      self.idList = episodeIDList
-      sendEpisodeIDList(episodeIDList)
     }
   }
 }

@@ -61,7 +61,7 @@ class RecognizerViewController: UIViewController {
     }
     
     let previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
-    previewLayer.videoGravity = .resizeAspect
+    previewLayer.videoGravity = .resizeAspectFill
     previewLayer.frame = self.view.layer.bounds
     self.view.layer.addSublayer(previewLayer)
     DispatchQueue.global(qos: .background).async {

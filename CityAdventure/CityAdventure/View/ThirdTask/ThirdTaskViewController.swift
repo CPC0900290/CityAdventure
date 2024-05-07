@@ -19,10 +19,19 @@ class ThirdTaskViewController: BaseTaskViewController {
   // MARK: - Function
   @objc func recognizeButtonPressed() {
     let recogVC = RecognizerViewController()
-    recogVC.answer = "mango_shaved_ice"
+    recogVC.answer = getRightAnswer()
     recogVC.episode = episodeForUser
     recogVC.modalPresentationStyle = .formSheet
     self.present(recogVC, animated: true)
+  }
+  
+  private func getRightAnswer() -> String {
+    guard let task = task,
+          let questionAnswerPair = task.questionAnswerPair
+    else {
+      return ""
+    }
+    return questionAnswerPair[0].answer
   }
   
   // MARK: - UI Setup
