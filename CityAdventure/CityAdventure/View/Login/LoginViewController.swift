@@ -43,7 +43,7 @@ class LoginViewController: UIViewController {
   
   lazy var loginContentLabel: UILabel = {
     let label = UILabel()
-    label.text = "穿梭在城市中\n找到你有興趣的角落\n隨時在城市中探險 "
+    label.text = "穿梭在城市中\n找到有趣的角落\n隨時在城市中探險 "
     label.font = UIFont(name: "PingFang TC", size: 18)
     label.textColor = .lightGray
     label.numberOfLines = 0
@@ -107,7 +107,8 @@ class LoginViewController: UIViewController {
   
   func randomNonceString(length: Int = 32) -> String {
     precondition(length > 0)
-    let charset: Array<Character> = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+    let charset: [Character] =
+    Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
     var result = ""
     var remainingLength = length
     
@@ -173,7 +174,8 @@ extension LoginViewController {
       return
     }
     let uid = user.uid
-    viewModel.postProfile(nickName: "User", userID: uid)
+    viewModel.postProfile(nickName: user.displayName ?? "User",
+                          userID: uid)
     userDefault.set(uid, forKey: "uid")
     let homeVC = HomeViewController()
     let nav = UINavigationController(rootViewController: homeVC)
@@ -200,7 +202,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         return
       }
       // 產生 Apple ID 登入的 Credential
-      let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+      let credential = OAuthProvider.appleCredential(withIDToken: idTokenString, rawNonce: nonce, fullName: appleIDCredential.fullName)
       // 與 Firebase Auth 進行串接
       firebaseSignInWithApple(credential: credential)
     }

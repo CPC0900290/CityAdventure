@@ -12,17 +12,25 @@ class UploadEpisode {
   let testTaskA = TaskLocations(type: "FeatureCollection",
                                 features: [LocationPath(type: "Feature",
                                                         properties: Properties(id: "0",
-                                                                               title: "任務一",
-                                                                               content: "任務一任務一任務一任務一任務一",
+                                                                               title: "任務",
+                                                                               content: """
+                                                                               探索並找到帶有標誌的QR-code獲得破關線索!
+                                                                               掃描後按照指示完成任務
+                                                                               """,
                                                                                locationName: "AppWorks School",
                                                                                locationAddress: "100台北市中正區仁愛路二段99號",
-                                                                               questionAnswerPair: [QuestionAnswer(question: "問題A", answer: "答案B")]),
+                                                                               questionAnswerPair: [QuestionAnswer(question: """
+                                                                                                                   請問AppWorks School是否會有
+                                                                                                                   """,
+                                                                                                                   answer: "答案B")]),
                                                         geometry: Geometry(coordinate: [25.03838950447114, 121.53252886867381], type: "Point"))])
   let testTaskB = TaskLocations(type: "FeatureCollection",
                                 features: [LocationPath(type: "Feature",
                                                         properties: Properties(id: "1",
-                                                                               title: "任務二",
-                                                                               content: "任務二任務二任務二任務二任務二",
+                                                                               title: "任務",
+                                                                               content: """
+                                                                               請到指定任務地點，並完成任務圖形的路徑圖
+                                                                               """,
                                                                                locationName: "大安森林公園",
                                                                                locationAddress: "106台北市大安區新生南路二段1號"),
                                                         geometry: Geometry(coordinate: [25.03332233595731, 121.53305121747286],
@@ -45,13 +53,14 @@ class UploadEpisode {
   let testTaskC = TaskLocations(type: "FeatureCollection",
                                 features: [LocationPath(type: "Feature",
                                                         properties: Properties(id: "2",
-                                                                               title: "任務三",
+                                                                               title: "任務",
                                                                                content: "請找到指定美食，購買後打開相機辨識通過任務！",
                                                                                locationName: "AppWorks School",
                                                                                locationAddress: "100台北市中正區仁愛路二段99號",
                                                                                questionAnswerPair: [QuestionAnswer(question: "食物描述，想想這是什麼吧！",
                                                                                                                    answer: "peanutsIceRoll")]),
-                                                        geometry: Geometry(coordinate: [25.03838950447114, 121.53252886867381], type: "Point"))])
+                                                        geometry: Geometry(coordinate: [25.03838950447114, 121.53252886867381], 
+                                                                           type: "Point"))])
   func postEpisode() {
     do {
       let test = FireStoreManager.shared.firestore.collection("EpisodeList")
@@ -67,11 +76,16 @@ class UploadEpisode {
             let taskB = jsonStringB,
             let taskC = jsonStringC
       else { return }
-      episode = Episode(title: "台北關卡",
-                        content: "台北關卡台北關卡台北關卡台北關卡台北關卡",
+      episode = Episode(title: "AppWorks School",
+                        content: """
+                        休息是為了走更長遠的路
+                        帶你探索初探School周圍可以放鬆散心的地方
+                        當受到程式碼整天的無情攻擊後
+                        適當的散步放鬆是很有必要的！跟著
+                        """,
                         finishedTask: [],
                         area: "台北",
-                        image: "Photo URL",
+                        image: "https://firebasestorage.googleapis.com/v0/b/cityadventure-98cbb.appspot.com/o/Taiwan101.jpg?alt=media&token=6085f5e2-3531-4025-abc1-0a752f8aa733",
                         tasks: [taskA,taskB,taskC],
                         id: document.documentID)
       try document.setData(from: episode)

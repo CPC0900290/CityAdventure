@@ -27,6 +27,10 @@ class LoginBackgroundViewController: UIViewController {
     setupUI()
     viewModel.checkLocationAuthorization(mapView: mapView)
     setupRegion()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     popupLoginVC()
   }
   

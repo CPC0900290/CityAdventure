@@ -19,6 +19,8 @@
 		0090D90C2BE0AF9300CE1F05 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0090D90B2BE0AF9300CE1F05 /* LoginViewController.swift */; };
 		0090D90F2BE0DEEA00CE1F05 /* CustomFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0090D90E2BE0DEEA00CE1F05 /* CustomFunc.swift */; };
 		0090D9112BE10B0100CE1F05 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0090D9102BE10B0100CE1F05 /* LoginViewModel.swift */; };
+		0092F18A2BE9E57E00C7394D /* SignInWithAppleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092F1892BE9E57E00C7394D /* SignInWithAppleManager.swift */; };
+		0092F18C2BE9F86400C7394D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0092F18B2BE9F86400C7394D /* AuthenticationViewModel.swift */; };
 		0094CD912BCE151B00820BE5 /* SecondTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */; };
 		0094CD932BCE992C00820BE5 /* MapPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0094CD922BCE992C00820BE5 /* MapPin.swift */; };
 		0095D00B2BC94CAA001E680B /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0095D00A2BC94CAA001E680B /* TaskViewModel.swift */; };
@@ -87,6 +89,8 @@
 		0090D90D2BE0B12600CE1F05 /* CityAdventure.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CityAdventure.entitlements; sourceTree = "<group>"; };
 		0090D90E2BE0DEEA00CE1F05 /* CustomFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFunc.swift; sourceTree = "<group>"; };
 		0090D9102BE10B0100CE1F05 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		0092F1892BE9E57E00C7394D /* SignInWithAppleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithAppleManager.swift; sourceTree = "<group>"; };
+		0092F18B2BE9F86400C7394D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTaskViewController.swift; sourceTree = "<group>"; };
 		0094CD922BCE992C00820BE5 /* MapPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPin.swift; sourceTree = "<group>"; };
 		0095D00A2BC94CAA001E680B /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
@@ -322,6 +326,7 @@
 				00B97F062BCD6E49003E2327 /* SpeechViewModel.swift */,
 				00C66F2B2BCF7A8000B5DA62 /* MapViewModel.swift */,
 				00B3E88D2BE38C5700B612AA /* SuccessViewModel.swift */,
+				0092F18B2BE9F86400C7394D /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 				00B989782BDF885500C695D7 /* MKCoordinateRegionExt.swift */,
 				0090D90E2BE0DEEA00CE1F05 /* CustomFunc.swift */,
 				00B3E88F2BE67DBF00B612AA /* UIViewControllerExt.swift */,
+				0092F1892BE9E57E00C7394D /* SignInWithAppleManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -587,10 +593,12 @@
 				00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */,
 				00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */,
 				00D01B992BDEB27100E4A0C7 /* TaskDetailView.swift in Sources */,
+				0092F18A2BE9E57E00C7394D /* SignInWithAppleManager.swift in Sources */,
 				00B989792BDF885500C695D7 /* MKCoordinateRegionExt.swift in Sources */,
 				0015A5322BE7218D00FE931E /* UIAnimationController.swift in Sources */,
 				00B72E282BD63B2C00F531C0 /* ProfileCell.swift in Sources */,
 				00C35F982BC822D600AB7B7D /* FireStoreManager.swift in Sources */,
+				0092F18C2BE9F86400C7394D /* AuthenticationViewModel.swift in Sources */,
 				00B3E88E2BE38C5700B612AA /* SuccessViewModel.swift in Sources */,
 				00B72E3C2BD68DFE00F531C0 /* TitleSupplementaryView.swift in Sources */,
 				00B97F032BCD31C7003E2327 /* ScannerViewController.swift in Sources */,

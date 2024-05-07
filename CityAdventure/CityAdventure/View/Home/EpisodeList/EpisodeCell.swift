@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class EpisodeCell: UICollectionViewCell {
   static let identifier = String(describing: EpisodeCell.self)
@@ -16,7 +17,7 @@ class EpisodeCell: UICollectionViewCell {
   
   func update(with episode: Episode) {
     episodeTitleLabel.text = episode.title
-    episodeImg.layer.cornerRadius = episodeImg.frame.width / 15
+    episodeImg.kf.setImage(with: URL(string: episode.image))
     self.layer.cornerRadius = self.frame.width / 20
   }
 }

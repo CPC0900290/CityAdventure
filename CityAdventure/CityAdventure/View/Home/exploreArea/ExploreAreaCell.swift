@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class ExploreAreaCell: UICollectionViewCell {
   static let identifier = String(describing: ExploreAreaCell.self)
@@ -16,6 +17,7 @@ class ExploreAreaCell: UICollectionViewCell {
   
   func update(with episode: Episode) {
     taskTitleLabel.text = episode.title
+    exploreAreaImg.kf.setImage(with: URL(string: episode.image))
     self.layer.cornerRadius = self.frame.width / 15
     exploreAreaImg.layer.cornerRadius = exploreAreaImg.frame.width / 15
   }

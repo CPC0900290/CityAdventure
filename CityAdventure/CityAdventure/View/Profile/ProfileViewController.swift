@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 enum ProfileSection: String, CaseIterable {
   case main
@@ -119,8 +120,14 @@ class ProfileViewController: UIViewController {
                                      style: .plain,
                                      target: self,
                                      action: #selector(lastPage))
+    let rightNavBarItem = UIBarButtonItem(image: UIImage(systemName: "gearshape"),
+                                       style: .plain,
+                                       target: self,
+                                       action: #selector(handleAccount))
     navBarItem.tintColor = UIColor.white
+    rightNavBarItem.tintColor = UIColor.white
     navigationItem.leftBarButtonItem = navBarItem
+    navigationItem.rightBarButtonItem = rightNavBarItem
   }
   
   private func setupCVLayout() -> UICollectionViewCompositionalLayout {
@@ -141,6 +148,30 @@ class ProfileViewController: UIViewController {
   }
   
   // MARK: - Function
+  @objc private func handleAccount() {
+    let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let logoutAction = UIAlertAction(title: "登出", style: .default) { _ in
+      print("didPress report abuse")
+      self.viewModel.logout()
+    }
+    
+    let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in
+      print("didPress block")
+      Task {
+        await self.viewModel.deleteAccount()
+      }
+    }
+    
+    let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
+      print("didPress cancel")
+    }
+    actionSheet.addAction(logoutAction)
+    actionSheet.addAction(deleteAction)
+    actionSheet.addAction(cancelAction)
+    // Present the controller
+    self.present(actionSheet, animated: true, completion: nil)
+  }
+  
   @objc func lastPage() {
     self.navigationController?.popViewController(animated: true)
   }
@@ -152,6 +183,9 @@ class ProfileViewController: UIViewController {
         self.finishedEpisodes?.append(episode)
       }
     }
+    userNameLabel.text = profile.nickName
+    userTitleLabel.text = profile.titleName
+    avatarImgView.image = UIImage(systemName: profile.avatar)
   }
 }
 
