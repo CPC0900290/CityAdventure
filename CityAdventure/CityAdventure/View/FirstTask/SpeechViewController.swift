@@ -17,6 +17,8 @@ class SpeechViewController: BaseTaskViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .clear
+    view.isOpaque = false
     setupUI()
     guard let task = task else { return }
     self.task = task
@@ -25,6 +27,8 @@ class SpeechViewController: BaseTaskViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    taskView.layer.cornerRadius = taskView.frame.width / 30
+    backgroundMaterial.layer.cornerRadius = backgroundMaterial.frame.width / 30
     answerTextView.layer.cornerRadius = taskView.frame.width / 20
     if let question = question {
       taskContentLabel.text = question
@@ -90,7 +94,20 @@ class SpeechViewController: BaseTaskViewController {
     }
   }
   
+  @objc func closeAction() {
+    self.dismiss(animated: true)
+  }
+  
   // MARK: - UI setup
+  lazy var closeButton: UIButton = {
+    let button = UIButton()
+    button.setImage(UIImage(systemName: "xmark"), for: .normal)
+    button.tintColor = .white
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
+    return button
+  }()
+  
   lazy var taskTitleLabel: UILabel = {
     let label = UILabel()
     label.text = "請以語音回答下方問題！"
@@ -148,12 +165,13 @@ class SpeechViewController: BaseTaskViewController {
     taskView.addSubview(backgroundMaterial)
     taskView.addSubview(taskTitleLabel)
     taskView.addSubview(taskContentLabel)
+    taskView.addSubview(closeButton)
     taskView.addSubview(answerLabel)
     taskView.addSubview(answerTextView)
     taskView.addSubview(speechButton)
     NSLayoutConstraint.activate([
       taskView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      taskView.topAnchor.constraint(equalTo: view.topAnchor),
+//      taskView.topAnchor.constraint(equalTo: view.topAnchor),
       taskView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       taskView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       
@@ -165,6 +183,11 @@ class SpeechViewController: BaseTaskViewController {
       taskTitleLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 20),
       taskTitleLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 20),
       taskTitleLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -20),
+      
+      closeButton.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 10),
+      closeButton.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -10),
+      closeButton.heightAnchor.constraint(equalToConstant: 20),
+      closeButton.widthAnchor.constraint(equalTo: closeButton.heightAnchor, multiplier: 1),
       
       taskContentLabel.leadingAnchor.constraint(equalTo: taskTitleLabel.leadingAnchor),
       taskContentLabel.trailingAnchor.constraint(equalTo: taskTitleLabel.trailingAnchor),
@@ -180,6 +203,7 @@ class SpeechViewController: BaseTaskViewController {
       answerTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 40),
       
       speechButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),
+      speechButton.topAnchor.constraint(equalTo: answerTextView.bottomAnchor, constant: 10),
       speechButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
       speechButton.widthAnchor.constraint(equalTo: backgroundMaterial.widthAnchor, multiplier: 0.4),
       speechButton.heightAnchor.constraint(equalTo: speechButton.widthAnchor, multiplier: 1)

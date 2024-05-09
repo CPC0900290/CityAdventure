@@ -143,15 +143,15 @@ class EpisodeViewController: EpisodeDetailViewController {
     taskDetailView.titleLabel.text = property.title
     taskDetailView.taskContentLabel.text = property.content
     taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
-      if distance < 300 {
-        taskDetailView.startButton.isEnabled = true
-        switchButtonAlpha(taskDetailView.startButton)
-      } else {
-        taskDetailView.startButton.isEnabled = false
-        switchButtonAlpha(taskDetailView.startButton)
-      }
-//    taskDetailView.startButton.isEnabled = true
-//    switchButtonAlpha(taskDetailView.startButton)
+//      if distance < 300 {
+//        taskDetailView.startButton.isEnabled = true
+//        switchButtonAlpha(taskDetailView.startButton)
+//      } else {
+//        taskDetailView.startButton.isEnabled = false
+//        switchButtonAlpha(taskDetailView.startButton)
+//      }
+    taskDetailView.startButton.isEnabled = true
+    switchButtonAlpha(taskDetailView.startButton)
     currentTaskTag = sender.tag
   }
   
