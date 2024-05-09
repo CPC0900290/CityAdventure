@@ -51,7 +51,7 @@ class RecognizerViewController: UIViewController {
     // Add output data
     if captureSession.canAddOutput(videoOutput) {
       captureSession.addOutput(videoOutput)
-        // Add a video data output
+      // Add a video data output
       videoOutput.alwaysDiscardsLateVideoFrames = true
       videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
       videoOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)

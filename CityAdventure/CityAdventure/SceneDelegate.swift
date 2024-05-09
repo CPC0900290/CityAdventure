@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: windowScene)
     if Auth.auth().currentUser != nil {
+      UserDefaults().set(Auth.auth().currentUser?.uid, forKey: "uid")
       viewController = HomeViewController()
     } else {
       viewController = LoginBackgroundViewController()

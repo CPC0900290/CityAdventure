@@ -161,6 +161,9 @@ class ProfileViewController: UIViewController {
       Task {
         await self.viewModel.deleteAccount()
       }
+      let loginBaseVC = LoginBackgroundViewController()
+      loginBaseVC.modalPresentationStyle = .fullScreen
+      self.present(loginBaseVC, animated: true)
     }
     
     let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in

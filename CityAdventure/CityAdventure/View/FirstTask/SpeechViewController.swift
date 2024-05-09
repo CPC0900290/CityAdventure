@@ -52,6 +52,11 @@ class SpeechViewController: BaseTaskViewController {
   
   @objc func buttonTouchOutside() {
     speechVM.cancelRecording()
+    DispatchQueue.main.async {
+      self.answerTextView.backgroundColor = .darkGray
+      self.answerTextView.layer.borderWidth = 0
+      self.answerTextView.text = "請以語音回答下方問題！"
+    }
   }
   
   @objc func buttonTouchUpInside() {

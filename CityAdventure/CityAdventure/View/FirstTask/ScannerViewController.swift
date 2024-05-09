@@ -123,6 +123,13 @@ extension ScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
   }
 }
 
+// MARK: - Authentication
+extension ScannerViewController {
+  private func setupAuthorization() {
+    
+  }
+}
+
 // MARK: - Animation UIViewControllerTransitioningDelegate
 extension ScannerViewController: UIViewControllerTransitioningDelegate {
   func presentCustomViewController(viewController: UIViewController) {
