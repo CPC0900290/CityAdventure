@@ -154,6 +154,12 @@ class ProfileViewController: UIViewController {
     let logoutAction = UIAlertAction(title: "登出", style: .default) { _ in
       print("didPress report abuse")
       self.viewModel.logout()
+      let loginVC = LoginViewController()
+      loginVC.isModalInPresentation = true
+      if let sheet = loginVC.sheetPresentationController {
+        sheet.detents = [.medium()]
+      }
+      self.present(loginVC, animated: true)
     }
     
     let deleteAction = UIAlertAction(title: "刪除帳號", style: .destructive) { _ in

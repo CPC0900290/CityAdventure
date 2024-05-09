@@ -55,6 +55,7 @@ class LoginBackgroundViewController: UIViewController {
   
   private func popupLoginVC() {
     let loginVC = LoginViewController()
+    loginVC.isModalInPresentation = true
     if let sheet = loginVC.sheetPresentationController {
       sheet.detents = [.medium()]
     }

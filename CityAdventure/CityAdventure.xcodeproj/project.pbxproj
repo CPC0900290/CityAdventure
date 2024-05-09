@@ -785,8 +785,8 @@
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來完成任務";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
+				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來掃描QR Code已取得任務題目。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要知道您的位置以判斷您是否在抵達任務地點";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "當你按下「開始識別」，我們將使用麥克風進行錄音。";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "當你對著麥克風說話時，我們將進行語音識別已回填答案。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -824,8 +824,8 @@
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來完成任務";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要您的位置以進行任務";
+				INFOPLIST_KEY_NSCameraUsageDescription = "城市探險需要您的相機來掃描QR Code已取得任務題目。";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "城市探險需要知道您的位置以判斷您是否在抵達任務地點";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "當你按下「開始識別」，我們將使用麥克風進行錄音。";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "當你對著麥克風說話時，我們將進行語音識別已回填答案。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

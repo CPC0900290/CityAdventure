@@ -26,13 +26,13 @@ class HomeViewModel {
   var profile: Profile?
   // Fetch all Episode from Firebase
   func fetchTotalEpisodes() {
-    FireStoreManager.shared.fetchCollectionQuery(collectionName: "EpisodeList") { query in
+    FireStoreManager.shared.fetchCollectionQuery(collectionName: "EpisodeList") {[weak self] query in
       do {
         let results = try query.documents.map { snapshot in
           let episode = try snapshot.data(as: Episode.self)
           return episode
         }
-        self.totalEpisodes = results
+        self?.totalEpisodes = results
       } catch {
         print("HomeVM.fetchTotalEpisode fail to decode snapshots: \(error)")
       }
@@ -43,12 +43,12 @@ class HomeViewModel {
   func fetchAreaEpisode(areaName: String) {
     FireStoreManager.shared.fetchFilteredSnapshots(collection: "EpisodeList", 
                                                    field: "area",
-                                                   with: areaName) { query in
+                                                   with: areaName) {[weak self] query in
       do {
         let results = try query.documents.map { snapshot in
           return try snapshot.data(as: Episode.self)
         }
-        self.areaEpisodes = results
+        self?.areaEpisodes = results
       } catch {
         print("HomeVM.fetchAreaEpisode fail to decode snapshots: \(error)")
       }
@@ -62,13 +62,13 @@ class HomeViewModel {
     guard !episodeIDList.isEmpty else { return }
     FireStoreManager.shared.fetchFilteredArrayQuery(collection: "EpisodeList",
                                                     field: "id",
-                                                    with: episodeIDList) { query in
+                                                    with: episodeIDList) {[weak self] query in
       
       do {
         let results = try query.documents.map { snapshot in
           return try snapshot.data(as: Episode.self)
         }
-        self.adventuringEpisodes = results
+        self?.adventuringEpisodes = results
         completion()
       } catch {
         print("HomeVM.fetchAdventuringEpisodes fail to decode snapshots: \(error)")
@@ -79,10 +79,10 @@ class HomeViewModel {
   // Fetch Profile from Firebase
   func fetchProfile(completion: @escaping () -> Void) {
     guard let userID = userDefault.value(forKey: "uid") as? String else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { document in
+    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) {[weak self] document in
       do {
         let data = try document.data(as: Profile.self)
-        self.profile = data
+        self?.profile = data
         completion()
       } catch {
         print("fetchProfile fail to decode from doc: \(error)")

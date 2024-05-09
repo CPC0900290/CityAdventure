@@ -138,6 +138,7 @@ extension ScannerViewController: UIViewControllerTransitioningDelegate {
     else {return}
     viewController.transitioningDelegate = self
     last.dismiss(animated: true)
+    viewController.isModalInPresentation = true
     if let sheet = viewController.sheetPresentationController {
       sheet.detents = [.medium()]
     }
