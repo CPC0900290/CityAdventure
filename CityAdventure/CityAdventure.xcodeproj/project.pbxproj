@@ -781,7 +781,7 @@
 				CODE_SIGN_ENTITLEMENTS = CityAdventure/CityAdventure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
@@ -820,7 +820,7 @@
 				CODE_SIGN_ENTITLEMENTS = CityAdventure/CityAdventure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 5FN9342AS5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CityAdventure/Info.plist;
