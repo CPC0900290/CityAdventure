@@ -62,6 +62,8 @@
 		00C890A82BDAD27100A430A2 /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00C890A72BDAD27100A430A2 /* PostCell.xib */; };
 		00C92D672BD75B1200631D3E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C92D662BD75B1200631D3E /* HomeViewModel.swift */; };
 		00C92D692BD7DBD800631D3E /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C92D682BD7DBD800631D3E /* Profile.swift */; };
+		00CB79342BF1155F00A06B4B /* BreadcrumbPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB79332BF1155F00A06B4B /* BreadcrumbPath.swift */; };
+		00CB79362BF116D200A06B4B /* BreadcrumbPathRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB79352BF116D200A06B4B /* BreadcrumbPathRenderer.swift */; };
 		00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1322BCA87D900AC350B /* UIColorExt.swift */; };
 		00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1342BCA957100AC350B /* TaskCell.swift */; };
 		00CEB1372BCA95F500AC350B /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00CEB1362BCA95F500AC350B /* TaskCell.xib */; };
@@ -129,6 +131,8 @@
 		00C890A72BDAD27100A430A2 /* PostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		00C92D662BD75B1200631D3E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		00C92D682BD7DBD800631D3E /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		00CB79332BF1155F00A06B4B /* BreadcrumbPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadcrumbPath.swift; sourceTree = "<group>"; };
+		00CB79352BF116D200A06B4B /* BreadcrumbPathRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreadcrumbPathRenderer.swift; sourceTree = "<group>"; };
 		00CEB1322BCA87D900AC350B /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		00CEB1342BCA957100AC350B /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		00CEB1362BCA95F500AC350B /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
@@ -220,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				0094CD902BCE151B00820BE5 /* SecondTaskViewController.swift */,
+				00CB79332BF1155F00A06B4B /* BreadcrumbPath.swift */,
+				00CB79352BF116D200A06B4B /* BreadcrumbPathRenderer.swift */,
 			);
 			path = SecondTask;
 			sourceTree = "<group>";
@@ -592,8 +598,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				00B72E2E2BD6603600F531C0 /* AdventuringTaskCell.swift in Sources */,
+				00CB79362BF116D200A06B4B /* BreadcrumbPathRenderer.swift in Sources */,
 				0039BEC12BD153DD00D8B20A /* RecognizerViewController.swift in Sources */,
 				0090D90C2BE0AF9300CE1F05 /* LoginViewController.swift in Sources */,
+				00CB79342BF1155F00A06B4B /* BreadcrumbPath.swift in Sources */,
 				00CEB13E2BCAC4A900AC350B /* MapViewController.swift in Sources */,
 				005EEFCA2BC685EA00D46BB6 /* BaseTaskViewController.swift in Sources */,
 				00C66F2C2BCF7A8000B5DA62 /* MapViewModel.swift in Sources */,

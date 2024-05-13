@@ -29,7 +29,7 @@ class ThirdTaskViewController: BaseTaskViewController {
     guard let task = task,
           let questionAnswerPair = task.questionAnswerPair
     else {
-      return ""
+      return "" // ToFix: 真的拿到空值的話，RecognizerVC沒辦法辨識到任何正確答案
     }
     return questionAnswerPair[0].answer
   }

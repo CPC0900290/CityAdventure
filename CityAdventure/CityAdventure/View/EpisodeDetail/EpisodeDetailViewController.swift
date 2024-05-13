@@ -68,7 +68,7 @@ class EpisodeDetailViewController: UIViewController {
   
   // MARK: - UI Setup
   
-  private func setupUI() {
+  func setupUI() {
     view.addSubview(mapView)
     view.addSubview(taskDetailView)
     
@@ -78,9 +78,9 @@ class EpisodeDetailViewController: UIViewController {
       mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
       mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
       
-      taskDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      taskDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      taskDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      taskDetailView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+      taskDetailView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+      taskDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15)
     ])
   }
   

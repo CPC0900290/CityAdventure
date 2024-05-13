@@ -40,6 +40,8 @@ class EpisodeDetailViewModel {
     }
   }
   
+  var secondTaskCoordinates: [CLLocationCoordinate2D] = []
+  
   func checkLocationAuthorization(mapView: MKMapView) {
     guard let locationManager = locationManager,
           let _ = locationManager.location else { return }
