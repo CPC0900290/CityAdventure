@@ -19,13 +19,6 @@ class SecondTaskViewController: EpisodeDetailViewController {
   var breadcrumbPathRenderer: BreadcrumbPathRenderer?
   private var userLocations: [CLLocation] = []
   private var allLocations: [CLLocation] = []
-  private let testLocation: [CLLocation] = [
-    CLLocation(latitude: 25.01281652230432, longitude: 121.47221825859378),
-    CLLocation(latitude: 25.01311874015083, longitude: 121.47276545057179),
-    CLLocation(latitude: 25.013511915653183, longitude: 121.47249347349543),
-    CLLocation(latitude: 25.01322730366128, longitude: 121.47195275716086),
-    CLLocation(latitude: 25.01281065398925, longitude: 121.47222797206024)
-  ]
   private var arrivedTaskCount = 0
   
   // MARK: - Life Cycle
@@ -81,6 +74,7 @@ class SecondTaskViewController: EpisodeDetailViewController {
 """
     label.font = UIFont(name: "PingFang TC", size: 20)
     label.textColor = .white
+    label.numberOfLines = 0
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
@@ -151,25 +145,15 @@ class SecondTaskViewController: EpisodeDetailViewController {
   
   // MARK: - Function
   @objc private func submitButtonClicked() {
-//    guard !userLocations.isEmpty,
-//          let currentLocation = userLocations.last
-//    else { return }
-//    for location in allLocations {
-//      let distance = currentLocation.distance(from: location)
-//      if distance < 50 {
-//        arrivedTaskCount += 1
-//        print("Arrived task spot!!!!!!!!!!!!!!!!!!!!!!!!")
-        if arrivedTaskCount > allLocations.count / 2 {
-          viewModel.locationManager?.stopUpdatingLocation()
-          viewModel.locationManager?.stopUpdatingHeading()
-          let successVC = SuccessViewController()
-          successVC.modalPresentationStyle = .fullScreen
-          successVC.episodeID = self.episode?.id
-          successVC.taskNum = 1
-          self.present(successVC, animated: true)
-        }
-//      }
-//    }
+    if arrivedTaskCount > allLocations.count / 2 {
+      viewModel.locationManager?.stopUpdatingLocation()
+      viewModel.locationManager?.stopUpdatingHeading()
+      let successVC = SuccessViewController()
+      successVC.modalPresentationStyle = .fullScreen
+      successVC.episodeID = self.episode?.id
+      successVC.taskNum = 1
+      self.present(successVC, animated: true)
+    }
   }
   
   private func fetchLocation() {
@@ -212,7 +196,7 @@ class SecondTaskViewController: EpisodeDetailViewController {
     
     DispatchQueue.main.async {
       self.taskRouteOverlay = MKPolyline(coordinates: coordinates, count: coordinates.count)
-      self.mapView.addOverlay(self.taskRouteOverlay!, level: .aboveRoads)
+      self.mapView.addOverlay(self.taskRouteOverlay!, level: .aboveLabels)
     }
   }
   
@@ -234,18 +218,8 @@ class SecondTaskViewController: EpisodeDetailViewController {
     userLocations.append(currentLocation)
     for location in allLocations {
       let distance = currentLocation.distance(from: location)
-      if distance < 50 {
+      if distance < 20 { // 持續追蹤看是否會因為設定的距離太短，導致很容易因為定位精準度不夠而沒有計算到
         arrivedTaskCount += 1
-        print("Arrived task spot!!!!!!!!!!!!!!!!!!!!!!!!")
-//        if arrivedTaskCount > allLocations.count / 2 {
-//          viewModel.locationManager?.stopUpdatingLocation()
-//          viewModel.locationManager?.stopUpdatingHeading()
-//          let successVC = SuccessViewController()
-//          successVC.modalPresentationStyle = .fullScreen
-//          successVC.episodeID = self.episode?.id
-//          successVC.taskNum = 1
-//          self.present(successVC, animated: true)
-//        }
       }
     }
   }
