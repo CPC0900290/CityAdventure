@@ -14,6 +14,17 @@ class SuccessViewModel {
     }
   }
   
+  var episodeID: String?
+  
+  var taskStatus: [Bool] = [] {
+    didSet {
+      if taskStatus.allSatisfy({ $0 == true }) {
+        guard let episodeID = episodeID else { return }
+        updateFinishedEpisode(episodeID: episodeID)
+      }
+    }
+  }
+  
   func fetchProfile() {
     guard let userID = userDefault.value(forKey: "uid") as? String else { return }
     FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { document in
@@ -35,6 +46,8 @@ class SuccessViewModel {
         data.adventuringEpisode.forEach { episode in
           if episode.episodeID == episdoeID {
             data.adventuringEpisode[count].taskStatus[taskNum] = true
+            self.episodeID = data.adventuringEpisode[count].episodeID
+            self.taskStatus = data.adventuringEpisode[count].taskStatus
           }
           count += 1
         }

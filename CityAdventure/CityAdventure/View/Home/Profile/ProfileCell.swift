@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class ProfileCell: UICollectionViewCell {
   static let identifier = String(describing: ProfileCell.self)
@@ -18,5 +19,6 @@ class ProfileCell: UICollectionViewCell {
   func update(with profile: Profile) {
     userTitleLabel.text = profile.titleName
     userNameLabel.text = profile.nickName
+    profileImg.kf.setImage(with: URL(string: profile.avatar))
   }
 }

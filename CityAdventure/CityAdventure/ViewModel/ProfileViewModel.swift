@@ -18,10 +18,12 @@ extension ProfileModelsUpdateProtocol {
 }
 
 class ProfileViewModel {
-  private var delegate: ProfileModelsUpdateProtocol?
+  weak var delegate: ProfileModelsUpdateProtocol?
   var finishedList: [Episode] = [] {
     didSet {
-      delegate?.updatedDataModels()
+      if !finishedList.isEmpty {
+        delegate?.updatedDataModels()
+      }
     }
   }
   
@@ -109,6 +111,21 @@ class ProfileViewModel {
       }
     }
     return result
+  }
+  
+  func fetchFinishedEpisode(with: [String]) {
+    FireStoreManager.shared.fetchFilteredArrayQuery(collection: "EpisodeList", field: "id", with: with) { query in
+      do {
+        var temp: [Episode] = []
+        try query.documents.forEach { snapshot in
+          let result = try snapshot.data(as: Episode.self)
+          temp.append(result)
+        }
+        self.finishedList = temp
+      } catch {
+        print("ProfileViewModel.fetchFinishedEpisode fail to decode data from Firebase: \(error)")
+      }
+    }
   }
   
   func fetchEpisode(id: String, getData sendData: @escaping (Episode) -> Void) {

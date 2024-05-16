@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    viewModel.delegate = self
     view.backgroundColor = .black
     fetchData()
     setupNavItem()
@@ -107,8 +108,8 @@ class ProfileViewController: UIViewController {
     ])
     collectionView.register(UINib(nibName: "PostCell", bundle: nil),
                             forCellWithReuseIdentifier: "PostCell")
-    configDataSource()
-    configSnapshot()
+//    configDataSource()
+//    configSnapshot()
     collectionView.collectionViewLayout = setupCVLayout()
     collectionView.delegate = self
   }
@@ -188,14 +189,12 @@ class ProfileViewController: UIViewController {
   
   func fetchData() {
     guard let profile = userProfile else { return }
-    for finishedTaskID in profile.finishedEpisodeID {
-      viewModel.fetchEpisode(id: finishedTaskID) { episode in
-        self.finishedEpisodes?.append(episode)
-      }
+    if !profile.finishedEpisodeID.isEmpty {
+      viewModel.fetchFinishedEpisode(with: profile.finishedEpisodeID)
     }
     userNameLabel.text = profile.nickName
     userTitleLabel.text = profile.titleName
-    avatarImgView.image = UIImage(systemName: profile.avatar)
+    avatarImgView.kf.setImage(with: URL(string: profile.avatar))
   }
 }
 
@@ -203,13 +202,12 @@ extension ProfileViewController {
   typealias ProfileDataSource = UICollectionViewDiffableDataSource<ProfileSection, String>
   private func configDataSource() {
     dataSource = ProfileDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, _ in
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.identifier, for: indexPath) as? PostCell,
-            let episodes = self.finishedEpisodes
+      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCell.identifier, for: indexPath) as? PostCell
       else {
         print("ProfileVC PostCell fail to init")
         return UICollectionViewCell()
       }
-      cell.update(with: episodes[indexPath.row])
+      cell.update(with: self.viewModel.finishedList[indexPath.row])
       return cell
     })
   }
@@ -220,6 +218,13 @@ extension ProfileViewController {
     currentSnapshot.appendSections(ProfileSection.allCases)
     currentSnapshot.appendItems(finishedEpisodes, toSection: .main)
     dataSource.apply(currentSnapshot)
+  }
+}
+
+extension ProfileViewController: ProfileModelsUpdateProtocol {
+  func updatedDataModels() {
+    configDataSource()
+    configSnapshot()
   }
 }
 

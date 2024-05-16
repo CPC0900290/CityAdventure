@@ -18,7 +18,7 @@ extension MKCoordinateRegion {
     let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
     
     // 計算跨度，並確保有一個最小的跨度值
-    let minSpan = 0.01 // 最小跨度值，避免跨度太小
+    let minSpan = 0.015 // 最小跨度值，避免跨度太小
     let latitudeDelta = max((maxLat - minLat) * 1.1, minSpan)
     let longitudeDelta = max((maxLon - minLon) * 1.1, minSpan)
     let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)

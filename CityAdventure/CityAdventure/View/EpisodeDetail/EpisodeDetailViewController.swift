@@ -111,7 +111,7 @@ class EpisodeDetailViewController: UIViewController {
     centerMapForEpisode()
   }
   
-  private func centerMapForEpisode() {
+  func centerMapForEpisode() {
     guard !viewModel.taskCoordinates.isEmpty else { return }
     let region = MKCoordinateRegion(coordinates: viewModel.taskCoordinates)
     mapView.setRegion(region, animated: true)

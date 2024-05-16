@@ -14,6 +14,7 @@ class ThirdTaskViewController: BaseTaskViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
+    getQuestion()
   }
   
   // MARK: - Function
@@ -34,6 +35,13 @@ class ThirdTaskViewController: BaseTaskViewController {
     return questionAnswerPair[0].answer
   }
   
+  private func getQuestion() {
+    guard let task = task,
+          let questionAnswerPair = task.questionAnswerPair 
+    else { return }
+    taskTitleLabel.text = questionAnswerPair[0].question
+  }
+  
   // MARK: - UI Setup
   lazy var taskContentLabel: UILabel = {
     let label = UILabel()
@@ -46,8 +54,9 @@ class ThirdTaskViewController: BaseTaskViewController {
   
   lazy var taskTitleLabel: UILabel = {
     let label = UILabel()
-    label.text = "請找到一個黃色的食物"
+    label.text = ""
     label.font = UIFont(name: "PingFang TC", size: 18)
+    label.numberOfLines = 0
     label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -81,10 +90,11 @@ class ThirdTaskViewController: BaseTaskViewController {
       backgroundMaterial.trailingAnchor.constraint(equalTo: taskView.trailingAnchor),
       backgroundMaterial.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
       
-      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 80),
+      taskContentLabel.topAnchor.constraint(equalTo: backgroundMaterial.topAnchor, constant: 30),
       taskContentLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 10),
       
       taskTitleLabel.leadingAnchor.constraint(equalTo: backgroundMaterial.leadingAnchor, constant: 10),
+      taskTitleLabel.trailingAnchor.constraint(equalTo: backgroundMaterial.trailingAnchor, constant: -10),
       taskTitleLabel.topAnchor.constraint(equalTo: taskContentLabel.bottomAnchor, constant: 30),
       
       recognizeButton.centerXAnchor.constraint(equalTo: backgroundMaterial.centerXAnchor),

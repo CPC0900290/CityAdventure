@@ -85,7 +85,10 @@ class EpisodeViewController: EpisodeDetailViewController {
   // MARK: - Setup UI
   private func defaltTaskView() {
     self.taskDetailView.startButton.setTitle("繼續", for: .normal)
+    taskDetailView.startButton.setTitle("請點擊側邊任務按鈕", for: .disabled)
+    taskDetailView.startButton.setTitleColor(.darkGray, for: .disabled)
     taskDetailView.startButton.isEnabled = false
+    taskDetailView.taskContentLabel.text = "點擊側邊任務按鈕，開始執行各別任務"
     switchButtonAlpha(taskDetailView.startButton)
   }
   
@@ -143,15 +146,15 @@ class EpisodeViewController: EpisodeDetailViewController {
     taskDetailView.titleLabel.text = property.title
     taskDetailView.taskContentLabel.text = property.content
     taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
-//      if distance < 300 {
-//        taskDetailView.startButton.isEnabled = true
-//        switchButtonAlpha(taskDetailView.startButton)
-//      } else {
-//        taskDetailView.startButton.isEnabled = false
-//        switchButtonAlpha(taskDetailView.startButton)
-//      }
-    taskDetailView.startButton.isEnabled = true
-    switchButtonAlpha(taskDetailView.startButton)
+      if distance < 300 {
+        taskDetailView.startButton.isEnabled = true
+        switchButtonAlpha(taskDetailView.startButton)
+      } else {
+        taskDetailView.startButton.isEnabled = false
+        switchButtonAlpha(taskDetailView.startButton)
+      }
+//    taskDetailView.startButton.isEnabled = true
+//    switchButtonAlpha(taskDetailView.startButton)
     currentTaskTag = sender.tag
   }
   
@@ -168,7 +171,15 @@ class EpisodeViewController: EpisodeDetailViewController {
   }
   
   func showAllTask(_ sender: Any) {
-    showAllAnnotations(sender)
+    guard let episode = episode,
+          !viewModel.taskAnnotations.isEmpty
+    else { return }
+    displayedAnnotations = viewModel.taskAnnotations
+    allAnnotations = viewModel.taskAnnotations
+    taskDetailView.titleLabel.text = episode.title
+    taskDetailView.taskContentLabel.text = "點擊側邊任務按鈕，開始執行各別任務"
+    taskDetailView.taskDistanceLabel.text = ""
+    centerMapForEpisode()
     taskDetailView.startButton.isEnabled = false
     switchButtonAlpha(taskDetailView.startButton)
     currentTaskTag = nil
