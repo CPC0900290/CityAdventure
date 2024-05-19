@@ -86,8 +86,8 @@ class HomeViewController: UIViewController {
     guard let profile = viewModel.profile else { return }
     guard !profile.adventuringEpisode.isEmpty else { return }
     let episodeVC = EpisodeViewController()
-    episodeVC.episode = viewModel.adventuringEpisodes[sender.tag]
-    navigationController?.pushViewController(episodeVC, animated: false)
+    episodeVC.viewModel = EpisodeViewModel(episode: viewModel.adventuringEpisodes[sender.tag])
+    navigationController?.pushViewController(episodeVC, animated: true)
   }
 }
 
@@ -280,12 +280,13 @@ extension HomeViewController: UICollectionViewDelegate {
     case 1:
       return
     case 2:
-      let episodeDetailVC = EpisodeDetailViewController()
-      episodeDetailVC.episode = viewModel.areaEpisodes[indexPath.row]
+      let episodeDetailVC = EpisodeIntroViewController()
+      episodeDetailVC.viewModel = EpisodeIntroViewModel(episode: viewModel.areaEpisodes[indexPath.row])
+//      episodeDetailVC.episode = viewModel.areaEpisodes[indexPath.row]
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     case 3:
-      let episodeDetailVC = EpisodeDetailViewController()
-      episodeDetailVC.episode = viewModel.totalEpisodes[indexPath.row]
+      let episodeDetailVC = EpisodeIntroViewController()
+      episodeDetailVC.viewModel = EpisodeIntroViewModel(episode: viewModel.totalEpisodes[indexPath.row])
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     default:
       break

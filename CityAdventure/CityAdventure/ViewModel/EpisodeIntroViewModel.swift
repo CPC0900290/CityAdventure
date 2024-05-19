@@ -1,5 +1,5 @@
 //
-//  EpisodeDetailViewModel.swift
+//  EpisodeIntroViewModel.swift
 //  CityAdventure
 //
 //  Created by Pin Chen on 2024/4/28.
@@ -12,19 +12,19 @@ protocol EpisodeDetailModelProtocol: AnyObject {
   func updatedDataModels()
 }
 
-class EpisodeDetailViewModel {
-  var locationManager: CLLocationManager?
+class EpisodeIntroViewModel {
+  var locationManager = CLLocationManager()
+  var mapView: MKMapView?
+  
   weak var delegate: EpisodeDetailModelProtocol?
+  
   private var userDefault = UserDefaults()
-  
-  private var user: Profile? 
-  
-  private var episode: Episode?
+  private var user: Profile?
+  var episode: Episode?
   var tasks: [TaskLocations]? {
     didSet {
       fetchAnnotationsAndCoordinate()
       fetchProfile()
-      getDistance()
     }
   }
   
@@ -32,42 +32,16 @@ class EpisodeDetailViewModel {
   
   var taskCoordinates: [CLLocationCoordinate2D] = []
   
-  var distanceToTask: [CLLocationDistance]?
-  
-  var taskStatus: [Bool]? {
-    didSet {
-      delegate?.updatedDataModels()
-    }
-  }
-  
-  var secondTaskCoordinates: [CLLocationCoordinate2D] = []
-  
-  func checkLocationAuthorization(mapView: MKMapView) {
-    guard let locationManager = locationManager,
-          let _ = locationManager.location else { return }
-    
-    switch locationManager.authorizationStatus {
-    case .authorizedAlways, .authorizedWhenInUse:
-      print("")
-    case .denied:
-      print("")
-    case .restricted, .notDetermined:
-      print("")
-    @unknown default:
-      print("")
-    }
-  }
-  // MARK: - EpisodeDetailVC
-  func setupLocationManager(_ viewController: CLLocationManagerDelegate) {
-    locationManager = CLLocationManager()
-    locationManager?.delegate = viewController
-    locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-    locationManager?.requestWhenInUseAuthorization()
-    locationManager?.requestLocation()
-  }
-  
-  func getData(episode: Episode) {
+  // get episode from HomeVC when init
+  init(episode: Episode? = nil) {
     self.episode = episode
+    decodeTaskLocations()
+  }
+  
+  // MARK: - EpisodeDetailVC
+  // Decode TaskLocations in Episode
+  private func decodeTaskLocations() {
+    guard let episode = episode else { return }
     var temp: [TaskLocations] = []
     for task in episode.tasks {
       guard let data = task.data(using: .utf8) else { return }
@@ -129,44 +103,6 @@ class EpisodeDetailViewModel {
         } catch {
           print("EpisodeDetailViewModel fail to decode data: \(error)")
         }
-      }
-    }
-  }
-  
-  // MARK: - EpisodeVC
-  func getDistanceToTask(coordinate: CLLocationCoordinate2D) -> CLLocationDistance {
-    guard let userCoordinate = locationManager?.location else { return 0 }
-    let distance = userCoordinate.distance(from: CLLocation(latitude: coordinate.latitude,
-                                                            longitude: coordinate.longitude))
- return distance
-  }
-  
-  func getDistance() {
-    guard let userCoordinate = locationManager?.location else { return }
-    var distanceList: [CLLocationDistance] = []
-    for coordinate in taskCoordinates {
-      let distance = userCoordinate.distance(from: CLLocation(latitude: coordinate.latitude,
-                                                              longitude: coordinate.longitude))
-      distanceList.append(distance)
-    }
-    self.distanceToTask = distanceList
-  }
-  
-  func configureTaskStatus() {
-    guard let userID = userDefault.value(forKey: "uid") as? String,
-          let episode = episode
-    else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
-      do {
-        let localAdventuringEpisode = episode.id
-        let profile = try snapshot.data(as: Profile.self)
-        profile.adventuringEpisode.forEach { adventuringEpisode in
-          if adventuringEpisode.episodeID == localAdventuringEpisode {
-            self.taskStatus = adventuringEpisode.taskStatus
-          }
-        }
-      } catch {
-        print("EpisdoeDetailViewModel fail to decode Profile: \(error)")
       }
     }
   }

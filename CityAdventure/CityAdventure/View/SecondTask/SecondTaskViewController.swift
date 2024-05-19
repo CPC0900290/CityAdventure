@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class SecondTaskViewController: EpisodeDetailViewController {
+class SecondTaskViewController: EpisodeIntroViewController {
   var secondTask: TaskLocations?
   private var taskRouteOverlay: MKOverlay?
   /// A custom `MKOverlay` that contains the path a user travels.
@@ -24,7 +24,7 @@ class SecondTaskViewController: EpisodeDetailViewController {
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    viewModel.locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+    viewModel?.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     mapView.delegate = self
     mapView.showsUserLocation = true
     zoomInLocation(mapView.userLocation.coordinate)
@@ -32,8 +32,8 @@ class SecondTaskViewController: EpisodeDetailViewController {
     setupUI()
     fetchLocation()
     drawRoute(allLocations)
-    viewModel.locationManager?.startUpdatingLocation()
-    viewModel.locationManager?.startUpdatingHeading()
+    viewModel?.locationManager.startUpdatingLocation()
+    viewModel?.locationManager.startUpdatingHeading()
   }
   
   override func viewDidLayoutSubviews() {
@@ -146,14 +146,14 @@ class SecondTaskViewController: EpisodeDetailViewController {
   // MARK: - Function
   @objc private func submitButtonClicked() {
     if arrivedTaskCount > allLocations.count / 2 {
-      viewModel.locationManager?.stopUpdatingLocation()
-      viewModel.locationManager?.stopUpdatingHeading()
+      viewModel?.locationManager.stopUpdatingLocation()
+      viewModel?.locationManager.stopUpdatingHeading()
       let successVC = SuccessViewController()
       successVC.modalPresentationStyle = .fullScreen
-      successVC.episodeID = self.episode?.id
+      successVC.episodeID = viewModel?.episode?.id
       successVC.taskNum = 1
       self.present(successVC, animated: true)
-    }
+    } // ToDo: Increase fail condition
   }
   
   private func fetchLocation() {
@@ -178,8 +178,8 @@ class SecondTaskViewController: EpisodeDetailViewController {
   }
   
   @objc override func lastPage() {
-    viewModel.locationManager?.stopUpdatingLocation()
-    viewModel.locationManager?.stopUpdatingHeading()
+    viewModel?.locationManager.stopUpdatingLocation()
+    viewModel?.locationManager.stopUpdatingHeading()
     self.dismiss(animated: true)
   }
   

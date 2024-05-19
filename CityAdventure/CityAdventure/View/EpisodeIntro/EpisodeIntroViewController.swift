@@ -1,5 +1,5 @@
 //
-//  EpisodeDetailViewController.swift
+//  EpisodeIntroViewController.swift
 //  CityAdventure
 //
 //  Created by Pin Chen on 2024/4/27.
@@ -9,12 +9,9 @@ import Foundation
 import UIKit
 import MapKit
 
-class EpisodeDetailViewController: UIViewController {
-  
+class EpisodeIntroViewController: BaseMapViewController {
   // MARK: - Properties
-  var episode: Episode?
-  var viewModel = EpisodeDetailViewModel()
-  var allAnnotations: [MKAnnotation]?
+  var viewModel: EpisodeIntroViewModel?
   
   var displayedAnnotations: [MKAnnotation]? {
     willSet {
@@ -40,24 +37,14 @@ class EpisodeDetailViewController: UIViewController {
     return taskDetailView
   }()
   
-  lazy var mapView: MKMapView = {
-    let map = MKMapView()
-    map.showsUserLocation = false
-    map.delegate = self
-    map.translatesAutoresizingMaskIntoConstraints = false
-    return map
-  }()
-  
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     setupNavItem()
     setupUI()
+//    detectTaskButton()
     registerMapAnnotationViews()
-    guard let episode = episode else { return }
-    viewModel.getData(episode: episode)
     showAllAnnotations(self)
-    viewModel.setupLocationManager(self)
   }
   
   override func viewDidLayoutSubviews() {
@@ -67,7 +54,6 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   // MARK: - UI Setup
-  
   func setupUI() {
     view.addSubview(mapView)
     view.addSubview(taskDetailView)
@@ -89,22 +75,26 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   // MARK: - Functions
-  // UI 接收使用者指令
+  // EpisodeIntro
   @objc func startPlaying() {
-    guard let episode = episode else { return }
+//    detectTaskButton()
+    guard let viewModel = viewModel,
+          let episode = viewModel.episode
+    else { return }
+    
     let adventuringEpisode = AdventuringEpisode(episodeID: episode.id, taskStatus: [false, false, false])
     viewModel.updateUserPlayingList(adventuringEpisode)
     let episodeVC = EpisodeViewController()
-    episodeVC.episode = episode
+    episodeVC.viewModel = EpisodeViewModel(episode: episode)
     self.navigationController?.pushViewController(episodeVC, animated: false)
   }
-  // UI 顯示畫面
+  
   @objc func showAllAnnotations(_ snder: Any) {
-    guard let episode = episode,
+    guard let viewModel = viewModel,
+          let episode = viewModel.episode,
           !viewModel.taskAnnotations.isEmpty
     else { return }
     displayedAnnotations = viewModel.taskAnnotations
-    allAnnotations = viewModel.taskAnnotations
     taskDetailView.titleLabel.text = episode.title
     taskDetailView.taskContentLabel.text = episode.content
     taskDetailView.taskDistanceLabel.text = ""
@@ -112,7 +102,9 @@ class EpisodeDetailViewController: UIViewController {
   }
   
   func centerMapForEpisode() {
-    guard !viewModel.taskCoordinates.isEmpty else { return }
+    guard let viewModel = viewModel,
+          !viewModel.taskCoordinates.isEmpty
+    else { return }
     let region = MKCoordinateRegion(coordinates: viewModel.taskCoordinates)
     mapView.setRegion(region, animated: true)
   }
@@ -128,11 +120,9 @@ class EpisodeDetailViewController: UIViewController {
         self.navigationController?.popToViewController(homeVC, animated: true)
       }
     }
-//    self.navigationController?.popViewController(animated: true)
   }
-  
   func setupNavItem() {
-    self.title = episode?.title
+    self.title = viewModel?.episode?.title
     self.navigationController?.navigationItem.largeTitleDisplayMode = .never
     self.navigationController?.navigationBar.isTranslucent = true
     self.navigationController?.navigationBar.backgroundColor = .clear
@@ -142,48 +132,5 @@ class EpisodeDetailViewController: UIViewController {
                                      action: #selector(lastPage))
     navBarItem.tintColor = UIColor.white
     navigationItem.leftBarButtonItem = navBarItem
-  }
-}
-
-// MARK: - MKMapViewDelegate
-extension EpisodeDetailViewController: MKMapViewDelegate {
-  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    
-    guard !annotation.isKind(of: MKUserLocation.self) else {
-      return nil
-    }
-    
-    var annotationView: MKAnnotationView?
-    
-    if let annotation = annotation as? CustomAnnotation {
-      annotationView = setupCustomAnnotationView(for: annotation, on: mapView)
-    }
-    
-    return annotationView
-  }
-  
-  private func setupCustomAnnotationView(for annotation: CustomAnnotation, on mapView: MKMapView) -> MKAnnotationView {
-    let identifier = NSStringFromClass(CustomAnnotation.self)
-    let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
-    if let markerAnnotationView = view as? MKMarkerAnnotationView {
-      markerAnnotationView.animatesWhenAdded = true
-      markerAnnotationView.canShowCallout = true
-      markerAnnotationView.markerTintColor = UIColor(hex: "E7F161", alpha: 1)
-    }
-    return view
-  }
-}
-// MARK: - CLLocationManagerDelegate
-extension EpisodeDetailViewController: CLLocationManagerDelegate {
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    
-  }
-  
-  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-    viewModel.checkLocationAuthorization(mapView: mapView)
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    print(error)
   }
 }
