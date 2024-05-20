@@ -15,7 +15,7 @@ protocol EpisodeModelProtocol: AnyObject {
 class EpisodeViewModel {
   var locationManager = CLLocationManager()
   weak var delegate: EpisodeModelProtocol?
-  private var userDefault = UserDefaults()
+  var userDefault = UserDefaults()
   
   var episode: Episode?
   
