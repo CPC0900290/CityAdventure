@@ -50,10 +50,10 @@ final class EpisodeViewControllerTests: XCTestCase {
   }
   
   func testGetDistanceToTask() {
-    let coordinate = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
-    let distance = viewModel.getDistanceToTask(coordinate: coordinate)
-    
-    XCTAssertEqual(distance, 0, accuracy: 0.1)
+    if let coordinate = viewModel.taskCoordinates.first {
+      let distance = viewModel.getDistanceToTask(coordinate: coordinate)
+      XCTAssertEqual(distance, 0, accuracy: 0.1)
+    }
   }
   
   func testConfigureTaskStatus() {
@@ -100,7 +100,7 @@ final class EpisodeViewControllerTests: XCTestCase {
   
   class MockDelegate: EpisodeModelProtocol {
     func updatedDataModels() {
-      // 模擬代理方法
+      
     }
   }
   

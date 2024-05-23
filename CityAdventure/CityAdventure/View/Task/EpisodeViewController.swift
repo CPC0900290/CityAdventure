@@ -198,15 +198,15 @@ class EpisodeViewController: BaseMapViewController {
     taskDetailView.titleLabel.text = property.title
     taskDetailView.taskContentLabel.text = property.content
     taskDetailView.taskDistanceLabel.text = "距離：\(distance) 公尺"
-      if distance < 300 {
-        taskDetailView.startButton.isEnabled = true
-        switchButtonAlpha(taskDetailView.startButton)
-      } else {
-        taskDetailView.startButton.isEnabled = false
-        switchButtonAlpha(taskDetailView.startButton)
-      }
-//    taskDetailView.startButton.isEnabled = true
-//    switchButtonAlpha(taskDetailView.startButton)
+//      if distance < 300 {
+//        taskDetailView.startButton.isEnabled = true
+//        switchButtonAlpha(taskDetailView.startButton)
+//      } else {
+//        taskDetailView.startButton.isEnabled = false
+//        switchButtonAlpha(taskDetailView.startButton)
+//      }
+    taskDetailView.startButton.isEnabled = true
+    switchButtonAlpha(taskDetailView.startButton)
     currentTaskTag = sender.tag
   }
   
@@ -254,6 +254,7 @@ class EpisodeViewController: BaseMapViewController {
   @objc func startPlayingTask() {
     guard let viewModel = viewModel,
           let tasks = viewModel.tasks,
+          let episode = viewModel.episode,
           let currentTaskTag = currentTaskTag
     else { return }
     switch currentTaskTag {
@@ -267,7 +268,8 @@ class EpisodeViewController: BaseMapViewController {
       let taskVC = SecondTaskViewController()
       let taskContent = tasks[1]
 //      taskVC.episode = viewModel.episode
-      taskVC.secondTask = taskContent
+      taskVC.viewModel = SecondTaskViewModel(episode: episode,
+                                             secondTask: taskContent)
       taskVC.modalPresentationStyle = .fullScreen
       self.present(taskVC, animated: true)
     case 2:

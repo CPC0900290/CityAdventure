@@ -9,31 +9,18 @@ import Foundation
 import UIKit
 import MapKit
 
-class SecondTaskViewController: EpisodeIntroViewController {
-  var secondTask: TaskLocations?
-  private var taskRouteOverlay: MKOverlay?
-  /// A custom `MKOverlay` that contains the path a user travels.
-  var breadcrumbs: BreadcrumbPath!
-  
+class SecondTaskViewController: BaseMapViewController {
+  var viewModel: SecondTaskViewModel?
   /// A custom overlay renderer object that draws the data in `crumbs` on the map.
   var breadcrumbPathRenderer: BreadcrumbPathRenderer?
-  private var userLocations: [CLLocation] = []
-  private var allLocations: [CLLocation] = []
-  private var arrivedTaskCount = 0
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    viewModel?.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-    mapView.delegate = self
-    mapView.showsUserLocation = true
+    setupViewModel()
     zoomInLocation(mapView.userLocation.coordinate)
-    getUserLocation()
     setupUI()
-    fetchLocation()
-    drawRoute(allLocations)
-    viewModel?.locationManager.startUpdatingLocation()
-    viewModel?.locationManager.startUpdatingHeading()
+    drawTaskRoute()
   }
   
   override func viewDidLayoutSubviews() {
@@ -100,7 +87,7 @@ class SecondTaskViewController: EpisodeIntroViewController {
     return button
   }()
   
-  override func setupUI() {
+  func setupUI() {
     view.addSubview(mapView)
     view.addSubview(taskView)
     view.addSubview(backButton)
@@ -144,59 +131,42 @@ class SecondTaskViewController: EpisodeIntroViewController {
   }
   
   // MARK: - Function
+  private func setupViewModel() {
+    viewModel?.locationManager = self.locationManager
+    viewModel?.getUserLocation(from: mapView)
+    viewModel?.setupLocationManager()
+  }
+  
   @objc private func submitButtonClicked() {
-    if arrivedTaskCount > allLocations.count / 2 {
-      viewModel?.locationManager.stopUpdatingLocation()
-      viewModel?.locationManager.stopUpdatingHeading()
-      let successVC = SuccessViewController()
-      successVC.modalPresentationStyle = .fullScreen
-      successVC.episodeID = viewModel?.episode?.id
-      successVC.taskNum = 1
-      self.present(successVC, animated: true)
-    } // ToDo: Increase fail condition
-  }
-  
-  private func fetchLocation() {
-    guard let secondTask = secondTask,
-          let points = secondTask.features[1].geometry.coordinates
-    else { return }
-    for point in points {
-      let location = CLLocation(latitude: point[0], longitude: point[1])
-      allLocations.append(location)
-    }
-  }
-  
-  private func getUserLocation() {
-    if let breadcrumbs {
-      mapView.removeOverlay(breadcrumbs)
-      breadcrumbPathRenderer = nil
+    guard let viewModel = viewModel else {
+      print("SecondTaskVC.submitButtonClicked accidentily got nil when access viewModel")
+      return
     }
     
-    // Create a fresh path when starting to record the locations.
-    breadcrumbs = BreadcrumbPath()
-    mapView.addOverlay(breadcrumbs, level: .aboveRoads)
-  }
-  
-  @objc override func lastPage() {
-    viewModel?.locationManager.stopUpdatingLocation()
-    viewModel?.locationManager.stopUpdatingHeading()
-    self.dismiss(animated: true)
-  }
-  
-  // 畫出給予座標集合的路徑Work
-  private func drawRoute(_ routeData: [CLLocation]) {
-    if routeData.isEmpty {
+    if viewModel.allLocations.isEmpty {
       print("==== No Coordinates to draw")
       return
     }
     
-    let coordinates = routeData.map { location -> CLLocationCoordinate2D in
-      return location.coordinate
+    viewModel.detectTaskFinishedStatus(from: self)
+  }
+  
+  @objc func lastPage() {
+    viewModel?.stopRecordUserLocation()
+    self.dismiss(animated: true)
+  }
+  
+  // 畫出給予座標集合的路徑Work
+  private func drawTaskRoute() {
+    guard let viewModel = viewModel,
+          let overlay = viewModel.taskRouteOverlay
+    else {
+      print("SecondTaskVC.drawTaskRoute accidentily got nil when access viewModel.taskRouteOverlay")
+      return
     }
     
     DispatchQueue.main.async {
-      self.taskRouteOverlay = MKPolyline(coordinates: coordinates, count: coordinates.count)
-      self.mapView.addOverlay(self.taskRouteOverlay!, level: .aboveLabels)
+      self.mapView.addOverlay(overlay, level: .aboveLabels)
     }
   }
   
@@ -207,7 +177,10 @@ class SecondTaskViewController: EpisodeIntroViewController {
   
   // 畫出使用者路徑，並收集使用者路徑的array
   override func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    guard let currentLocation = locations.last(where: { $0.horizontalAccuracy >= 0 }) else {
+    guard let currentLocation = locations.last(where: { $0.horizontalAccuracy >= 0 }),
+          let viewModel = viewModel
+    else {
+      print("SecondTaskVC.locationManager.didUpdateLocations accidentily got nil when access viewModel")
       return
     }
     
@@ -215,16 +188,8 @@ class SecondTaskViewController: EpisodeIntroViewController {
       displayNewBreadcrumbOnMap(location)
     }
     
-    userLocations.append(currentLocation)
-    for location in allLocations {
-      let distance = currentLocation.distance(from: location)
-      if distance < 20 { // 持續追蹤看是否會因為設定的距離太短，導致很容易因為定位精準度不夠而沒有計算到
-        arrivedTaskCount += 1
-      }
-    }
+    viewModel.configUserLocationToTaskLocations(with: currentLocation)
   }
-  
-  override func showAllAnnotations(_ snder: Any) { }
 }
 
 // MARK: - MapViewDelegate
@@ -247,9 +212,14 @@ extension SecondTaskViewController {
   }
   
   func createPolylineRenderer(for line: MKPolyline) -> MKPolylineRenderer {
+    guard let viewModel = viewModel else {
+      print("SecondTaskVC.createPolylineRenderer accidentily got nil when access viewModel")
+      return MKPolylineRenderer()
+    }
+    
     let renderer = MKPolylineRenderer(polyline: line)
     
-    if line.coordinates == allLocations.map({ $0.coordinate }) {
+    if line.coordinates == viewModel.allLocations.map({ $0.coordinate }) {
       renderer.strokeColor = UIColor(hex: "E7F161", alpha: 1)
       renderer.lineWidth = 2
       renderer.lineDashPattern = [20 as NSNumber,
@@ -267,6 +237,13 @@ extension SecondTaskViewController {
   
   // - Tag: renderer_needs_display
   func displayNewBreadcrumbOnMap(_ newLocation: CLLocation) {
+    guard let viewModel = viewModel,
+          let breadcrumbs = viewModel.breadcrumbs
+    else {
+      print("SecondTaskVC.displayNewBreadcrumbOnMap accidentily got nil when fetch viewModel or breadcrumbs")
+      return
+    }
+    
     /**
      If the `BreadcrumbPath` model object determines that the current location moves far enough from the previous location,
      use the returned updateRect to redraw just the changed area.

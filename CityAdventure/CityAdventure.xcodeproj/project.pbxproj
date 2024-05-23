@@ -68,6 +68,7 @@
 		00CB79362BF116D200A06B4B /* BreadcrumbPathRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB79352BF116D200A06B4B /* BreadcrumbPathRenderer.swift */; };
 		00CDF9992BFA356100BAA9A2 /* CityAdventureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CDF9982BFA356100BAA9A2 /* CityAdventureTests.swift */; };
 		00CDF9A02BFA36CC00BAA9A2 /* EpisodeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CDF99F2BFA36CC00BAA9A2 /* EpisodeViewControllerTests.swift */; };
+		00CDF9A22BFAFFAB00BAA9A2 /* SecondTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CDF9A12BFAFFAB00BAA9A2 /* SecondTaskViewModel.swift */; };
 		00CEB1332BCA87D900AC350B /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1322BCA87D900AC350B /* UIColorExt.swift */; };
 		00CEB1352BCA957100AC350B /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CEB1342BCA957100AC350B /* TaskCell.swift */; };
 		00CEB1372BCA95F500AC350B /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00CEB1362BCA95F500AC350B /* TaskCell.xib */; };
@@ -152,6 +153,7 @@
 		00CDF9962BFA356100BAA9A2 /* CityAdventureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityAdventureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00CDF9982BFA356100BAA9A2 /* CityAdventureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAdventureTests.swift; sourceTree = "<group>"; };
 		00CDF99F2BFA36CC00BAA9A2 /* EpisodeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewControllerTests.swift; sourceTree = "<group>"; };
+		00CDF9A12BFAFFAB00BAA9A2 /* SecondTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTaskViewModel.swift; sourceTree = "<group>"; };
 		00CEB1322BCA87D900AC350B /* UIColorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExt.swift; sourceTree = "<group>"; };
 		00CEB1342BCA957100AC350B /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		00CEB1362BCA95F500AC350B /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				00B3E88D2BE38C5700B612AA /* SuccessViewModel.swift */,
 				0092F18B2BE9F86400C7394D /* AuthenticationViewModel.swift */,
 				00B4CBCF2BF6E5A9007DAC07 /* EpisodeViewModel.swift */,
+				00CDF9A12BFAFFAB00BAA9A2 /* SecondTaskViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				00C890A62BDAD16B00A430A2 /* PostCell.swift in Sources */,
 				00C1AC2E2BD548D800C10DA0 /* HomeViewController.swift in Sources */,
 				00C92D692BD7DBD800631D3E /* Profile.swift in Sources */,
+				00CDF9A22BFAFFAB00BAA9A2 /* SecondTaskViewModel.swift in Sources */,
 				00B72E332BD66FFA00F531C0 /* ExploreAreaCell.swift in Sources */,
 				00B97F072BCD6E49003E2327 /* SpeechViewModel.swift in Sources */,
 				0039BEBF2BD120BD00D8B20A /* ThirdTaskViewController.swift in Sources */,
