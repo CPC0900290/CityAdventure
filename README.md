@@ -6,9 +6,9 @@ The main goal of City Adventure is to provide a game-like experience to users, h
 There are 3 tasks per episode, each task offer a little game made by different framework.
 
 ## Getting started
-Due to there are some sensitive data I didn't upload to github, you can contact me with email below if you want to run it on local. 
-Xcode version: 15.2
-iOS version: 17.0
+Due to there are some sensitive data I didn't upload to github, you can contact me with email below if you want to run it on local. <br>
+Xcode version: 15.2 <br>
+iOS version: 17.0 <br>
 
 ## Usage
 - Episode Intro
@@ -19,7 +19,7 @@ iOS version: 17.0
 
 <br>
 
-- Task A 
+- Task A <br>
 This is first task and the proccess is:
 1. Scan QR Code for get the question
 2. Answer the question by speech recognition by framework 'Speech'
@@ -27,10 +27,16 @@ This is first task and the proccess is:
 <img src="https://github.com/CPC0900290/CityAdventure/assets/62605033/54f4b415-d7ea-48ad-917c-ab02f3eb33de" width="250" />
 <img src="https://github.com/CPC0900290/CityAdventure/assets/62605033/41322728-77c5-478a-b979-483e9b54406b" width="250" />
 
-- Task B
-
+- Task B <br>
+User will get a route on the map, and try to draw the route for beating this task. <br>
+Utilized MapKit and CoreLocation for drawing the route of task and user. Determine if the user's route is match task's route after user submit it. 
 <img src="https://github.com/CPC0900290/CityAdventure/assets/62605033/f335855e-f76e-4cc9-984f-1e30e039cc10" width="250" />
 <img src="https://github.com/CPC0900290/CityAdventure/assets/62605033/5f56c3d8-0087-4983-be6c-9043e2a41c6b" width="250" />
 
+- Task C
+
+<img src="https://github.com/CPC0900290/CityAdventure/assets/62605033/d488ce99-9885-48ee-ba66-d28be48d1fe5" width="250" />
+<img src="https://github.com/CPC0900290/CityAdventure/assets/62605033/450cb0d2-d84f-45db-a01c-34fe9f2e3e51" width="250" />
+<img src="https://github.com/CPC0900290/CityAdventure/assets/62605033/02398b35-d1d6-471f-9663-4dda6f1bc900" width="250" />
 
 
