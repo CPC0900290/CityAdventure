@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 import Kingfisher
 import FirebaseAuth
+import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController {
   // MARK: - Property var
@@ -18,6 +20,7 @@ class HomeViewController: UIViewController {
   private var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
   private var sectionArray: [Section] = Section.allCases
   let viewModel = HomeViewModel()
+  private let disposeBag = DisposeBag()
   
   // MARK: - Life Cycle
   override func viewDidLoad() {
@@ -26,7 +29,7 @@ class HomeViewController: UIViewController {
     //    uploadEpisode.postEpisode()
     setupUI()
     fetchData()
-    viewModel.delegate = self
+    setupBindings()
     setupNavigation()
   }
   
@@ -71,22 +74,35 @@ class HomeViewController: UIViewController {
   
   // MARK: - Function
   private func fetchData() {
-    DispatchQueue.global(qos: .background).async {
-      self.viewModel.fetchProfile {
-        self.viewModel.fetchAdventuringEpisodes { }
+    viewModel.fetchProfile()
+      .flatMap { [weak self] _ -> Single<[Episode]> in
+        guard let self = self else { return .just([]) }
         self.configDataSource()
         self.configSnapshot()
+        return self.viewModel.fetchAdventuringEpisodes()
       }
-      self.viewModel.fetchTotalEpisodes()
-      self.viewModel.fetchAreaEpisode(areaName: "台北")
-    }
+      .subscribe()
+      .disposed(by: disposeBag)
+
+    viewModel.fetchTotalEpisodes().subscribe().disposed(by: disposeBag)
+    viewModel.fetchAreaEpisode(areaName: "台北").subscribe().disposed(by: disposeBag)
+  }
+
+  private func setupBindings() {
+    viewModel.adventuringEpisodes
+      .skip(1)
+      .observe(on: MainScheduler.instance)
+      .subscribe(onNext: { [weak self] _ in
+        self?.updateSnapshotForDoingEpisode()
+      })
+      .disposed(by: disposeBag)
   }
   
   @objc func segueToEpisode(_ sender: UIButton) {
-    guard let profile = viewModel.profile else { return }
+    guard let profile = viewModel.profile.value else { return }
     guard !profile.adventuringEpisode.isEmpty else { return }
     let episodeVC = EpisodeViewController()
-    episodeVC.viewModel = EpisodeViewModel(episode: viewModel.adventuringEpisodes[sender.tag])
+    episodeVC.viewModel = EpisodeViewModel(episode: viewModel.adventuringEpisodes.value[sender.tag])
     navigationController?.pushViewController(episodeVC, animated: true)
   }
 }
@@ -197,26 +213,26 @@ extension HomeViewController {
       switch section {
       case .profile:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as? ProfileCell,
-              let profile = self.viewModel.profile
+              let profile = self.viewModel.profile.value
         else { return UICollectionViewCell() }
         cell.update(with: profile)
         return cell
         
       case .doingEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AdventuringTaskCell.identifier, for: indexPath) as? AdventuringTaskCell else { return UICollectionViewCell() }
-        cell.update(with: self.viewModel.adventuringEpisodes[indexPath.row])
+        cell.update(with: self.viewModel.adventuringEpisodes.value[indexPath.row])
         cell.adventuringTaskButton.tag = indexPath.row
         cell.adventuringTaskButton.addTarget(self, action: #selector(self.segueToEpisode(_:)), for: .touchUpInside)
         return cell
         
       case .areaEpisode:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreAreaCell.identifier, for: indexPath) as? ExploreAreaCell else { return UICollectionViewCell() }
-        cell.update(with: self.viewModel.areaEpisodes[indexPath.row])
+        cell.update(with: self.viewModel.areaEpisodes.value[indexPath.row])
         return cell
         
       case .episodeList:
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EpisodeCell.identifier, for: indexPath) as? EpisodeCell else { return UICollectionViewCell() }
-        cell.update(with: self.viewModel.totalEpisodes[indexPath.row])
+        cell.update(with: self.viewModel.totalEpisodes.value[indexPath.row])
         return cell
       }
     })
@@ -241,16 +257,16 @@ extension HomeViewController {
       currentSnapshot.appendSections([section])
     }
     // Tofix
-    guard let profile = viewModel.profile else { return }
+    guard let profile = viewModel.profile.value else { return }
     currentSnapshot.appendItems([.profile(profile)], toSection: .profile)
     
-    let area = self.viewModel.areaEpisodes.map { Item.areaEpisode($0) }
+    let area = self.viewModel.areaEpisodes.value.map { Item.areaEpisode($0) }
     currentSnapshot.appendItems(area, toSection: .areaEpisode)
     
-    let episodeItems = viewModel.totalEpisodes.map { Item.episode($0) }
+    let episodeItems = viewModel.totalEpisodes.value.map { Item.episode($0) }
     currentSnapshot.appendItems(episodeItems, toSection: .episodeList)
     
-    let adventuringEpisode = viewModel.adventuringEpisodes.map { Item.adventuringEpisode($0) }
+    let adventuringEpisode = viewModel.adventuringEpisodes.value.map { Item.adventuringEpisode($0) }
     currentSnapshot.appendItems(adventuringEpisode, toSection: .doingEpisode)
     
     DispatchQueue.main.async {
@@ -261,7 +277,7 @@ extension HomeViewController {
   private func updateSnapshotForDoingEpisode() {
     var snapshot = dataSource.snapshot()
     
-    let newItems = viewModel.adventuringEpisodes.map { Item.adventuringEpisode($0) }
+    let newItems = viewModel.adventuringEpisodes.value.map { Item.adventuringEpisode($0) }
     snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .doingEpisode))
     snapshot.appendItems(newItems, toSection: .doingEpisode)
     
@@ -275,18 +291,18 @@ extension HomeViewController: UICollectionViewDelegate {
     switch indexPath.section {
     case 0:
       let profileVC = ProfileViewController()
-      profileVC.userProfile = viewModel.profile
+      profileVC.userProfile = viewModel.profile.value
       navigationController?.pushViewController(profileVC, animated: true)
     case 1:
       return
     case 2:
       let episodeDetailVC = EpisodeIntroViewController()
-      episodeDetailVC.viewModel = EpisodeIntroViewModel(episode: viewModel.areaEpisodes[indexPath.row])
+      episodeDetailVC.viewModel = EpisodeIntroViewModel(episode: viewModel.areaEpisodes.value[indexPath.row])
 //      episodeDetailVC.episode = viewModel.areaEpisodes[indexPath.row]
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     case 3:
       let episodeDetailVC = EpisodeIntroViewController()
-      episodeDetailVC.viewModel = EpisodeIntroViewModel(episode: viewModel.totalEpisodes[indexPath.row])
+      episodeDetailVC.viewModel = EpisodeIntroViewModel(episode: viewModel.totalEpisodes.value[indexPath.row])
       self.navigationController?.pushViewController(episodeDetailVC, animated: true)
     default:
       break
@@ -294,9 +310,3 @@ extension HomeViewController: UICollectionViewDelegate {
   }
 }
 
-// MARK: - HomeVMDelegate
-extension HomeViewController: HomeVMDelegate {
-  func profileUpdated() {
-      self.updateSnapshotForDoingEpisode()
-  }
-}
