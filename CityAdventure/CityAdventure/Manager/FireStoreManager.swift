@@ -10,7 +10,14 @@ import UIKit
 import FirebaseFirestoreSwift
 import Firebase
 
-class FireStoreManager {
+protocol FireStoreManaging {
+  func filterDocument(collection: String,
+                      field: String,
+                      with: String,
+                      sendSnapshot: @escaping (DocumentSnapshot) -> Void)
+}
+
+class FireStoreManager: FireStoreManaging {
   static var shared = FireStoreManager()
   let firestore = Firestore.firestore()
   var episode: Episode?

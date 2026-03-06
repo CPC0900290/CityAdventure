@@ -16,6 +16,7 @@ class EpisodeViewModel {
   var locationManager = CLLocationManager()
   weak var delegate: EpisodeModelProtocol?
   var userDefault = UserDefaults()
+  var fireStoreManager: FireStoreManaging = FireStoreManager.shared
   
   var episode: Episode?
   
@@ -68,7 +69,7 @@ class EpisodeViewModel {
   
   func fetchProfile() {
     guard let userID = userDefault.value(forKey: "uid") as? String else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
+    fireStoreManager.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
       do {
         let profile = try snapshot.data(as: Profile.self)
         self.user = profile
@@ -112,20 +113,22 @@ class EpisodeViewModel {
   }
   
   func configureTaskStatus() {
-    guard let userID = userDefault.value(forKey: "uid") as? String,
-          let episode = episode
-    else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
+    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
+    fireStoreManager.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
       do {
-        let localAdventuringEpisode = episode.id
         let profile = try snapshot.data(as: Profile.self)
-        profile.adventuringEpisode.forEach { adventuringEpisode in
-          if adventuringEpisode.episodeID == localAdventuringEpisode {
-            self.taskStatus = adventuringEpisode.taskStatus
-          }
-        }
+        self.configureTaskStatus(with: profile)
       } catch {
         print("EpisdoeDetailViewModel fail to decode Profile: \(error)")
+      }
+    }
+  }
+
+  func configureTaskStatus(with profile: Profile) {
+    guard let episode = episode else { return }
+    profile.adventuringEpisode.forEach { adventuringEpisode in
+      if adventuringEpisode.episodeID == episode.id {
+        self.taskStatus = adventuringEpisode.taskStatus
       }
     }
   }
