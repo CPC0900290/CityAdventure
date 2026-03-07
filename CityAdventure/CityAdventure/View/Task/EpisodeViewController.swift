@@ -205,8 +205,6 @@ class EpisodeViewController: BaseMapViewController {
         taskDetailView.startButton.isEnabled = false
         switchButtonAlpha(taskDetailView.startButton)
       }
-//    taskDetailView.startButton.isEnabled = true
-//    switchButtonAlpha(taskDetailView.startButton)
     currentTaskTag = sender.tag
   }
   
@@ -228,7 +226,6 @@ class EpisodeViewController: BaseMapViewController {
           !viewModel.taskAnnotations.isEmpty
     else { return }
     displayedAnnotations = viewModel.taskAnnotations
-//    allAnnotations = viewModel.taskAnnotations
     taskDetailView.titleLabel.text = episode.title
     taskDetailView.taskContentLabel.text = "點擊側邊任務按鈕，開始執行各別任務"
     taskDetailView.taskDistanceLabel.text = ""
@@ -267,7 +264,6 @@ class EpisodeViewController: BaseMapViewController {
     case 1:
       let taskVC = SecondTaskViewController()
       let taskContent = tasks[1]
-//      taskVC.episode = viewModel.episode
       taskVC.viewModel = SecondTaskViewModel(episode: episode,
                                              secondTask: taskContent)
       taskVC.modalPresentationStyle = .fullScreen
@@ -284,7 +280,6 @@ class EpisodeViewController: BaseMapViewController {
   }
   
   @objc func lastPage() {
-    self.navigationController?.popToRootViewController(animated: true)
     guard let controllers = self.navigationController?.viewControllers else { return }
     for controller in controllers {
       if let homeVC = controller as? HomeViewController {
@@ -292,6 +287,7 @@ class EpisodeViewController: BaseMapViewController {
           homeVC.viewModel.fetchAdventuringEpisodes { }
         }
         self.navigationController?.popToViewController(homeVC, animated: true)
+        return
       }
     }
   }
@@ -306,7 +302,6 @@ extension EpisodeViewController: EpisodeModelProtocol {
 // MARK: - Animation UIViewControllerTransitioningDelegate
 extension EpisodeViewController: UIViewControllerTransitioningDelegate {
   func presentCustomViewController(viewController: UIViewController) {
-//    viewController.transitioningDelegate = self
     if let sheet = viewController.sheetPresentationController {
       sheet.detents = [.medium()]
     }

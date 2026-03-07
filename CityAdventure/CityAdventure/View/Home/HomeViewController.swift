@@ -15,7 +15,7 @@ import RxCocoa
 class HomeViewController: UIViewController {
   // MARK: - Property var
   let uploadEpisode = UploadEpisode()
-  private let userDefault = UserDefaults()
+  private let userDefault = UserDefaults.standard
   private var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
   private var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
   private var sectionArray: [Section] = Section.allCases

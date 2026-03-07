@@ -7,13 +7,9 @@
 
 import Foundation
 class SuccessViewModel {
-  let userDefault = UserDefaults()
-  var profile: Profile? {
-    didSet {
-      
-    }
-  }
-  
+  let userDefault = UserDefaults.standard
+  var profile: Profile?
+
   var episodeID: String?
   
   var taskStatus: [Bool] = [] {
@@ -25,20 +21,8 @@ class SuccessViewModel {
     }
   }
   
-  func fetchProfile() {
-    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { [weak self] document in
-      do {
-        let data = try document.data(as: Profile.self)
-        self?.profile = data
-      } catch {
-        print("fetchProfile fail to decode from doc: \(error)")
-      }
-    }
-  }
-  
   func updateFinishingTask(episdoeID: String, taskNum: Int) {
-    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
+    guard let userID = userDefault.value(forKey: UserDefaultsKeys.uid) as? String else { return }
     FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { [weak self] snapshot in
       do {
         var data = try snapshot.data(as: Profile.self)
@@ -65,7 +49,7 @@ class SuccessViewModel {
   }
   
   func updateFinishedEpisode(episodeID: String) {
-    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
+    guard let userID = userDefault.value(forKey: UserDefaultsKeys.uid) as? String else { return }
     FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { [weak self] snapshot in
       do {
         var data = try snapshot.data(as: Profile.self)

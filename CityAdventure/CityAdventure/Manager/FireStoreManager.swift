@@ -131,10 +131,4 @@ class FireStoreManager: FireStoreManaging {
     sendDocRef(ref)
   }
   
-  func getFilteredDocumentRef(collection: String,
-                              id: String,
-                              field: String,
-                              sendDocRef: @escaping (DocumentReference) -> Void) {
-    
-  }
 }

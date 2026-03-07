@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class HomeViewModel {
-  private let userDefault = UserDefaults()
+  private let userDefault = UserDefaults.standard
   private let disposeBag = DisposeBag()
 
   // MARK: - State
@@ -84,7 +84,7 @@ class HomeViewModel {
   
   // Fetch Profile from Firebase
   func fetchProfile() -> Single<Profile> {
-    guard let userID = userDefault.value(forKey: "uid") as? String else {
+    guard let userID = userDefault.value(forKey: UserDefaultsKeys.uid) as? String else {
       return .error(NSError(domain: "HomeViewModel", code: -1, userInfo: nil))
     }
 

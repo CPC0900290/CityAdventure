@@ -15,7 +15,7 @@ protocol EpisodeModelProtocol: AnyObject {
 class EpisodeViewModel {
   var locationManager = CLLocationManager()
   weak var delegate: EpisodeModelProtocol?
-  var userDefault = UserDefaults()
+  var userDefault = UserDefaults.standard
   var fireStoreManager: FireStoreManaging = FireStoreManager.shared
   
   var episode: Episode?
@@ -68,7 +68,7 @@ class EpisodeViewModel {
   }
   
   func fetchProfile() {
-    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
+    guard let userID = userDefault.value(forKey: UserDefaultsKeys.uid) as? String else { return }
     fireStoreManager.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
       do {
         let profile = try snapshot.data(as: Profile.self)
@@ -113,7 +113,7 @@ class EpisodeViewModel {
   }
   
   func configureTaskStatus() {
-    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
+    guard let userID = userDefault.value(forKey: UserDefaultsKeys.uid) as? String else { return }
     fireStoreManager.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
       do {
         let profile = try snapshot.data(as: Profile.self)

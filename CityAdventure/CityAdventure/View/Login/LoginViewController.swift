@@ -14,7 +14,7 @@ import CryptoKit
 class LoginViewController: UIViewController {
   // MARK: - Properties var
   private var currentNonce: String?
-  private let userDefault = UserDefaults()
+  private let userDefault = UserDefaults.standard
   private let viewModel = LoginViewModel()
   // MARK: - Life Cycle
   override func viewDidLoad() {
@@ -176,7 +176,7 @@ extension LoginViewController {
     let uid = user.uid
     viewModel.postProfile(nickName: user.displayName ?? "User",
                           userID: uid)
-    userDefault.set(uid, forKey: "uid")
+    userDefault.set(uid, forKey: UserDefaultsKeys.uid)
     let homeVC = HomeViewController()
     let nav = UINavigationController(rootViewController: homeVC)
     nav.modalPresentationStyle = .fullScreen

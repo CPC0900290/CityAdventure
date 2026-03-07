@@ -22,8 +22,3 @@ struct AdventuringEpisode: Hashable, Codable {
   var taskStatus: [Bool]
 }
 
-enum TaskStatus: String, Hashable, Codable {
-  case completed
-  case inProgress = "in-progress"
-  case notStarted = "not-started"
-}

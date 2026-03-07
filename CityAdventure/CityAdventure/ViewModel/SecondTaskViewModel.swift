@@ -25,11 +25,11 @@ class SecondTaskViewModel: NSObject {
   }
   private var arrivedTaskCount = 0
   private var isFinishedRoute = false
+  private var arrivedLocationIndices: Set<Int> = []
   
   init(episode: Episode, secondTask: TaskLocations?) {
     self.episode = episode
     self.secondTask = secondTask
-//    self.locationManager = locationManger
     super.init()
     self.fetchLocation()
   }
@@ -47,14 +47,16 @@ class SecondTaskViewModel: NSObject {
   }
   
   func configUserLocationToTaskLocations(with currentLocation: CLLocation) {
-    for location in allLocations {
+    for (index, location) in allLocations.enumerated() {
+      guard !arrivedLocationIndices.contains(index) else { continue }
       let distance = currentLocation.distance(from: location)
       if distance < 20 { // 持續追蹤看是否會因為設定的距離太短，導致很容易因為定位精準度不夠而沒有計算到
+        arrivedLocationIndices.insert(index)
         configIsFinishedRoute()
       }
     }
   }
-  
+
   private func configIsFinishedRoute() {
     arrivedTaskCount += 1
     if !allLocations.isEmpty {

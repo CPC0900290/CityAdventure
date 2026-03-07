@@ -18,7 +18,7 @@ class EpisodeIntroViewModel {
   
   weak var delegate: EpisodeDetailModelProtocol?
   
-  private var userDefault = UserDefaults()
+  private var userDefault = UserDefaults.standard
   private var user: Profile?
   var episode: Episode?
   var tasks: [TaskLocations]? {
@@ -73,7 +73,7 @@ class EpisodeIntroViewModel {
   }
   
   func fetchProfile() {
-    guard let userID = userDefault.value(forKey: "uid") as? String else { return }
+    guard let userID = userDefault.value(forKey: UserDefaultsKeys.uid) as? String else { return }
     FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
       do {
         let profile = try snapshot.data(as: Profile.self)
