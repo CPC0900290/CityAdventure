@@ -27,10 +27,10 @@ class SuccessViewModel {
   
   func fetchProfile() {
     guard let userID = userDefault.value(forKey: "uid") as? String else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { document in
+    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { [weak self] document in
       do {
         let data = try document.data(as: Profile.self)
-        self.profile = data
+        self?.profile = data
       } catch {
         print("fetchProfile fail to decode from doc: \(error)")
       }
@@ -39,15 +39,15 @@ class SuccessViewModel {
   
   func updateFinishingTask(episdoeID: String, taskNum: Int) {
     guard let userID = userDefault.value(forKey: "uid") as? String else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
+    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { [weak self] snapshot in
       do {
         var data = try snapshot.data(as: Profile.self)
         var count = 0
         data.adventuringEpisode.forEach { episode in
           if episode.episodeID == episdoeID {
             data.adventuringEpisode[count].taskStatus[taskNum] = true
-            self.episodeID = data.adventuringEpisode[count].episodeID
-            self.taskStatus = data.adventuringEpisode[count].taskStatus
+            self?.episodeID = data.adventuringEpisode[count].episodeID
+            self?.taskStatus = data.adventuringEpisode[count].taskStatus
           }
           count += 1
         }
@@ -66,7 +66,7 @@ class SuccessViewModel {
   
   func updateFinishedEpisode(episodeID: String) {
     guard let userID = userDefault.value(forKey: "uid") as? String else { return }
-    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { snapshot in
+    FireStoreManager.shared.filterDocument(collection: "Profile", field: "userID", with: userID) { [weak self] snapshot in
       do {
         var data = try snapshot.data(as: Profile.self)
         data.finishedEpisodeID.append(episodeID)
